@@ -148,5 +148,6 @@ class Brain:
         assert type(new) is bool
         log.info(f"set_silence({new})")
         self._state["silence"] = new
+        self._state["last_utterance"] = None
         self.config.mute_switch = new
         DB().session.commit()
