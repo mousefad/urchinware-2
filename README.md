@@ -60,12 +60,11 @@ Building & Running
 TODO
 ====
 
-* Eyes worker thread.
 * Support playing background audio files.
 * Re-organize project to be more Pythonic in terms for distribution and packaging.
 * Systemd .service unit file.
 * React to how busy the space is based on stuff like number of people in and out.
-* Grettings for people with bookings on tools, e.g. "your booking on the <thing>
+* Greetings for people with bookings on tools, e.g. "your booking on the <thing>
   starts in 25 minutes."
 
 

@@ -18,6 +18,7 @@ import arrow
 from getem import GeTem
 import database
 from worker import Worker
+from worker.eyes import Eyes
 from worker.mqttclient import MqttClient
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))
@@ -84,6 +85,7 @@ class Gob:
             effect_cmd = make_effect_cmd(voice.effect)
             time.sleep(pause)
             MqttClient().publish("nh/urchin/talking", "voice start")
+            Eyes().on()
             log.debug(f"utter: speech cmd: {speech_cmd}")
             log.debug(f"utter: effect cmd: {effect_cmd}")
             log.debug(f"UTTER[voice={voice.id}]: {text}")
@@ -103,6 +105,7 @@ class Gob:
                 if self.effect_proc.wait() != 0:
                     ok = False
                     self.effect_proc = None
+            Eyes().fade(0.05, 1.0, 50)
             self.is_talking = False
             MqttClient().publish("nh/urchin/said", text)
             log.debug(f"utter END ok={ok}")
@@ -130,8 +133,6 @@ class Voice(Worker):
         super().__init__(brain)
         self.default_voice = brain.config.voice
         self.queue = deque()
-        self.halt = False
-        self.thread = None
 
     def run(self):
         log.debug("Voice.run START")

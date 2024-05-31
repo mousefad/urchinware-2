@@ -29,6 +29,7 @@ from responder.muser import Muser
 
 from worker.mqttclient import MqttClient
 from worker.voice import Voice
+from worker.eyes import Eyes
 from database import DB
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))
@@ -48,7 +49,7 @@ class Brain:
         self.workers = [
             MqttClient(self),
             Voice(self),
-            # Eyes(self),
+            Eyes(self),
         ]
 
         self.responders = [
@@ -62,22 +63,22 @@ class Brain:
         ]
 
         self.senses = [
-            Mqtt(self),  # primary sense of the world is via MQTT
-            Journal(self),  # watch system logs for interesting activity
-            Cronoception(self),  # notice the passage of time
-            Doorception(self),  # notice open doors
+            Mqtt(self),             # primary sense of the world is via MQTT
+            Journal(self),          # watch system logs for interesting activity
+            Cronoception(self),     # notice the passage of time
+            Doorception(self),      # notice open doors
         ]
 
-        self.set("boot_time", arrow.now())
+        self.set('boot_time', arrow.now())
 
     @property
     def state(self):
-        self._state["uptime"] = (arrow.now() - self._state["boot_time"]).seconds
-        self._state["random"] = random.random()
+        self._state['uptime'] = (arrow.now() - self._state['boot_time']).seconds
+        self._state['random'] = random.random()
         return self._state
 
     def uptime(self):
-        return duration_to_str(arrow.now() - self.get("boot_time"))
+        return duration_to_str(arrow.now() - self.get('boot_time'))
 
     def get(self, var, default=None):
         value = self.state.get(var)
@@ -99,7 +100,7 @@ class Brain:
     def run(self):
         """A blocking function that runs the show"""
         start_message = {
-            "system_time": str(self.get("boot_time")),
+            "system_time": str(self.get('boot_time')), 
         }
         self.handle_sensation(Sensation("urchin/start", json.dumps(start_message)))
         for thing in self.workers + self.senses:
@@ -111,7 +112,7 @@ class Brain:
                 self.handle_sensation(self.sensations.popleft())
             time.sleep(self.get("tick_time", 0.5))
         stop_message = {
-            "system_time": str(self.get("boot_time")),
+            "system_time": str(self.get('boot_time')), 
             "uptime_text": self.uptime(),
             "uptime": self.get("uptime"),
         }
