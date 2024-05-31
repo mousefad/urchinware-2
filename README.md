@@ -36,40 +36,36 @@ Building & Running
    - `espeak-ng`.
    - `scanlogd`.
    - `gnumeric`
-   - `bind9-dnsutils`.
+   - `bind9-dnsutils`
+   - `mosquitto` (if you want to run locally with a test MQTT server)
 
-2. Set the env var `DORCAS_HOME` to the installation dir path. Put it in `~/dorcas` or
-   `~/project/dorcas`.
+2. cd into the cloned dir and do: `python -m venv $PWD`. 
 
-3. cd into the cloned dir and do: `python -m venv $PWD`. Then load the project env with:
-   `. ./project.env`. This will also activate the virtual env automatically.
+3. From the cloned dir: `export DORCAS_HOME=$PWD ; . ./project.env`
 
-4. Use `pip` to install the dependencies from `pip-packages.txt` with:
+4. Install dependencies with PIP:
    `sed 1,2d pip-packages.txt | awk '{ print $1 }' | xargs pip install`
 
-5. Create a config using the shell function defined in `project.env`.  This will copy 
-   `sample/db.xml` to the `private` directory, and then generate the SQLite3 database from
-   it. Use command `db_new`.
+5. Create a new config `db_new`.
+   Use gnumeric to edit `private/db.xml`:
+   - In `CONFIGS` set ID to your hostname, so you don't have to specify with `--config`.
+   - In `BROKER` set the host to the host of the MQTT server.
+   - Add some entries in `GREETINGS` and `MUSINGS`.
+   - Save spreadsheet & update the SQLite3 database with `db_update`
 
-6. Start an MQTT server on your machine if you don't have one to connect to. `mosquitto` is
-   a very easy to use one - just an `apt`, `dnf`, or `pacman` away...
+6. Run `./dorcas`.  
 
-6. Run `./dorcas -c default`.  The "default" refers to the ID field in the CONFIG table of 
-   the database.  If no config is specified, the hostname will be used.
-
-7. Set up a systemd unit file to run dorcas as a daemon, enable and start (TODO: 
-   instructions).
 
 
 TODO
 ====
 
+* Eyes worker thread.
 * Support playing background audio files.
+* Re-organize project to be more Pythonic in terms for distribution and packaging.
+* Systemd .service unit file.
 * React to how busy the space is based on stuff like number of people in and out.
-* Grettings for people with bookings on tools, e.g. "your booking on the <thing> 
-  starts in 25 minutes.
-* Action mini-language with Antlr4?
-* Systemd unit file installer
-* Eyes
+* Grettings for people with bookings on tools, e.g. "your booking on the <thing>
+  starts in 25 minutes."
 
 
