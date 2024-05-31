@@ -1,0 +1,15 @@
+private/
+include/
+bin/
+lib/
+lib64
+pyvenv.cfg
+*~
+.*~
+.*swp
+**/build-*
+**/*.pyc
+**/*.o
+**/__pycache__
+api_keys.txt
+Makefile.apikeys
