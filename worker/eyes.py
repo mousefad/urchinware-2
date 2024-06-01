@@ -12,27 +12,28 @@ from math import exp
 
 # PIP-installed modules
 from singleton_decorator import singleton
+from gpiozero import LED
 
 # Project modules
 from getem import GeTem
 import database
 from worker import Worker
 from worker.mqttclient import MqttClient
-try:
-    from gpiozero import LED 
-except ModuleNotFoundError:
-    pass
 
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))
 
+
 class FakeLED:
     def __init__(self, *args):
         pass
+
     def off(self):
         pass
+
     def on(self):
         pass
+
     def blink(self, *args):
         pass
 
@@ -40,8 +41,9 @@ class FakeLED:
 @singleton
 class Eyes:
     """For making the eyes glow"""
+
     LinearScaleFactor = 4
-    GpioPin = 17 # TODO: make this database config driven?
+    GpioPin = 17  # TODO: make this database config driven?
 
     def __init__(self, brain):
         self.brain = brain
@@ -98,7 +100,9 @@ class Eyes:
         if initial is None:
             initial = self.intensity
         self.cancel_fade()
-        self.thread = threading.Thread(target=self._fade, args=(final, duration, steps, initial))
+        self.thread = threading.Thread(
+            target=self._fade, args=(final, duration, steps, initial)
+        )
         self.thread.start()
 
     def _fade(self, final, duration, steps, initial):
@@ -128,5 +132,3 @@ class Eyes:
 
     def intensity_to_pwm(self, lin_value):
         return exp(lin_value * self.LinearScaleFactor) / exp(self.LinearScaleFactor)
-
-
