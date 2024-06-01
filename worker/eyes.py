@@ -41,7 +41,7 @@ class FakeLED:
 class Eyes:
     """For making the eyes glow"""
     LinearScaleFactor = 4
-    GpioPin = 17 # TODO: make this database config driven
+    GpioPin = 17 # TODO: make this database config driven?
 
     def __init__(self, brain):
         self.brain = brain
@@ -88,10 +88,10 @@ class Eyes:
         self.led.off()
         self.intensity = 0.0
 
-    def fade_on(self, duration=1.0, steps=50):
+    def fade_on(self, duration=0.5, steps=25):
         self.fade(1.0, duration, steps)
 
-    def fade_off(self, duration=1.0, steps=50):
+    def fade_off(self, duration=0.5, steps=25):
         self.fade(0.0, duration, steps)
 
     def fade(self, final, duration, steps, initial=None):
@@ -111,22 +111,20 @@ class Eyes:
             self.set_intensity(initial + (i * step_size))
             time.sleep(step_duration)
         self.set_intensity(final)
-        if self.intensity >= 0.999:
-            self._on()
-        elif final <= 0.001:
-            self._off()
 
     def set_intensity(self, intensity):
         assert type(intensity) is float
-        assert intensity >= 0.0 and intensity <= 1.0
+        assert intensity >= -0.001 and intensity <= 1.001
         if intensity < 0.001:
             self._off()
+            return
         elif intensity > 0.999:
             self._on()
-        self.intensity = intensity
-        on_time = self.intensity_to_pwm(intensity) / 300.0
-        off_time = self.intensity_to_pwm(1.0 - intensity) / 300.0
+            return
+        on_time = self.intensity_to_pwm(intensity) / 200.0
+        off_time = self.intensity_to_pwm(1.0 - intensity) / 200.0
         self.led.blink(on_time, off_time, None)
+        self.intensity = intensity
 
     def intensity_to_pwm(self, lin_value):
         return exp(lin_value * self.LinearScaleFactor) / exp(self.LinearScaleFactor)
