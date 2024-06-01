@@ -105,7 +105,7 @@ class Gob:
                 if self.effect_proc.wait() != 0:
                     ok = False
                     self.effect_proc = None
-            Eyes().fade(0.05)
+            Eyes().fade(0.05, 0.5, 25)
             self.is_talking = False
             MqttClient().publish("nh/urchin/said", text)
             log.debug(f"utter END ok={ok}")
