@@ -1,0 +1,103 @@
+#!/bin/bash
+
+prog=${0##*/}
+database_path="$DORCAS_HOME/private/db.sqlite3"
+print_cmd=n
+voice_id=default
+
+usage () {
+    cat <<-EOD
+	Usage:
+	
+	    $prog [-d path/to/database] [-h] [-l] [-p] [-v voice_id] text to say
+	
+	Looks up parameters of Urchin speech from the database and says the thing in the
+	specified voice. No announcement is done over MQTT - this is just a voice test.
+	
+	-d path : Use alternative database. default is "\$DORCAS_HOME/private/db/sqlite3".
+	-h      : This cruft.
+	-l      : List available voice_id values.
+	-p      : Print the command that will be used to render the speech instead of running.
+	-v str  : Specify which voice to use. Default is "default".
+	EOD
+    exit 0
+}
+
+main () {
+    goo="$(getopt d:hlpv: "$@")"
+    if [ $? -ne 0 ]; then
+        usage 2
+    fi
+    set -- $goo
+    while [ $# -gt 0 ]; do
+        case $1 in
+        -d) database_path="$2" ; shift 2 ;;
+        -h) usage ; shift ;;
+        -l) list_voices ; shift ;;
+        -v) voice_id="$2" ; shift 2 ;;
+        -p) print_cmd=y ; shift ;;
+        --) shift ; break ;;
+        esac
+    done
+
+    read effect_id espeak < <(query_commands | sqlite3 "$database_path")
+    if [ -z "$espeak" ]; then
+        echo "ERROR: could not find voice '$voice_id'" 1>&2
+        exit 1
+    fi
+    read sox_args         < <(query_effect | sqlite3 "$database_path")
+    quoted_text="'$(echo "$@" | sed "s/'/'\\\\''/g")'"
+    tmp="$(mktemp)" || exit 1
+    trap "rm -f $tmp" EXIT
+    echo "$espeak $quoted_text | play $sox_args" > "$tmp"
+    if [ "$print_cmd" = y ]; then
+        cat "$tmp"
+    else
+        bash "$tmp"
+    fi
+}
+
+list_voices () {
+    query_list_voices | sqlite3 "$database_path"
+}
+
+query_list_voices () {
+    cat <<-EOD
+	.mode table
+    select id
+	from voices;
+	EOD
+}
+
+query_commands () {
+    cat <<-EOD
+	.mode list
+	select effect_id 
+	    || ' ' 
+	    || engine 
+	    || ' -w /dev/stdout -v ' 
+	    || voice 
+	    || ' -a ' 
+	    || amplitude 
+	    || ' -p ' 
+	    || pitch 
+	    || ' -s ' 
+	    || speed 
+	    || ' -g ' 
+	    || gap 
+	from voices 
+	where id = '$voice_id';
+	EOD
+}
+
+query_effect () {
+    cat <<-EOD
+	.mode list
+	select args 
+	from effects 
+	where id == '$effect_id';
+	EOD
+}
+
+main "$@"
+
