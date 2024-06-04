@@ -1,5 +1,5 @@
-from urge import Urge
-from worker.voice import Voice
+from dorcas.urge import Urge
+from dorcas.worker.voice import Voice
 
 class Say(Urge):
     def __init__(self, text, priority=Urge.Normal, state=dict()):

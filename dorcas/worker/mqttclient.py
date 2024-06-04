@@ -1,21 +1,17 @@
 # Built-in python modules
-import os
-import sys
-import logging
 import re
 import time
 
 # PIP-installed modules
 import paho.mqtt.client as mqtt
 import paho.mqtt.publish as publish
-import coloredlogs
 import cachetools.func
 from singleton_decorator import singleton
 
 # Project modules
-from sensation import Sensation
-from database import *
-from worker import Worker
+from dorcas.sensation import Sensation
+from dorcas.database import *
+from dorcas.worker import Worker
 
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))

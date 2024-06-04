@@ -4,8 +4,8 @@ import logging
 import re
 
 from antlr4 import *
-from condition.ConditionParser import ConditionParser
-from condition.ConditionVisitor import *
+from dorcas.condition.ConditionParser import ConditionParser
+from dorcas.condition.ConditionVisitor import *
 
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))

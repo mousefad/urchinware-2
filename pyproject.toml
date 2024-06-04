@@ -1,0 +1,29 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "dorcas"
+authors = [{name = "Your Name", email = "you@example.com"}]
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = ["License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"]
+dynamic = ["version", "description"]
+dependencies = [
+    "click",
+    "coloredlogs",
+    "arrow",
+    "singleton_decorator",
+    "sqlalchemy",
+    "paho-mqtt",
+    "cachetools",
+    "gpiozero",
+    "antlr4-python3-runtime",
+]
+
+[project.scripts]
+dorcas = "dorcas.__main__:main"
+getem = "dorcas.getem:main"
+
+[project.urls]
+Source = "https://github.com/mousefad/urchinware-2"

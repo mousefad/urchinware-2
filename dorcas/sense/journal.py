@@ -9,8 +9,8 @@ import select
 import subprocess as sp
 
 # Project modules
-from sensation import Sensation
-from sense import ThreadedHalterSense
+from dorcas.sensation import Sensation
+from dorcas.sense import ThreadedHalterSense
 
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))

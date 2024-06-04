@@ -2,15 +2,11 @@
 import os
 import sys
 import logging
-import re
-import time
 from threading import Timer
 
 # Project modules
-from responder import Responder
-from urge import Urge
-from urge.say import Say
-from sensation import Sensation
+from dorcas.responder import Responder
+from dorcas.sensation import Sensation
 
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))

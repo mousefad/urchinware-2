@@ -1,19 +1,16 @@
 # Built-in modules
 import sys
 import os
-from io import StringIO
 import logging
-import copy
 
 # PIP-installed modues
-from singleton_decorator import singleton
 from antlr4 import *
 from antlr4.error.ErrorListener import ErrorListener
 
 # Project modules
-from condition.ConditionLexer import ConditionLexer
-from condition.ConditionParser import ConditionParser
-from condition.visitor import Visitor
+from dorcas.condition.ConditionLexer import ConditionLexer
+from dorcas.condition.ConditionParser import ConditionParser
+from dorcas.condition.visitor import Visitor
 
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))
