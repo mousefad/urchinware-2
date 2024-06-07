@@ -16,3 +16,4 @@ pyvenv.cfg
 api_keys.txt
 Makefile.apikeys
 /.idea/
+.project.env
