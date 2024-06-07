@@ -28,7 +28,7 @@ class Security(Responder):
                 urges.append(
                     Say(
                         priority=Urge.High,
-                        text=f"security notice: someone's doing a port scan from host {x['from_hostname']}.",
+                        text=f"Help! I'm getting port scanned from host {x['from_hostname']}.",
                     )
                 )
         except Exception as e:

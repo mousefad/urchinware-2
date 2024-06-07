@@ -35,7 +35,7 @@ class Journal(ThreadedHalterSense):
             lambda m: json.dumps({"method": m.group(1), "user": m.group(2), "from": m.group(3), "from_hostname": ip_to_hostname(m.group(3))})
         ),
         (   
-            re.compile(r"scanlogd[\d+]: (\S+) to (\S+) "),
+            re.compile(r"scanlogd\[\d+\]: (\S+) to (\S+) "),
             "nh/urchin/os/portscan",
             lambda m: json.dumps({"to": m.group(2), "from": m.group(1), "from_hostname": ip_to_hostname(m.group(1))})
         ),
@@ -46,7 +46,6 @@ class Journal(ThreadedHalterSense):
         self.cmd = ["journalctl", "-f", "--since", "now"]
         self.p = None
         self.poll = None
-        log.info(f"self.brain.config: {self.brain.config!r}")
         self.interval = self.brain.config.journal_interval
 
     def start_subprocess(self):
