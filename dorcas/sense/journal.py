@@ -31,12 +31,12 @@ class Journal(ThreadedHalterSense):
     Matchers = [
         (
             re.compile(r"Accepted (\S+) for (\S+) from (\S+) "), 
-            "os/login", 
+            "nh/urchin/os/login", 
             lambda m: json.dumps({"method": m.group(1), "user": m.group(2), "from": m.group(3), "from_hostname": ip_to_hostname(m.group(3))})
         ),
         (   
             re.compile(r"scanlogd[\d+]: (\S+) to (\S+) "),
-            "os/portscan",
+            "nh/urchin/os/portscan",
             lambda m: json.dumps({"to": m.group(2), "from": m.group(1), "from_hostname": ip_to_hostname(m.group(1))})
         ),
     ]

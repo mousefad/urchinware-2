@@ -37,6 +37,6 @@ class Doorception(ThreadedHalterSense):
                 if open_seconds > self.brain.config.door_open_seconds:
                     name = door.get("name")
                     open_dur_desc = duration_to_str(open_duration)
-                    self.brain.experience(Sensation("urchin/door-open-warning", f"{name} has been open for {open_dur_desc}"))
+                    self.brain.experience(Sensation("nh/urchin/door-open-warning", f"{name} has been open for {open_dur_desc}"))
                     door["notified"] = True
 

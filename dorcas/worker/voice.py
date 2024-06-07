@@ -62,7 +62,7 @@ class Gob:
         if self.is_talking:
             [x.kill() for x in (self.speech_proc, self.effect_proc) if x is not None]
             [x.wait() for x in (self.speech_proc, self.effect_proc) if x is not None]
-            self.brain.experience(Sensation("urchin/speech/interrupted", self.last_text))
+            self.brain.experience(Sensation("nh/urchin/speech/interrupted", self.last_text))
         self.wait()
 
     def wait(self):

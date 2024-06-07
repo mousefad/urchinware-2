@@ -16,7 +16,7 @@ class Time(Responder):
 
     def __call__(self, sensation):
         urges = list()
-        if sensation.topic != "time/now":
+        if sensation.topic != "nh/urchin/time/now":
             return urges
 
         try:

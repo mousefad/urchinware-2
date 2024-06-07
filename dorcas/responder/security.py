@@ -17,14 +17,14 @@ class Security(Responder):
         urges = list()
         try:
             x = sensation.json
-            # if sensation.topic == "os/login":
+            # if sensation.topic == "nh/urchin/os/login":
             #     urges.append(
             #         Say(
             #             priority=Urge.High,
             #             text=f"security notice: someone logged into me with account {x['user']}, from {x['from_hostname']}, auth type {x['method']}.",
             #         )
             #     )
-            if sensation.topic == "os/portscan":
+            if sensation.topic == "nh/urchin/os/portscan":
                 urges.append(
                     Say(
                         priority=Urge.High,

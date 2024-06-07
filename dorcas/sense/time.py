@@ -82,7 +82,7 @@ class Cronoception(ThreadedHalterSense):
             seconds_since_utterance = (arrow.now() - last_utterance).seconds 
             if seconds_since_utterance > self.boredom_settings.min:
                 if random.random() < self.boredom_settings.amt:
-                    self.brain.experience(Sensation("urchin/bored", seconds_since_utterance))
+                    self.brain.experience(Sensation("nh/urchin/bored", seconds_since_utterance))
 
     def open_door(self):
         open_doors = filter(lambda x: x.get("open") and x.get('open_since') and not x.get("notified"), self.brain.doors())
@@ -90,7 +90,7 @@ class Cronoception(ThreadedHalterSense):
         for id, deets in open_doors.items():
             open_dur = (arrow.now() - deets['open_since']).seconds
             if open_dur > self.door_open_time:
-                self.brain.experience(Sensation("urchin/bored", seconds_since_utterance))
+                self.brain.experience(Sensation("nh/urchin/bored", seconds_since_utterance))
 
     def clock(self, now):
         self.update_date(now.date())
@@ -105,7 +105,7 @@ class Cronoception(ThreadedHalterSense):
                 "month_name": Cronoception.MonthNames[now.month],
                 "special_day": self.special_day,
         }
-        self.brain.experience(Sensation("time/now", json.dumps(data)))
+        self.brain.experience(Sensation("nh/urchin/time/now", json.dumps(data)))
         self.brain.set("special_day", self.special_day)
         if now.time() < datetime.time(hour=4):
             day_period = "night"

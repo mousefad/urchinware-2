@@ -20,6 +20,7 @@ from dorcas.sense.door import Doorception
 
 from dorcas.responder.security import Security
 from dorcas.responder.time import Time
+from dorcas.responder.instrumentation import Instrumentation
 from dorcas.responder.temperature import Temperature
 from dorcas.responder.doormonitor import DoorMonitor
 from dorcas.responder.muteswitch import MuteSwitch
@@ -54,6 +55,7 @@ class Brain:
         self.responders = [
             Security(self),
             Time(self),
+            Instrumentation(self),
             Greeter(self),
             Muser(self),
             Temperature(self),
@@ -101,7 +103,7 @@ class Brain:
         start_message = {
             "system_time": str(self.get('boot_time')), 
         }
-        self.handle_sensation(Sensation("urchin/start", json.dumps(start_message)))
+        self.handle_sensation(Sensation("nh/urchin/start", json.dumps(start_message)))
         for thing in self.workers + self.senses:
             thing.start()
 
@@ -115,7 +117,7 @@ class Brain:
             "uptime_text": self.uptime(),
             "uptime": self.get("uptime"),
         }
-        self.handle_sensation(Sensation("urchin/stop", json.dumps(stop_message)))
+        self.handle_sensation(Sensation("nh/urchin/stop", json.dumps(stop_message)))
         time.sleep(0.5)
 
         log.debug("requesing things stop")

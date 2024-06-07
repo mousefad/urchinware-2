@@ -25,7 +25,7 @@
   </gnm:Attributes>
   <office:document-meta xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:ooo="http://openoffice.org/2004/office" office:version="1.2">
     <office:meta>
-      <dc:date>2024-05-31T17:51:40Z</dc:date>
+      <dc:date>2024-06-07T15:35:16Z</dc:date>
       <meta:creation-date>2024-05-23T20:48:08Z</meta:creation-date>
     </office:meta>
   </office:document-meta>
@@ -40,7 +40,7 @@
     <gnm:SheetName gnm:Cols="256" gnm:Rows="65536">greetings</gnm:SheetName>
     <gnm:SheetName gnm:Cols="256" gnm:Rows="65536">musings</gnm:SheetName>
   </gnm:SheetNameIndex>
-  <gnm:Geometry Width="1366" Height="508"/>
+  <gnm:Geometry Width="1280" Height="508"/>
   <gnm:Sheets>
     <gnm:Sheet DisplayFormulas="0" HideZero="0" HideGrid="0" HideColHeader="0" HideRowHeader="0" DisplayOutlines="1" OutlineSymbolsBelow="1" OutlineSymbolsRight="1" Visibility="GNM_SHEET_VISIBILITY_VISIBLE" GridColor="0:0:0">
       <gnm:Name>configs</gnm:Name>
@@ -1145,8 +1145,8 @@
         <gnm:RowInfo No="12" Unit="29.25"/>
         <gnm:RowInfo No="20" Unit="29.25" Count="2"/>
       </gnm:Rows>
-      <gnm:Selections CursorCol="0" CursorRow="6">
-        <gnm:Selection startCol="0" startRow="6" endCol="0" endRow="6"/>
+      <gnm:Selections CursorCol="1" CursorRow="3">
+        <gnm:Selection startCol="1" startRow="3" endCol="1" endRow="3"/>
       </gnm:Selections>
       <gnm:Cells>
         <gnm:Cell Row="0" Col="0" ValueType="60">text</gnm:Cell>
@@ -1154,11 +1154,11 @@
         <gnm:Cell Row="0" Col="2" ValueType="60">condition</gnm:Cell>
         <gnm:Cell Row="0" Col="3" ValueType="60">weight</gnm:Cell>
         <gnm:Cell Row="1" Col="0" ValueType="60">I have awakened</gnm:Cell>
-        <gnm:Cell Row="1" Col="1" ValueType="60">urchin/start</gnm:Cell>
+        <gnm:Cell Row="1" Col="1" ValueType="60">nh/urchin/start</gnm:Cell>
         <gnm:Cell Row="1" Col="2" ValueType="60">NULL</gnm:Cell>
         <gnm:Cell Row="1" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="2" Col="0" ValueType="60">Urchin shutting down.</gnm:Cell>
-        <gnm:Cell Row="2" Col="1" ValueType="60">urchin/stop</gnm:Cell>
+        <gnm:Cell Row="2" Col="1" ValueType="60">nh/urchin/stop</gnm:Cell>
         <gnm:Cell Row="2" Col="2" ValueType="60">NULL</gnm:Cell>
         <gnm:Cell Row="2" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="3" Col="0" ValueType="60">Don't slam the door!</gnm:Cell>
@@ -1202,39 +1202,39 @@
         <gnm:Cell Row="12" Col="2" ValueType="60">message='deep'</gnm:Cell>
         <gnm:Cell Row="12" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="13" Col="0" ValueType="60">I'm bored.</gnm:Cell>
-        <gnm:Cell Row="13" Col="1" ValueType="60">urchin/bored</gnm:Cell>
+        <gnm:Cell Row="13" Col="1" ValueType="60">nh/urchin/bored</gnm:Cell>
         <gnm:Cell Row="13" Col="2" ValueType="60">NULL</gnm:Cell>
         <gnm:Cell Row="13" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="14" Col="0" ValueType="60">I'm lonely.</gnm:Cell>
-        <gnm:Cell Row="14" Col="1" ValueType="60">urchin/bored</gnm:Cell>
+        <gnm:Cell Row="14" Col="1" ValueType="60">nh/urchin/bored</gnm:Cell>
         <gnm:Cell Row="14" Col="2" ValueType="60">NULL</gnm:Cell>
         <gnm:Cell Row="14" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="15" Col="0" ValueType="60">Shower thought. An empty list is a sorted list</gnm:Cell>
-        <gnm:Cell Row="15" Col="1" ValueType="60">urchin/bored</gnm:Cell>
+        <gnm:Cell Row="15" Col="1" ValueType="60">nh/urchin/bored</gnm:Cell>
         <gnm:Cell Row="15" Col="2" ValueType="60">NULL</gnm:Cell>
         <gnm:Cell Row="15" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="16" Col="0" ValueType="60">I'm not haunted!</gnm:Cell>
-        <gnm:Cell Row="16" Col="1" ValueType="60">urchin/bored</gnm:Cell>
+        <gnm:Cell Row="16" Col="1" ValueType="60">nh/urchin/bored</gnm:Cell>
         <gnm:Cell Row="16" Col="2" ValueType="60">NULL</gnm:Cell>
         <gnm:Cell Row="16" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="17" Col="0" ValueType="60">I think I'll tape a nap.</gnm:Cell>
-        <gnm:Cell Row="17" Col="1" ValueType="60">urchin/bored</gnm:Cell>
+        <gnm:Cell Row="17" Col="1" ValueType="60">nh/urchin/bored</gnm:Cell>
         <gnm:Cell Row="17" Col="2" ValueType="60">NULL</gnm:Cell>
         <gnm:Cell Row="17" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="18" Col="0" ValueType="60">ping</gnm:Cell>
-        <gnm:Cell Row="18" Col="1" ValueType="60">urchin/bored</gnm:Cell>
+        <gnm:Cell Row="18" Col="1" ValueType="60">nh/urchin/bored</gnm:Cell>
         <gnm:Cell Row="18" Col="2" ValueType="60">NULL</gnm:Cell>
         <gnm:Cell Row="18" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="19" Col="0" ValueType="60">The median temperature in the space is &lt;v:temperature_median&gt; celcius.</gnm:Cell>
-        <gnm:Cell Row="19" Col="1" ValueType="60">urchin/bored</gnm:Cell>
+        <gnm:Cell Row="19" Col="1" ValueType="60">nh/urchin/bored</gnm:Cell>
         <gnm:Cell Row="19" Col="2" ValueType="60">temperature_median != null</gnm:Cell>
         <gnm:Cell Row="19" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="20" Col="0" ValueType="60">It's a bit cold, eh?. The warmest room in the space is &lt;v:temperature_hottest&gt; celcius</gnm:Cell>
-        <gnm:Cell Row="20" Col="1" ValueType="60">urchin/bored</gnm:Cell>
+        <gnm:Cell Row="20" Col="1" ValueType="60">nh/urchin/bored</gnm:Cell>
         <gnm:Cell Row="20" Col="2" ValueType="60">temperature_median &lt; 12.0</gnm:Cell>
         <gnm:Cell Row="20" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="21" Col="0" ValueType="60">It's sweltering, eh?. The coolest room in the space is &lt;v:temperature_coldest&gt; celcius</gnm:Cell>
-        <gnm:Cell Row="21" Col="1" ValueType="60">urchin/bored</gnm:Cell>
+        <gnm:Cell Row="21" Col="1" ValueType="60">nh/urchin/bored</gnm:Cell>
         <gnm:Cell Row="21" Col="2" ValueType="60">temperature_median &gt; 25</gnm:Cell>
         <gnm:Cell Row="21" Col="3" ValueType="40">1</gnm:Cell>
       </gnm:Cells>
@@ -1244,5 +1244,5 @@
       <gnm:Solver ModelType="0" ProblemType="0" MaxTime="60" MaxIter="1000" NonNeg="1" Discr="0" AutoScale="0" ProgramR="0" SensitivityR="0"/>
     </gnm:Sheet>
   </gnm:Sheets>
-  <gnm:UIData SelectedTab="0"/>
+  <gnm:UIData SelectedTab="7"/>
 </gnm:Workbook>
