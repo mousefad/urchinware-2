@@ -1,7 +1,7 @@
 #!/bin/bash
 
 prog=${0##*/}
-database_path="$DORCAS_HOME/private/db.sqlite3"
+database_path="${DORCAS_DATABASE?ERROR - DORCAS_DATABASE not defined}"
 print_cmd=n
 voice_id=default
 
@@ -14,7 +14,7 @@ usage () {
 	Looks up parameters of Urchin speech from the database and says the thing in the
 	specified voice. No announcement is done over MQTT - this is just a voice test.
 	
-	-d path : Use alternative database. default is "\$DORCAS_HOME/private/db/sqlite3".
+	-d path : Use alternative database. default is "\$DORCAS_DATABASE".
 	-h      : This cruft.
 	-l      : List available voice_id values.
 	-p      : Print the command that will be used to render the speech instead of running.

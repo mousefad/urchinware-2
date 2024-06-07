@@ -1,15 +1,17 @@
-private/
+db.xml
+db.sqlite3
+
+# venv stuff
 include/
 bin/
 lib/
 lib64
 pyvenv.cfg
+
+# misc
 *~
 .*~
 .*swp
-**/build-*
-**/*.pyc
-**/*.o
 **/__pycache__
 api_keys.txt
 Makefile.apikeys

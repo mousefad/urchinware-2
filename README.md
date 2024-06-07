@@ -28,43 +28,89 @@ Full re-write - the old code was horrible (Jeeer!):
 Building & Running
 ==================
 
-1. Clone this repo to a Raspberry Pi or Linux machine.  As of writing, Urchin is running
-   with a RPi 3 running Raspbian GNU/Linux 12 (bookworm) [lite/minimal image]. RPi packages
-   required (over Raspian Lite installation):
-   - `sox` .
-   - `espeak`.
-   - `espeak-ng`.
-   - `scanlogd`.
-   - `gnumeric`
-   - `bind9-dnsutils`
-   - `mosquitto` (if you want to run locally with a test MQTT server)
+1.  Install your OS on the device where you want to run this project. The Nottinghack Urchin
+    runs on a RPi 3 running Raspbian GNU/Linux 12 (bookworm) [lite/minimal image]. Some
+    packaged over the base install should be installed:
+    - `sox`
+    - `espeak`
+    - `espeak-ng`
+    - `bind9-dnsutils`
+    - `scanlogd` (optional - if you want to be informed of portscans)
+    - `gnumeric` (optional - if you want to edit the database via the spreadsheet)
+    - `mosquitto` (optional - if you want to run a local MQTT server for testing)
 
-2. cd into the cloned dir and do: `python -m venv $PWD`. 
+2.  Clone project; create a virtual env and install Python dependencies:
+```
+    $ git clone https://github.com/mousefad/urchinware-2.git ~/dorcas
+    $ cd ~/dorcas
+    $ python -m venv .
+    $ pip install --upgrade pip
+    $ pip install .
+```
 
-3. From the cloned dir: `export DORCAS_HOME=$PWD ; . ./project.env`
+3.  Decide where you want to put the config database, and set the `DORCAS_DATABASE`
+    environment variable. You'll want to add this to your shell init files too.
 
-4. Install dependencies with PIP:
-   `sed 1,2d pip-packages.txt | awk '{ print $1 }' | xargs pip install`
+```
+    $ export DORCAS_DATABASE=~/dorcas/db.sqlite3
+```
 
-5. Create a new config `db_new`.
-   Use gnumeric to edit `private/db.xml`:
-   - In `CONFIGS` set ID to your hostname, so you don't have to specify with `--config`.
-   - In `BROKER` set the host to the host of the MQTT server.
-   - Add some entries in `GREETINGS` and `MUSINGS`.
-   - Save spreadsheet & update the SQLite3 database with `db_update`
+4.  Generate a config database from the sample, `dorcas/sample/db.xml` (this file is a
+    *GNUmeric* spreadsheet for easy viewing/editing). This command will generate the file
+    at the path defined by `DORCAS_DATABASE`.
+```
+    $ python dorcas/database.py load dorcas/sample/db.xml 
+```
 
-6. Run `./dorcas`.  
+5.  Run with `python -m dorcas --config default`
 
+
+Configuration
+=============
+
+The database can store multiple configurations - one per record in the `CONFIGS` table. Only
+one configuration can be active when the program is running. The configuration to use can be
+selected using the `--config <id>` option when starting the program. If the `--config` option
+is not used, the program will select the record where the `ID` field matches the hostname of
+the machine where the program is running.
+
+A configuration selects a record from the `BROKERS` table to decide which MQTT broker to
+connect to. At time of writing broker certificates are not supported (since the one at 
+Nottingham hackspace is open / unencrypted).
+
+Other tables:
+
+* `VOICES` - parameters for the `espeak` text-to-speech engine.
+* `EFFECTS` - post-procesing of speech audio with `play` (part of SOX).
+* `IGNORES` - patterns of MQTT messages to ignore.
+* `SPECIAL_DAYS` - define holidays and such.
+* `GREETINGS` - generic and personalized greetings.
+* `MUSINGS` - responses to general MQTT events and interctions with DonationBot.
+
+Editing Config With GNUmeric
+----------------------------
+
+The sample config database is provided as a *GNUmeric* spreadsheet in XML format, which is
+convenient to read and edit using the GNUmeric Free software application. This can then be
+converted to an SQLite database withthe following command (from the repo root directory):
+
+```
+$ python dorcas/database.py load path/to/spreadsheet.xml
+```
+
+The spreadsheet will be concerted into an SQLite database which will be saved to the path 
+defined by the `DORCAS_DATABASE` environment variable.
+
+Editing the spreadsheet and re-generating the SQLite database is a fairly convenient way to
+work, but you do you - edit that database however you like.
 
 
 TODO
 ====
 
 * Support playing background audio files.
-* Re-organize project to be more Pythonic in terms for distribution and packaging.
 * Systemd .service unit file.
 * React to how busy the space is based on stuff like number of people in and out.
 * Greetings for people with bookings on tools, e.g. "your booking on the <thing>
   starts in 25 minutes."
-
 

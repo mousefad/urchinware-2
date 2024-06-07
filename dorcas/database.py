@@ -152,7 +152,7 @@ class DB:
 
 
 if __name__ == "__main__":
-    database_path = os.path.expandvars("$DORCAS_HOME/private/db.sqlite3")
+    database_path = os.environ["DORCAS_DATABASE"]
     gnm = lambda x: "{http://www.gnumeric.org/v10.dtd}" + x
     office = lambda x: "{urn:oasis:names:tc:opendocument:xmlns:office:1.0}" + x
 

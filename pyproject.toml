@@ -4,21 +4,21 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "dorcas"
-authors = [{name = "Your Name", email = "you@example.com"}]
+authors = [{name = "Mouse", email = "mousefad@googlemail.com"}]
 readme = "README.md"
-license = {file = "LICENSE"}
+license = {file = "LICENSE.md"}
 classifiers = ["License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"]
 dynamic = ["version", "description"]
 dependencies = [
+    "antlr4-python3-runtime",
+    "arrow",
+    "cachetools",
     "click",
     "coloredlogs",
-    "arrow",
+    "gpiozero",
+    "paho-mqtt",
     "singleton_decorator",
     "sqlalchemy",
-    "paho-mqtt",
-    "cachetools",
-    "gpiozero",
-    "antlr4-python3-runtime",
 ]
 
 [project.scripts]

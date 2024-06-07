@@ -43,7 +43,7 @@ def main(config, debug, list_config, log_path, no_publish, quiet, verbose):
         log_path = open(log_path, "a", encoding="utf8", errors="replace")
     coloredlogs.install(level=get_debug_level(debug, quiet), stream=log_path, fmt=fmt)
     log.info(f"START")
-    DB(path=os.path.expandvars("$DORCAS_HOME/private/db.sqlite3"), debug=debug > 1)
+    DB(path=os.environ["DORCAS_DATABASE"], debug=debug > 1)
 
     if list_config:
         for n, rec in enumerate(DB().session.query(Config).all()):
