@@ -13,8 +13,8 @@ import click
 import coloredlogs
 
 # project modules
-from brain import Brain
-from database import *
+from dorcas.brain import Brain
+from dorcas.database import *
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))
 

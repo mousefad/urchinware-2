@@ -1,14 +1,9 @@
 import os
 import sys
 import logging
-import json
-import random
 import re
 import statistics
-from responder import Responder
-from urge import Urge
-from urge.say import Say
-
+from dorcas.responder import Responder
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))
 

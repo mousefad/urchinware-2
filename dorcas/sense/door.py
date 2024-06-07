@@ -2,23 +2,15 @@
 import os
 import sys
 import logging
-import re
 import time
-import json
-import datetime
-import random
-import arrow
-import subprocess as sp
-from collections import namedtuple
 
 # PIP-installed modules
 import arrow
-import cachetools.func
 
 # Project modules
-from sensation import Sensation
-from sense import ThreadedHalterSense
-from sense.time import duration_to_str
+from dorcas.sensation import Sensation
+from dorcas.sense import ThreadedHalterSense
+from dorcas.sense.time import duration_to_str
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))
 

@@ -1,6 +1,3 @@
-import os
-import sys
-import logging
 import re
 import datetime
 import copy
@@ -11,11 +8,11 @@ from collections import namedtuple
 from sqlalchemy import or_
 
 # Project modules
-from condition import evaluate_condition
-from responder import Responder
-from database import *
-from urge import Urge
-from urge.say import Say
+from dorcas.condition import evaluate_condition
+from dorcas.responder import Responder
+from dorcas.database import *
+from dorcas.urge import Urge
+from dorcas.urge.say import Say
 
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))

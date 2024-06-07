@@ -1,11 +1,7 @@
 # Build-in modules
 import os
 import sys
-import subprocess as sp
-import time
 import logging
-import re
-import json
 import time
 import threading
 from math import exp
@@ -15,10 +11,6 @@ from singleton_decorator import singleton
 from gpiozero import LED
 
 # Project modules
-from getem import GeTem
-import database
-from worker import Worker
-from worker.mqttclient import MqttClient
 
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))

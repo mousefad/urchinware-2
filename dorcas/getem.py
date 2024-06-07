@@ -311,7 +311,7 @@ class GeTem:
         return result
 
 
-if __name__ == "__main__":
+def main():
     from datetime import datetime
 
     data = {
@@ -333,3 +333,7 @@ if __name__ == "__main__":
             {"subform": [{"value": 1}, {"value": 2}, {"bananas": 3}]}, missing="-"
         )
     )
+
+
+if __name__ == '__main__':
+    main()

@@ -1,14 +1,8 @@
 # Built-in python modules
-import os
-import sys
-import logging
-import re
 import time
 import json
 import datetime
 import random
-import arrow
-import subprocess as sp
 from collections import namedtuple
 
 # PIP-installed modules
@@ -17,9 +11,9 @@ import cachetools.func
 from sqlalchemy import or_, and_
 
 # Project modules
-from sensation import Sensation
-from sense import ThreadedHalterSense
-from database import *
+from dorcas.sensation import Sensation
+from dorcas.sense import ThreadedHalterSense
+from dorcas.database import *
 
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))

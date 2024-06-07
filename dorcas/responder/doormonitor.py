@@ -2,20 +2,15 @@
 import os
 import sys
 import logging
-import json
-import random
 import re
-import statistics
 
 # PIP-installed modules
 import arrow
 
 # Project modules
-from responder import Responder
-from urge import Urge
-from urge.say import Say
-from sense.time import duration_to_str
-from sensation import Sensation
+from dorcas.responder import Responder
+from dorcas.sense.time import duration_to_str
+from dorcas.sensation import Sensation
 
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))

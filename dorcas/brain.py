@@ -6,31 +6,30 @@ import os
 import time
 import arrow
 import json
-import copy
 import random
 
 # PIP-installed modues
 from singleton_decorator import singleton
 
 # Project modules
-from sensation import Sensation
-from sense.mqtt import Mqtt
-from sense.journal import Journal
-from sense.time import Cronoception, duration_to_str
-from sense.door import Doorception
+from dorcas.sensation import Sensation
+from dorcas.sense.mqtt import Mqtt
+from dorcas.sense.journal import Journal
+from dorcas.sense.time import Cronoception, duration_to_str
+from dorcas.sense.door import Doorception
 
-from responder.security import Security
-from responder.time import Time
-from responder.temperature import Temperature
-from responder.doormonitor import DoorMonitor
-from responder.muteswitch import MuteSwitch
-from responder.greeter import Greeter
-from responder.muser import Muser
+from dorcas.responder.security import Security
+from dorcas.responder.time import Time
+from dorcas.responder.temperature import Temperature
+from dorcas.responder.doormonitor import DoorMonitor
+from dorcas.responder.muteswitch import MuteSwitch
+from dorcas.responder.greeter import Greeter
+from dorcas.responder.muser import Muser
 
-from worker.mqttclient import MqttClient
-from worker.voice import Voice
-from worker.eyes import Eyes
-from database import DB
+from dorcas.worker.mqttclient import MqttClient
+from dorcas.worker.voice import Voice
+from dorcas.worker.eyes import Eyes
+from dorcas.database import DB
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))
 

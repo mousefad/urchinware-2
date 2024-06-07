@@ -3,7 +3,6 @@ import os
 import sys
 import threading
 import subprocess as sp
-import time
 import logging
 import re
 import json
@@ -15,11 +14,11 @@ from singleton_decorator import singleton
 import arrow
 
 # Project modules
-from getem import GeTem
-import database
-from worker import Worker
-from worker.eyes import Eyes
-from worker.mqttclient import MqttClient
+from dorcas.getem import GeTem
+from dorcas import database
+from dorcas.worker import Worker
+from dorcas.worker.eyes import Eyes
+from dorcas.worker.mqttclient import MqttClient
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))
 

@@ -1,10 +1,9 @@
 import os
 import sys
 import logging
-import json
-from responder import Responder
-from urge import Urge
-from urge.say import Say
+from dorcas.responder import Responder
+from dorcas.urge import Urge
+from dorcas.urge.say import Say
 
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))
