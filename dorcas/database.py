@@ -105,13 +105,13 @@ class Config(Base):
 class Greeting(Base):
     __tablename__ = "greetings"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    text = Column(String, nullable=False)
+    action = Column(String, nullable=False)
     member = Column(String, nullable=True, index=True)
     condition = Column(String, nullable=True)
     weight = Column(Integer, nullable=False, default=1)
 
     def __repr__(self):
-        return f"Greeting(text={self.text!r}, member={self.member}, condition={self.condition!r}, weight={self.weight!r})"
+        return f"Greeting(action={self.action!r}, member={self.member}, condition={self.condition!r}, weight={self.weight!r})"
 
 
 # We'll have a separate table for Musings even though it's the same structure as Greetings...  because
@@ -120,13 +120,13 @@ class Greeting(Base):
 class Musing(Base):
     __tablename__ = "musings"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    text = Column(String, nullable=False)
+    action = Column(String, nullable=False)
     topic = Column(String, nullable=False, index=True)
     condition = Column(String, nullable=True)
     weight = Column(Integer, nullable=False, default=1)
 
     def __repr__(self):
-        return f"Musing(text={self.text!r}, topic={self.topic!r}, condition={self.condition!r}, weight={self.weight!r})"
+        return f"Musing(action={self.action!r}, topic={self.topic!r}, condition={self.condition!r}, weight={self.weight!r})"
 
 
 @singleton
@@ -235,7 +235,7 @@ if __name__ == "__main__":
             x: typemap[type(getattr(tclass, x).expression.type).__name__]
             for x in field_names
         }
-        # Make a list of the sheet headings to column numbers, e.g. { "text": 0, "condition": 1, ...}
+        # Make a list of the sheet headings to column numbers, e.g. { "action": 0, "condition": 1, ...}
         cells = sheet.find(gnm("Cells")).findall(gnm("Cell"))
         sheet_columns = {x.text: n for n, x in enumerate(cells) if x.get("Row") == "0"}
         # Check we have all the desired fields in the sheet

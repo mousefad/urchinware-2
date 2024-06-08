@@ -29,7 +29,8 @@ from dorcas.responder.muser import Muser
 
 from dorcas.worker.mqttclient import MqttClient
 from dorcas.worker.voice import Voice
-from dorcas.worker.audioplayer import Audio
+from dorcas.worker.audio import Audio
+from dorcas.worker.thespian import Thespian
 from dorcas.worker.eyes import Eyes
 from dorcas.database import DB
 
@@ -51,6 +52,7 @@ class Brain:
             MqttClient(self),
             Voice(self),
             Audio(self),
+            Thespian(self),
             Eyes(self),
         ]
 
@@ -120,7 +122,7 @@ class Brain:
             "uptime": self.get("uptime"),
         }
         self.handle_sensation(Sensation("nh/urchin/stop", json.dumps(stop_message)))
-        time.sleep(0.5)
+        time.sleep(1.0)
 
         log.debug("requesing things stop")
         for thing in self.senses + self.workers:

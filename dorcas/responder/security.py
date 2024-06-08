@@ -3,7 +3,7 @@ import sys
 import logging
 from dorcas.responder import Responder
 from dorcas.urge import Urge
-from dorcas.urge.say import Say
+from dorcas.urge.act import Act
 
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))
@@ -18,17 +18,21 @@ class Security(Responder):
         try:
             x = sensation.json
             # if sensation.topic == "nh/urchin/os/login":
+            #     text = f"someone has logged into me from {x['from_hostname']}"
             #     urges.append(
-            #         Say(
+            #         Act(
+            #             program=f"say({text!r})",
             #             priority=Urge.High,
-            #             text=f"security notice: someone logged into me with account {x['user']}, from {x['from_hostname']}, auth type {x['method']}.",
+            #             cause="Login detected",
             #         )
             #     )
             if sensation.topic == "nh/urchin/os/portscan":
+                text = f"I'm getting port scanned from host {x['from_hostname']}."
                 urges.append(
-                    Say(
+                    Act(
+                        program=f"say({text!r})",
+                        cause="Port scan detected",
                         priority=Urge.High,
-                        text=f"Help! I'm getting port scanned from host {x['from_hostname']}.",
                     )
                 )
         except Exception as e:

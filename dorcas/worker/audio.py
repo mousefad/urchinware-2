@@ -18,7 +18,7 @@ log = logging.getLogger(os.path.basename(sys.argv[0]))
 
 @singleton
 class Audio(Worker):
-    BackgroundPlayerLimit = 2
+    BackgroundPlayerLimit = 10
     def __init__(self, brain, kill_on_halt=True):
         super().__init__(brain)
         self.kill_on_halt = kill_on_halt

@@ -12,7 +12,7 @@ from dorcas.condition import evaluate_condition
 from dorcas.responder import Responder
 from dorcas.database import *
 from dorcas.urge import Urge
-from dorcas.urge.say import Say
+from dorcas.urge.act import Act
 
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))
@@ -21,7 +21,7 @@ log = logging.getLogger(os.path.basename(sys.argv[0]))
 class Greeter(Responder):
     """Produces one verbal greeting for members entering via the Door."""
     TopicFilter = "nh/gk/entry_announce/known"
-    CandidateGreeting = namedtuple("CandidateGreeting", ["id", "weight", "text"])
+    CandidateGreeting = namedtuple("CandidateGreeting", ["id", "weight", "action"])
     AgoPeriods = [
         (re.compile(r"(\d+)d"), 3600 * 24),
         (re.compile(r"(\d+)h"), 3600),
@@ -50,7 +50,7 @@ class Greeter(Responder):
         candidates = list()
         for id, rec in [(f"Greeting #{x.id}", x) for x in DB().session.query(Greeting).filter(or_(Greeting.member == state["member_name"], Greeting.member == None)).all()]:
             if self.want(rec.condition, state, id):
-                candidate = self.CandidateGreeting(id, rec.weight, rec.text)
+                candidate = self.CandidateGreeting(id, rec.weight, rec.action)
                 log.debug(f"adding candidate {candidate}")
                 candidates.append(candidate)
         log.debug(f"Greeter: {len(candidates)} candidates to choose from")
@@ -59,7 +59,7 @@ class Greeter(Responder):
 
         # 4. select one of the filtered conditions using randomness + weights
         choice = random.choices(candidates, [x.weight for x in candidates])[0]
-        urge = Say(choice.text, priority=Urge.Normal, state=state)
+        urge = Act(choice.action, cause=choice.id, priority=Urge.High, state=state)
         log.info(f"{choice.id} => {urge} in response to {sensation}")
         return [urge]
 

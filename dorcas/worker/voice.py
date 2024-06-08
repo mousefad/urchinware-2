@@ -15,6 +15,7 @@ import arrow
 
 # Project modules
 from dorcas.getem import GeTem
+from dorcas.database import DB, Voice as VoiceTable
 from dorcas import database
 from dorcas.worker import Worker
 from dorcas.worker.eyes import Eyes
@@ -49,12 +50,12 @@ class Gob:
         self.thread = None
         self.last_text = ""
 
-    def utter(self, text, voice, pause):
+    def utter(self, text, voice):
         """start speaking (non-blocking)"""
         if self.is_talking:
             return False
         self.wait()
-        self.thread = threading.Thread(target=self._utter, args=(text, voice, pause))
+        self.thread = threading.Thread(target=self._utter, args=(text, voice))
         self.thread.start()
         return True
 
@@ -62,7 +63,7 @@ class Gob:
         if self.is_talking:
             [x.kill() for x in (self.speech_proc, self.effect_proc) if x is not None]
             [x.wait() for x in (self.speech_proc, self.effect_proc) if x is not None]
-            self.brain.experience(Sensation("nh/urchin/speech/interrupted", self.last_text))
+            self.brain.experience(Sensation("nh/urchin/interrupted", self.last_text))
         self.wait()
 
     def wait(self):
@@ -72,7 +73,7 @@ class Gob:
             self.thread = None
         self.is_talking = False
 
-    def _utter(self, text, voice, pause):
+    def _utter(self, text, voice):
         """blocking utterances"""
         log.debug(f"utter START text={text} voice_id={voice.id}")
         if self.is_talking:
@@ -82,7 +83,6 @@ class Gob:
             self.last_text = text
             speech_cmd = make_speech_cmd(text, voice)
             effect_cmd = make_effect_cmd(voice.effect)
-            time.sleep(pause)
             MqttClient().publish("nh/urchin/talking", "voice start")
             Eyes().on()
             log.debug(f"utter: speech cmd: {speech_cmd}")
@@ -111,17 +111,6 @@ class Gob:
             return ok
 
 
-class Utterance:
-    """An utterance is some text that is said in a given voice, or a pause in speech."""
-    def __init__(self, text, voice, pause=0.0):
-        self.text = text
-        self.voice = voice
-        self.pause = pause
-
-    def __repr__(self):
-        return f"Utterance(text={self.text!r}, voice={self.voice.id!r}, pause={self.pause!r})"
-
-
 @singleton
 class Voice(Worker):
     """A voice queue manager
@@ -131,22 +120,25 @@ class Voice(Worker):
 
     def __init__(self, brain):
         super().__init__(brain)
-        self.default_voice = brain.config.voice
         self.queue = deque()
 
     def run(self):
         log.debug("Voice.run START")
         while not self.halt:
             while len(self.queue) > 0:
-                utterance = self.queue.popleft()
-                Gob().wait()
-                Gob().utter(utterance.text, utterance.voice, utterance.pause)
-                self.brain.set("last_utterance", arrow.now())
-                time.sleep(1)
-            time.sleep(0.5)
+                try:
+                    text, voice_id = self.queue.popleft()
+                    voice = DB().session.get(VoiceTable, voice_id)
+                    Gob().wait()
+                    Gob().utter(text, voice)
+                    self.brain.set("last_utterance", arrow.now())
+                    time.sleep(0.25)
+                except Exception as e:
+                    log.exception(f"when trying to speak with voice {voice_id!r}")
+            time.sleep(0.25)
         log.debug("Voice.run END")
 
-    def say(self, text, state=None):
+    def say(self, text, voice, state=None):
         """queue up something to say. Voice changes should be 'in' the text with [directives]."""
         if self.brain.get("silence"):
             log.debug("SILENCED")
@@ -154,45 +146,6 @@ class Voice(Worker):
         if state is None:
             state = self.brain.state
         text = GeTem(text)(state)
-        for utterance in self.split(text):
-            self.queue.append(utterance)
-
-    def split(self, text):
-        matches = list(re.finditer(r"({[^}]*})([^{]*)", text))
-        if len(matches) == 0:
-            return [Utterance(text, self.default_voice)]
-
-        items = list()
-        first_match_idx = matches[0].span()[0] 
-        if first_match_idx > 0:
-            # text before the first {...} 
-            items.append(Utterance(text[:first_match_idx], self.default_voice))
-        for m in matches:
-            if not re.match(r"\s*$", m.group(2)):
-                params = self.get_params(m.group(1))
-                items.append(Utterance(m.group(2), params["voice"], params["pause"]))
-        return items
-
-    def get_params(self, json_str):
-        params = {"voice": self.default_voice, "pause": 0.0}
-        try:
-            data = json.loads(json_str)
-        except:
-            log.warning(f"failed to json.loads for {json_str!r} : {e} ; using defaults")
-            return params
-        try:
-            if "pause" in data:
-                params["pause"] = float(data["pause"])
-        except Exception as e:
-            log.warning(f"failed to get \"pause\" from json {json_str!r} : {e}")
-        try:
-            if "voice" in data:
-                voice_id = data["voice"]
-                voice = database.DB().session.get(database.Voice, voice_id)
-                assert voice is not None
-                params["voice"] = voice
-        except Exception as e:
-            log.warning(f"failed to get \"voice\" from json {json_str!r} : {e}")
-        return params
+        self.queue.append((text, voice))
 
     

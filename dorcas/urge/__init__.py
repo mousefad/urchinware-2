@@ -15,7 +15,8 @@ class Urge(ABC):
     High = 20
 
     """Urges are a desire to perform an action, e.g. the urge to say something naughty."""
-    def __init__(self, priority=Normal, state=dict()):
+    def __init__(self, cause, priority=Normal, state=dict()):
+        self.cause = cause
         self.priority = priority
         self.state = state
 

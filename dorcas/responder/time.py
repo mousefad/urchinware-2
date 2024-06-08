@@ -4,7 +4,7 @@ import logging
 import random
 from dorcas.responder import Responder
 from dorcas.urge import Urge
-from dorcas.urge.say import Say
+from dorcas.urge.act import Act
 
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))
@@ -25,18 +25,24 @@ class Time(Responder):
                 urges.extend(self.on_the_hour(data['hour']))
         except Exception as e:
             log.exception(f"while responding to the time: {sensation}")
-
         return urges
 
     def on_the_hour(self, hour):
-        if not random.random() < 0.75:
-            return []
+        bongs = hour % 12
+        if bongs == 0:
+            bongs = 12
         if hour == 0:
             text = f"It's mid night. I should go to bed."
         elif hour == 12:
-            text = f"It mid day. What's for lunch?"
-        elif hour == 23:
-            text = f"It's the witching hour. Spooky."
+            text = f"It mid day. What's for dinner?"
+        elif hour == 18:
+            text = f"It's 6 o clock, what's for tea?"
         else:
-            text = f"It's {hour % 12} o clock. "
-        return [Say(priority=Urge.Low, text=text)]
+            text = f"It's {bongs} o clock."
+        program =  f"for _ in range({bongs}):\n"
+        program += f"    play('cuckoo_chime.mp3', bg=True)\n"
+        program += f"    pause({random.randrange(700, 800) / 1000.0})\n"
+        program += f"say({text!r})\n"
+        return [Act(program, cause=f"Time is {hour:02d}:00", priority=Urge.Normal)]
+
+

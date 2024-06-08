@@ -7,14 +7,14 @@ from dorcas.condition import evaluate_condition
 from dorcas.responder import Responder
 from dorcas.database import *
 from dorcas.urge import Urge
-from dorcas.urge.say import Say
+from dorcas.urge.act import Act
 
 
 log = logging.getLogger(os.path.basename(sys.argv[0]))
 
 
 class Muser(Responder):
-    CandidateMusing = namedtuple("CandidateMusing", ["id", "weight", "text"])
+    CandidateMusing = namedtuple("CandidateMusing", ["id", "weight", "action"])
 
     """General reactions to events."""
     def __call__(self, sensation):
@@ -25,7 +25,7 @@ class Muser(Responder):
         candidates = list()
         for id, rec in [(f"Musing #{x.id}", x) for x in DB().session.query(Musing).filter(Musing.topic == sensation.topic).all()]:
             if self.want(rec.condition, state, id):
-                candidate = self.CandidateMusing(id, rec.weight, rec.text)
+                candidate = self.CandidateMusing(id, rec.weight, rec.action)
                 log.debug(f"adding candidate {candidate}")
                 candidates.append(candidate)
 
@@ -39,7 +39,7 @@ class Muser(Responder):
 
         # 3. select one of the filtered conditions using randomness + weights
         choice = random.choices(candidates, [x.weight for x in candidates])[0]
-        urge = Say(choice.text, priority=Urge.Normal, state=state)
+        urge = Act(choice.action, cause=choice.id, priority=Urge.Normal, state=state)
         log.info(f"{choice.id} => {urge} in response to {sensation}")
         return [urge]
 
