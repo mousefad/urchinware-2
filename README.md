@@ -30,7 +30,7 @@ Building & Running
 
 1.  Install your OS on the device where you want to run this project. The Nottinghack Urchin
     runs on a RPi 3 running Raspbian GNU/Linux 12 (bookworm) [lite/minimal image]. Some
-    packaged over the base install should be installed:
+    packages over the base install should be installed:
     - `sox`
     - `espeak`
     - `espeak-ng`
@@ -113,4 +113,5 @@ TODO
 * React to how busy the space is based on stuff like number of people in and out.
 * Greetings for people with bookings on tools, e.g. "your booking on the <thing>
   starts in 25 minutes."
+* Messing with the hackspace's train departures sign for fun and profit.
 
