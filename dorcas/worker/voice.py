@@ -1,4 +1,4 @@
-# Build-in modules
+# Python built-in modules
 import os
 import sys
 import threading
@@ -112,6 +112,7 @@ class Gob:
 
 
 class Utterance:
+    """An utterance is some text that is said in a given voice, or a pause in speech."""
     def __init__(self, text, voice, pause=0.0):
         self.text = text
         self.voice = voice
@@ -126,7 +127,7 @@ class Voice(Worker):
     """A voice queue manager
 
     Actual speaking is done by the Gob() singleton. This class is used to queue up things
-    to say, and split things into chunks with different characteristics"""
+    to say, and split things into chunks with different characteristics."""
 
     def __init__(self, brain):
         super().__init__(brain)
@@ -135,7 +136,6 @@ class Voice(Worker):
 
     def run(self):
         log.debug("Voice.run START")
-        self.halt = False
         while not self.halt:
             while len(self.queue) > 0:
                 utterance = self.queue.popleft()

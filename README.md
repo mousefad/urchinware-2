@@ -105,6 +105,9 @@ Editing the spreadsheet and re-generating the SQLite database is a fairly conven
 work, but you do you - edit that database however you like.
 
 
+
+
+
 TODO
 ====
 
@@ -114,4 +117,12 @@ TODO
 * Greetings for people with bookings on tools, e.g. "your booking on the <thing>
   starts in 25 minutes."
 * Messing with the hackspace's train departures sign for fun and profit.
+* In silent mode, eyes should flicker.
+* Re-write urges to be more general:
+    - rename `TEXT` fields to `ACTION` in `GREETINGS` and `MUSINGS`.
+    - an `ACTION` field should be translated into an Act(Urge), which is a sequence of other
+      `Urge`s, which can include `Say(Urge)`, but also other actions like playing audio
+      with `Audio(Worker)`, or Eye activity, or sending MQTT.
+    - The text from the `ACTION` should be a little programming language got scripting Acts.
+
 

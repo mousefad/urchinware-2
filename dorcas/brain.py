@@ -29,6 +29,7 @@ from dorcas.responder.muser import Muser
 
 from dorcas.worker.mqttclient import MqttClient
 from dorcas.worker.voice import Voice
+from dorcas.worker.audioplayer import Audio
 from dorcas.worker.eyes import Eyes
 from dorcas.database import DB
 
@@ -49,6 +50,7 @@ class Brain:
         self.workers = [
             MqttClient(self),
             Voice(self),
+            Audio(self),
             Eyes(self),
         ]
 
