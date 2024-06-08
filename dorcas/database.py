@@ -311,6 +311,7 @@ if __name__ == "__main__":
             tables = known_tables
         coloredlogs.install(level=logging.DEBUG)
         DB(database_path, debug=False)
+        mute_switch_states = {x.id : x.mute_switch for x in DB().session.query(Config).all()}
         for what in tables:
             assert (
                 what in known_tables
@@ -331,6 +332,11 @@ if __name__ == "__main__":
             sheet = get_sheet(table)
             fn = getattr(sys.modules["__main__"], f"load_{table}")
             fn(sheet)
+
+        # restore mute switch states
+        for id, mute in mute_switch_states.items():
+            DB().config(id).mute_switch = mute
+        DB().session.commit()
 
     commands = dict(
         [
