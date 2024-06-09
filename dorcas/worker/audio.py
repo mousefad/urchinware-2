@@ -75,12 +75,13 @@ class Audio(Worker):
             time.sleep(0.25)
             self.reap_players()
 
-    def play(self, path, bg=False):
-        log.debug(f"Audio.play path={path!r} bg={bg}")
+    def play(self, path, bg=False, volume=1.0):
+        log.info(f"play path={path!r} bg={bg}")
         if self.halt:
             log.debug(f"Audio.play not adding because player not-running / shutting down")
             return
-        cmd = [ "play", "-q", path ]
+        cmd = [ "play", "-q", path, "vol", str(volume) ]
+        
         if not bg:
             code = sp.run(cmd).returncode
             return code == 0

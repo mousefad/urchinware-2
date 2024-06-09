@@ -39,8 +39,8 @@ class Muser(Responder):
 
         # 3. select one of the filtered conditions using randomness + weights
         choice = random.choices(candidates, [x.weight for x in candidates])[0]
-        urge = Act(choice.action, cause=choice.id, priority=Urge.Normal, state=state)
-        log.info(f"{choice.id} => {urge} in response to {sensation}")
+        urge = Act(choice.action, cause=f"{choice.id} because {sensation}", priority=Urge.Normal, state=state)
+        log.debug(f"{choice.id} => {urge} in response to {sensation}")
         return [urge]
 
     def augmented_state(self, sensation):

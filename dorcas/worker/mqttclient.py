@@ -86,6 +86,7 @@ class MqttClient(Worker):
 
     def publish(self, topic, message):
         if not self.brain.get("mute_mqtt"):
+            log.debug("MqttClient.publish topic={topic!r} message={message!r}")
             publish.single(topic, message, hostname=self.mqtt_host, port=self.mqtt_port)
 
     def cb_connect(self, *args):

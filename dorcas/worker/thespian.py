@@ -39,7 +39,7 @@ def pause(seconds):
     time.sleep(seconds)
 
 
-def play(path, bg=True):
+def play(path, bg=True, volume=1.0):
     assert type(path) is str
     assert not path.startswith("/"), "may not use absolute paths for audio files"
     assert not re.search(r"(^|/)\.\./", path), "may not use .. in audio file paths"
@@ -52,7 +52,7 @@ def play(path, bg=True):
     log.info(f"play({path!r}) => {found!r}")
     if found is None:
         raise FileNotFoundError(path)
-    Audio().play(found, bg=bg)
+    Audio().play(found, bg=bg, volume=volume)
 
 
 def audio_search_paths():
@@ -142,7 +142,7 @@ class Thespian(Worker):
                     self.current = None
             if not self.current and len(self.queue) > 0:
                 act = self.queue.popleft()
-                log.info(f"Thespian.run starting {act!r}")
+                log.debug(f"Thespian.run starting {act!r}")
                 self.current = threading.Thread(target=self.perform, args=(act,))
                 self.current.start()
         if self.current:
@@ -154,9 +154,9 @@ class Thespian(Worker):
 
     def perform(self, act):
         try:
-            log.info(f"Thespian.perform START {act!r}")
+            log.info(f"Thespian.perform START {act.cause}")
             ActionRunner().run(act)
-            log.info(f"Thespian.perform END")
+            log.debug(f"Thespian.perform END")
         except Exception as e:
             log.exception("Thespian.perform EXCEPTION {act!r}")
 

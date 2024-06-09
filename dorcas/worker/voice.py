@@ -64,6 +64,7 @@ class Gob:
             [x.kill() for x in (self.speech_proc, self.effect_proc) if x is not None]
             [x.wait() for x in (self.speech_proc, self.effect_proc) if x is not None]
             self.brain.experience(Sensation("nh/urchin/interrupted", self.last_text))
+            log.info("utterance interrupted")
         self.wait()
 
     def wait(self):
@@ -75,7 +76,7 @@ class Gob:
 
     def _utter(self, text, voice):
         """blocking utterances"""
-        log.debug(f"utter START text={text} voice_id={voice.id}")
+        log.info(f"say v={voice.id!r} {text!r}")
         if self.is_talking:
             return False
         try:

@@ -17,4 +17,4 @@ class Instrumentation(Responder):
     def __call__(self, sensation):
         if sensation.topic != "nh/status/req" or sensation.message != "STATUS":
             return []
-        return [Publish(priority=Urge.High, topic="nh/status/res", message="Running: Creepy Urchin")]
+        return [Publish(topic="nh/status/res", message="Running: Creepy Urchin", cause="status request", priority=Urge.High)]
