@@ -150,14 +150,14 @@ The can only call a very limited number of functions: `say`, `play`, `pause`, `p
 Acknowldgements & Copyright Notices
 ===================================
 
-`dorcas/sample/audio/cuckoo_chime.mp3`
+`dorcas/sample/audio/cuckoo_chime.wav`
 --------------------------------------
 
 Is cut from `Cuckoo Clock-Half hour.wav` by *lonemonk* --
 https://freesound.org/s/88725/
 License: Attribution 3.0
 
-`dorcas/sample/audio/announcement_chimes.mp3` 
+`dorcas/sample/audio/announcement_chimes.wav` 
 ---------------------------------------------
 
 `Tannoy chime 02.wav` by *kwahmah_02* 
@@ -178,6 +178,7 @@ TODO
   state key.
 * Make state variables available in actions.
 * Prevent actions from assigning to anything.
+* Restore template expansion of text in speech
 
 
 

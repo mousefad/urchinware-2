@@ -85,7 +85,7 @@ class Audio(Worker):
         """Play an audio file by id
 
         Arguments:
-        id - the file name without the preceding audio dir e.g. "creepy/toll.mp3"
+        id - the file name without the preceding audio dir e.g. "creepy/toll.wav"
         bg - if True, audio player is spawned and put in background, else play() will block
         volume - between 0.0 and 1.0
         """
@@ -114,7 +114,7 @@ class Audio(Worker):
         """Get the full path of an audio file from the id
 
         Arguments:
-        id - the file name without the preceding audio dir e.g. "creepy/toll.mp3"
+        id - the file name without the preceding audio dir e.g. "creepy/toll.wav"
         """
         for d in self.search_paths():
             path = os.path.join(d, id)
@@ -213,11 +213,11 @@ if __name__ == "__main__":
             log.info(f" {id}")
     log.info("play (blocking)")
     for _ in range(2):
-        Audio().play("cuckoo_chime.mp3", bg=False)
+        Audio().play("cuckoo_chime.wav", bg=False)
         time.sleep(0.75)
     log.info("play (non-blocking)")
     for _ in range(2):
-        Audio().play("cuckoo_chime.mp3", bg=True)
+        Audio().play("cuckoo_chime.wav", bg=True)
         time.sleep(0.75)
     Audio().stop()
     Audio().wait()
