@@ -2,6 +2,7 @@
 import logging
 import sys
 import os
+import ast
 
 # PIP-installed modues
 from singleton_decorator import singleton
@@ -337,6 +338,22 @@ if __name__ == "__main__":
         for id, mute in mute_switch_states.items():
             DB().config(id).mute_switch = mute
         DB().session.commit()
+
+        # syntax check actions in greetings and musings
+        def listing(prog):
+            s = ""
+            for n, line in enumerate(prog.splitlines(), start=1):
+                s += f"{n:2d}  {line}\n"
+            return s
+        for entity in (Greeting, Musing):
+            for rec in DB().session.query(entity).all():
+                try:
+                    desc = f"{entity.__name__} id={rec.id}"
+                    tree = ast.parse(rec.action)
+                    compile(tree, "<string>", "exec")
+                except Exception as e:
+                    log.error(f"{desc} bad action:\n{e}\n{listing(rec.action)}")
+
 
     commands = dict(
         [

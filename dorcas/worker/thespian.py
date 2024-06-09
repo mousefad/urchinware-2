@@ -94,21 +94,29 @@ def get_audio_files(subdir=None):
 @singleton
 class ActionRunner:
     """A class for compiling and executing action programs in a (hopefully) safe way."""
+    FunctionMap = {
+        "say": say,
+        "pause": pause,
+        "play": play,
+        "publish": publish,
+        "eyes": eyes,
+        "random": random.random,
+        "random_choice": random.choice,
+        "audio_files": get_audio_files,
+    }
     def run(self, act):
         try:
-            tree = ast.parse(act.program)
-            scope = copy.copy(act.state)
-            scope["say"] = say
-            scope["pause"] = pause
-            scope["play"] = play
-            scope["publish"] = publish
-            scope["eyes"] = eyes
-            scope["random"] = random.random
-            scope["random_choice"] = random.choice
-            scope["audio_files"] = get_audio_files
-            eval(compile(tree, "<string>", "exec"), {}, scope)
+            context = copy.deepcopy({} if act.state is None else act.state)
+            for k, v in self.FunctionMap.items():
+                context[k] = v
+            eval(self.compile(act.program), {}, context)
         except Exception as e:
-            log.exception(f"oopsie: {e}")
+            log.exception(f"while running action {act!r}")
+
+    def compile(self, program):
+        tree = ast.parse(program)
+        return compile(tree, "<string>", "exec")
+
 
 
 @singleton
