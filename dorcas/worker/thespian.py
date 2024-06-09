@@ -27,82 +27,31 @@ from dorcas.worker.mqttclient import MqttClient
 log = logging.getLogger(os.path.basename(sys.argv[0]))
 
 
-# Define the functions that can be called from Act programs...
-def say(text, voice="default"):
-    assert type(text) is str
-    assert type(voice) is str
-    Voice().say(text, voice)
-
-
-def pause(seconds):
-    assert type(seconds) in (int, float)
-    time.sleep(seconds)
-
-
-def play(path, bg=True, volume=1.0):
-    assert type(path) is str
-    assert not path.startswith("/"), "may not use absolute paths for audio files"
-    assert not re.search(r"(^|/)\.\./", path), "may not use .. in audio file paths"
-    found = None
-    for root in audio_search_paths():
-        candidate = os.path.join(root, path)
-        if os.path.exists(candidate):
-            found = candidate
-            break
-    log.info(f"play({path!r}) => {found!r}")
-    if found is None:
-        raise FileNotFoundError(path)
-    Audio().play(found, bg=bg, volume=volume)
-
-
-def audio_search_paths():
-    paths = list()
-    def add_path(p):
-        if p not in paths:
-            paths.append(p)
-    try:
-        [add_path(p) for p in os.environ["DORCAS_AUDIO_DIRS"].split(":")]
-    except:
-        pass
-    add_path(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "sample", "audio")))
-    log.info(f"audio_search_paths: {' '.join(paths)}")
-    return paths
-
-
-def publish(topic, message):
-    assert type(topic) is str
-    if message is None:
-        message = ""
-    assert type(message) is str
-    MqttClient.publish(topic, message)
-
-
-def eyes(final, duration=0.5):
-    Eyes().fade(final, duration, 21.0 / duration)
-
-
-def get_audio_files(subdir=None):
-    paths = set()
-    for d in audio_search_paths():
-        if subdir:
-            d = os.path.join(d, subdir)
-        for ext in (".mp3", ".wav", ".flac"):
-            [paths.add(p[len(d)-len(subdir):]) for p in glob.glob(os.path.join(d, f"*{ext}")) if os.path.isfile(p)]
-    return list(paths)
-    
-
 @singleton
 class ActionRunner:
     """A class for compiling and executing action programs in a (hopefully) safe way."""
+    def say(*args, **kwargs):
+        return Voice().say(*args, **kwargs)
+    def eyes(final, duration=0.5):
+        return Eyes().fade(final, duration, 21.0 / duration)
+    def play(*args, **kwargs):
+        return Audio().play(*args, **kwargs)
+    def audio_find(*args, **kwargs):
+        return Audio().find(*args, **kwargs)
+    def publish(*args, **kwargs):
+        return MqttClient().publish(*args, **kwargs)
+
     FunctionMap = {
         "say": say,
-        "pause": pause,
-        "play": play,
-        "publish": publish,
         "eyes": eyes,
+        "pause": time.sleep,
+        "play": play,
+        "audio_find": audio_find,
+        "publish": publish,
         "random": random.random,
+        "random_int": random.randint,
         "random_choice": random.choice,
-        "audio_files": get_audio_files,
+        "log": log.info,
     }
     def run(self, act):
         try:

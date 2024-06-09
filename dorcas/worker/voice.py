@@ -14,7 +14,6 @@ from singleton_decorator import singleton
 import arrow
 
 # Project modules
-from dorcas.getem import GeTem
 from dorcas.database import DB, Voice as VoiceTable
 from dorcas import database
 from dorcas.worker import Worker
@@ -139,14 +138,18 @@ class Voice(Worker):
             time.sleep(0.25)
         log.debug("Voice.run END")
 
-    def say(self, text, voice, state=None):
-        """queue up something to say. Voice changes should be 'in' the text with [directives]."""
+    def say(self, text, voice=None):
+        """queue up something to say.
+
+        Arguments:
+        text - in the language-appropriate for the voice in question.
+        voice - the id column from the VOICES table in the database to use
+        """
         if self.brain.get("silence"):
             log.debug("SILENCED")
             return
-        if state is None:
-            state = self.brain.state
-        text = GeTem(text)(state)
+        if voice is None or DB().session.get(VoiceTable, voice) is None:
+            voice = self.brain.config.voice_id
         self.queue.append((text, voice))
 
     
