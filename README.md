@@ -176,9 +176,8 @@ TODO
 * In silent mode, eyes should flicker.
 * Condition variable should support JSON PATH syntax for elements with a JSON value for a
   state key.
-* Make state variables available in actions.
-* Prevent actions from assigning to anything.
-* Restore template expansion of text in speech
+* Validate condition syntax on database load.
+
 
 
 
