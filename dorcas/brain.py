@@ -107,6 +107,7 @@ class Brain:
         start_message = {
             "system_time": str(self.get('boot_time')), 
         }
+        MqttClient().publish("nh/status/res", "Restart")
         self.handle_sensation(Sensation("nh/urchin/start", json.dumps(start_message)))
         for thing in self.workers + self.senses:
             thing.start()
@@ -123,6 +124,7 @@ class Brain:
         }
         self.handle_sensation(Sensation("nh/urchin/stop", json.dumps(stop_message)))
         time.sleep(1.0)
+        MqttClient().publish("nh/status/res", "Terminated")
 
         log.debug("requesing things stop")
         for thing in self.senses + self.workers:
