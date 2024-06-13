@@ -42,17 +42,10 @@ class DoorMonitor(Responder):
             door_name = state_id.replace("_", " number ")
 
         # update the state based on the event details
+        now = arrow.now()
         if state == "OPEN":
-            self.brain.set(state_id, {"name": door_name, "open": True, "open_since": arrow.now(), "notified": False})
+            self.brain.set(state_id, {"name": door_name, "open": True, "open_since": now, "last_notified": now, "notifications_left": 2})
         elif state in ("CLOSED", "LOCKED"):
-            old = self.brain.get(state_id)
-            open_for = None
-            if old and 'open_since' in old:
-                open_since = old.get('open_since')
-                if open_since is not None:
-                    open_for = arrow.now() - open_since
-                    open_for_str = duration_to_str(open_for)
-                    self.brain.experience(Sensation(f"nh/urchin/door/{door_id}/closed", f"was open for {open_for_str}"))
-            self.brain.set(state_id, {"name": door_name, "open": False, "open_since": None, "notified": False})
+            self.brain.set(state_id, {"name": door_name, "open": False, "open_since": None, "last_notified": None, "notifications_left": 0})
         return []
 

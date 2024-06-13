@@ -166,6 +166,7 @@ License: Attribution 3.0
 TODO
 ====
 
+* Don't talk when DonationBot is talking
 * Systemd .service unit file.
 * React to how busy the space is based on stuff like number of people in and out.
 * Greetings for people with bookings on tools, e.g. "your booking on the <thing>
@@ -174,8 +175,6 @@ TODO
 * Condition variable should support JSON PATH syntax for elements with a JSON value for a
   state key.
 * Validate condition syntax on database load.
-* Fix door sense (doesn't trigger door alerts)
-* Don't talk when DonationBot is talking
 
 
 
