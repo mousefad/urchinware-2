@@ -54,7 +54,7 @@ class Cronoception(ThreadedHalterSense):
     @property
     @cachetools.func.ttl_cache(ttl=23)
     def boredom_settings(self):
-        return Cronoception.BoredomSettings(self.brain.config.boredom_minimum, self.brain.config.boredom_minimum)
+        return Cronoception.BoredomSettings(self.brain.config.boredom_minimum, self.brain.config.boredom_amount)
 
     @property
     @cachetools.func.ttl_cache(ttl=23)

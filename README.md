@@ -174,8 +174,6 @@ TODO
 * Condition variable should support JSON PATH syntax for elements with a JSON value for a
   state key.
 * Validate condition syntax on database load.
-* Fix boredom delay (seems to be waiting minimum amount, but then immediately emiting
-  a boredom message
 * Fix door sense (doesn't trigger door alerts)
 * Don't talk when DonationBot is talking
 
