@@ -71,6 +71,10 @@ class ActionRunner:
 @singleton
 class Thespian(Worker):
     """Urchin's inner Thespian - for performing Act urges."""
+
+    # Lessen flooding...
+    MaxQueueLength = 3
+
     def __init__(self, brain):
         super().__init__(brain)
         self.queue = deque()
@@ -78,7 +82,8 @@ class Thespian(Worker):
 
     def add(self, act):
         # TODO: if current, and higher priority, interrupt
-        self.queue.append(act)
+        if len(self.queue) < self.MaxQueueLength:
+            self.queue.append(act)
 
     def run(self):
         log.debug("Thespian.run BEGIN")
@@ -90,15 +95,12 @@ class Thespian(Worker):
                     log.debug("Thespian.run joined a completed Act")
                     self.current = None
             if not self.current and len(self.queue) > 0:
+                self.join() # wait for any existing act to finish
                 act = self.queue.popleft()
                 log.debug(f"Thespian.run starting {act!r}")
                 self.current = threading.Thread(target=self.perform, args=(act,))
                 self.current.start()
-        if self.current:
-            log.info(f"Thespian.run waiting for current Act to end")
-            self.current.join()
-            self.current = None
-            log.info(f"Thespian.run last Act ended")
+        self.join()
         log.debug("Thespian.run END")
 
     def perform(self, act):
@@ -109,4 +111,8 @@ class Thespian(Worker):
         except Exception as e:
             log.exception("Thespian.perform EXCEPTION {act!r}")
 
+    def join(self):
+        if self.current:
+            self.current.join()
+            self.current = None
 

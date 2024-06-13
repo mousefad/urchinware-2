@@ -39,6 +39,10 @@ log = logging.getLogger(os.path.basename(sys.argv[0]))
 
 @singleton
 class Brain:
+
+    # Prevent flooding
+    MaxQueuedSensations = 3
+
     def __init__(self, config, mute_mqtt):
         self._state = {"mute_mqtt": mute_mqtt, "arrival": False}
         self.config = DB().config(config)
@@ -97,7 +101,8 @@ class Brain:
 
     def experience(self, sensation):
         # thread safe (I hope!)
-        self.sensations.append(sensation)
+        if len(self.sensations) < self.MaxQueuedSensations:
+            self.sensations.append(sensation)
 
     def stop(self):
         self.halt = True
