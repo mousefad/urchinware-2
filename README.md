@@ -44,15 +44,16 @@ Building & Running
     $ git clone https://github.com/mousefad/urchinware-2.git ~/dorcas
     $ cd ~/dorcas
     $ python -m venv .
+    $ . bin/activate
     $ pip install --upgrade pip
     $ pip install .
 ```
 
-3.  Decide where you want to put the config database, and set the `DORCAS_DATABASE`
-    environment variable. You'll want to add this to your shell init files too.
+3.  Set a couple of environment variables so the program can find relevant files:
 
 ```
     $ export DORCAS_DATABASE=~/dorcas/db.sqlite3
+    $ export DORCAS_AUDIO_DIRS=~/dorcas/audio
 ```
 
 4.  Generate a config database from the sample, `dorcas/sample/db.xml` (this file is a
@@ -104,7 +105,6 @@ defined by the `DORCAS_DATABASE` environment variable.
 Editing the spreadsheet and re-generating the SQLite database is a fairly convenient way to
 work, but you do you - edit that database however you like.
 
-
 Greetings
 ---------
 
@@ -134,7 +134,6 @@ evaluated as followed:
 3. From the remaining records select one musing randomly (weighted by the `WEIGHT` value).
 4. Perform the ACTION (see *Actions*, below).
 
-
 Actions
 -------
 
@@ -144,7 +143,6 @@ small number of functions are available in actions. These functions can be used 
 
 The can only call a very limited number of functions: `say`, `play`, `pause`, `publish`, `eyes`, 
 `random`.
-
 
 
 Acknowldgements & Copyright Notices
@@ -173,10 +171,13 @@ TODO
 * Greetings for people with bookings on tools, e.g. "your booking on the <thing>
   starts in 25 minutes."
 * Messing with the hackspace's train departures sign for fun and profit.
-* In silent mode, eyes should flicker.
 * Condition variable should support JSON PATH syntax for elements with a JSON value for a
   state key.
 * Validate condition syntax on database load.
+* Fix boredom delay (seems to be waiting minimum amount, but then immediately emiting
+  a boredom message
+* Fix door sense (doesn't trigger door alerts)
+* Don't talk when DonationBot is talking
 
 
 
