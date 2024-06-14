@@ -79,13 +79,14 @@ class Gob:
         """blocking utterances"""
         if self.is_talking:
             return False
+        exc = False
         try:
             self.is_talking = True
             self.last_text = text
             speech_cmd = make_speech_cmd(text, voice)
             effect_cmd = make_effect_cmd(voice.effect)
             self.brain.be_polite()
-            log.info(f"say v={voice.id!r} {text!r}")
+            log.info(f"saying v={voice.id!r} {text!r}")
             MqttClient().publish("nh/urchin/talking", "voice start")
             Eyes().on()
             log.debug(f"utter: speech cmd: {speech_cmd}")
@@ -97,6 +98,7 @@ class Gob:
             self.effect_proc.communicate()[0]
         except Exception as e:
             log.exception(f"exception while uttering utter")
+            exc = True
         finally:
             ok = True
             if self.speech_proc:
@@ -110,6 +112,7 @@ class Gob:
             Eyes().fade(0.05, 0.5, 25)
             self.is_talking = False
             MqttClient().publish("nh/urchin/said", text)
+            log.info(f"said{' [exc]' if exc else ''} v={voice.id!r} {text!r}")
             log.debug(f"utter END ok={ok}")
             return ok
 

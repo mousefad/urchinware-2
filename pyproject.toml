@@ -16,6 +16,7 @@ dependencies = [
     "click",
     "coloredlogs",
     "gpiozero",
+    "lgpio",
     "paho-mqtt",
     "singleton_decorator",
     "sqlalchemy",
