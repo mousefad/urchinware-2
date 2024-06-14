@@ -172,7 +172,8 @@ TODO
   starts in 25 minutes."
 * Messing with the hackspace's train departures sign for fun and profit.
 * Condition variable should support JSON PATH syntax for elements with a JSON value for a
-  state key.
+  state key, OR:
+* Convert the conditions to use an eval expr, to be more consistent with actions...
 * Validate condition syntax on database load.
 * Have Thespian wait for say() and play() to finish before ending.
   - add wait() function maybe, and have an implicit call to it at the end of each 

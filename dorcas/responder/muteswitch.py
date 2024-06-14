@@ -29,14 +29,14 @@ class MuteSwitch(Responder):
             return []
     
         if sensation.message == "Last Out":
-            self.brain.experience(Sensation("nh/urchin/silence", "yes"))
+            self.brain.experience(Sensation(self.brain.topic("silence"), "yes"))
             self.timer = Timer(5, lambda : self.brain.set_silence(True))
             self.timer.start()
         if sensation.message == "First In":
             if self.timer is not None:
                 self.timer.cancel()
             self.brain.set_silence(False)
-            self.brain.experience(Sensation("nh/urchin/silence", "no"))
+            self.brain.experience(Sensation(self.brain.topic("silence"), "no"))
 
         return []
 

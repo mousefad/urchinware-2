@@ -92,6 +92,8 @@ class Config(Base):
     broker = relationship("Broker")
     voice_id = Column(String, ForeignKey("voices.id"))
     voice = relationship("Voice")
+    mqtt_prefix	= Column(String, nullable=False)
+    instrument_id = Column(String, nullable=False)
     time_interval = Column(Float, nullable=False)
     journal_interval = Column(Float, nullable=False)
     boredom_minimum = Column(Integer, nullable=False)

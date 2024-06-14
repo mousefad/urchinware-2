@@ -82,7 +82,7 @@ class Cronoception(ThreadedHalterSense):
             seconds_since_utterance = (arrow.now() - last_utterance).seconds 
             if seconds_since_utterance > self.boredom_settings.min:
                 if random.random() < self.boredom_settings.amt:
-                    self.brain.experience(Sensation("nh/urchin/bored", seconds_since_utterance))
+                    self.brain.experience(Sensation(self.brain.topic("bored"), seconds_since_utterance))
 
     def clock(self, now):
         self.update_date(now.date())
@@ -97,7 +97,7 @@ class Cronoception(ThreadedHalterSense):
                 "month_name": Cronoception.MonthNames[now.month],
                 "special_day": self.special_day,
         }
-        self.brain.experience(Sensation("nh/urchin/time/now", json.dumps(data)))
+        self.brain.experience(Sensation(self.brain.topic("time/now"), json.dumps(data)))
         self.brain.set("special_day", self.special_day)
         if now.time() < datetime.time(hour=4):
             day_period = "night"

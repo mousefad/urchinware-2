@@ -96,7 +96,7 @@ class MqttClient(Worker):
         log.info(f"MQTT connect success")
 
     def cb_connect_fail(self, *args):
-        self.experience(Sensation("nh/urchin/error/mqtt", "connection to MQTT broker failed"))
+        self.experience(Sensation(self.brain.topic("error/mqtt"), "connection to MQTT broker failed"))
         log.error(f"MQTT connect failure")
 
     def cb_message(self, client, user_data, message, properties=None):

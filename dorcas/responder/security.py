@@ -18,7 +18,7 @@ class Security(Responder):
         urges = list()
         try:
             x = sensation.json
-            # if sensation.topic == "nh/urchin/os/login":
+            # if sensation.topic == self.brain.topic("os/login"):
             #     text = f"someone has logged into me from {x['from_hostname']}"
             #     urges.append(
             #         Act(
@@ -27,7 +27,7 @@ class Security(Responder):
             #             cause="Login detected",
             #         )
             #     )
-            if sensation.topic == "nh/urchin/os/portscan":
+            if sensation.topic == self.brain.topic("os/portscan"):
                 text = f"I'm getting port scanned from host {x['from_hostname']}."
                 urges.append(
                     Act(

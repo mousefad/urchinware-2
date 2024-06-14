@@ -19,5 +19,5 @@ class Instrumentation(Responder):
         if sensation.topic != "nh/status/req" or sensation.message != "STATUS":
             return []
         topic = "nh/status/res"
-        message = f"Running: {self.brain.get('instrument_id')}"
+        message = f"Running: {self.brain.config.instrument_id}"
         return [Publish(topic=topic, message=message, cause="status request", priority=Urge.High)]

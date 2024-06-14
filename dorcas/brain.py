@@ -45,8 +45,12 @@ class Brain:
     PoliteTimeout = 60
 
     def __init__(self, config, mute_mqtt):
-        self._state = {"mute_mqtt": mute_mqtt, "arrival": False, "yakkers": {}, "instrument_id": "Creepy Urchin"}
         self.config = DB().config(config)
+        self._state = {
+            "mute_mqtt": mute_mqtt, 
+            "arrival": False, 
+            "yakkers": {}, 
+        }
         self.set_silence(self.config.mute_switch)
         log.info(f"using config {config} ==> {self.config}")
         assert self.config
@@ -113,8 +117,8 @@ class Brain:
         start_message = {
             "system_time": str(self.get('boot_time')), 
         }
-        MqttClient().publish("nh/status/res", f"Restart: {self._state.get('instrument_id')}")
-        self.handle_sensation(Sensation("nh/urchin/start", json.dumps(start_message)))
+        MqttClient().publish("nh/status/res", f"Restart: {self.config.instrument_id}")
+        self.handle_sensation(Sensation(self.topic("start"), json.dumps(start_message)))
         for thing in self.workers + self.senses:
             thing.start()
 
@@ -128,9 +132,9 @@ class Brain:
             "uptime_text": self.uptime(),
             "uptime": self.get("uptime"),
         }
-        self.handle_sensation(Sensation("nh/urchin/stop", json.dumps(stop_message)))
+        self.handle_sensation(Sensation(self.topic("stop"), json.dumps(stop_message)))
         time.sleep(1.0)
-        MqttClient().publish("nh/status/res", f"Terminated: {self._state.get('instrument_id')}")
+        MqttClient().publish("nh/status/res", f"Terminated: {self.config.instrument_id}")
 
         log.debug("requesing things stop")
         for thing in self.senses + self.workers:
@@ -167,7 +171,7 @@ class Brain:
         DB().session.commit()
 
     def update_polite(self, topic):
-        if topic.startswith("nh/urchin/"):
+        if topic.startswith(self.config.mqtt_prefix + "/"):
             return
         if topic.endswith("/talking"):
             id = topic[:0-len("/talking")]
@@ -200,4 +204,9 @@ class Brain:
             self.be_polite()
         else:
             log.debug("No yakkers, my turn")
+
+    def topic(self, sub_topic):
+        """Make a topic with the correct prefix based on the config"""
+        assert type(sub_topic) is str and len(sub_topic) > 0, f"bad subtopic: {sub_topic}"
+        return self.config.mqtt_prefix + "/" + sub_topic.lstrip("/")
 

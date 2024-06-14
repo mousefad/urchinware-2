@@ -31,12 +31,12 @@ class Journal(ThreadedHalterSense):
     Matchers = [
         (
             re.compile(r"Accepted (\S+) for (\S+) from (\S+) "), 
-            "nh/urchin/os/login", 
+            "os/login", 
             lambda m: json.dumps({"method": m.group(1), "user": m.group(2), "from": m.group(3), "from_hostname": ip_to_hostname(m.group(3))})
         ),
         (   
             re.compile(r"scanlogd\[\d+\]: (\S+) to (\S+) "),
-            "nh/urchin/os/portscan",
+            "os/portscan",
             lambda m: json.dumps({"to": m.group(2), "from": m.group(1), "from_hostname": ip_to_hostname(m.group(1))})
         ),
     ]
@@ -84,11 +84,11 @@ class Journal(ThreadedHalterSense):
         log.debug("Journal.run END")
 
     def process_log_entry(self, line):
-        for rx, topic, fn in Journal.Matchers:
+        for rx, sub_topic, fn in Journal.Matchers:
             m = rx.search(line)
             if m:
-                log.debug(f"got a match topic={topic} {line!r}")
-                self.experience(Sensation(topic, fn(m)))
+                log.debug(f"got a match sub_topic={sub_topic} {line!r}")
+                self.experience(Sensation(self.brain.topic(sub_topic), fn(m)))
                 return
     
 

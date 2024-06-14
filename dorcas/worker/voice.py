@@ -64,7 +64,7 @@ class Gob:
         if self.is_talking:
             [x.kill() for x in (self.speech_proc, self.effect_proc) if x is not None]
             [x.wait() for x in (self.speech_proc, self.effect_proc) if x is not None]
-            self.brain.experience(Sensation("nh/urchin/interrupted", self.last_text))
+            self.brain.experience(Sensation(self.brain.topic("interrupted"), self.last_text))
             log.info("utterance interrupted")
         self.wait()
 
@@ -87,7 +87,7 @@ class Gob:
             effect_cmd = make_effect_cmd(voice.effect)
             self.brain.be_polite()
             log.info(f"saying v={voice.id!r} {text!r}")
-            MqttClient().publish("nh/urchin/talking", "voice start")
+            MqttClient().publish(self.brain.topic("talking"), "voice start")
             Eyes().on()
             log.debug(f"utter: speech cmd: {speech_cmd}")
             log.debug(f"utter: effect cmd: {effect_cmd}")
@@ -111,8 +111,8 @@ class Gob:
                     self.effect_proc = None
             Eyes().fade(0.05, 0.5, 25)
             self.is_talking = False
-            MqttClient().publish("nh/urchin/said", text)
-            log.info(f"said{' [exc]' if exc else ''} v={voice.id!r} {text!r}")
+            MqttClient().publish(self.brain.topic("said"), text)
+            log.info(f"said{' [exc]' if exc else ''}   v={voice.id!r} {text!r}")
             log.debug(f"utter END ok={ok}")
             return ok
 
