@@ -33,7 +33,7 @@ class Audio(Worker):
     def run(self):
         log.info(f"{self.__class__.__name__}.run BEGIN")
         while not self.halt:
-            time.sleep(0.5)
+            time.sleep(0.25)
             self.reap_players()
         if self.kill_on_halt:
             self.kill_players()

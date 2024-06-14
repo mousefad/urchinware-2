@@ -112,10 +112,10 @@ class Gob:
                 if self.effect_proc.wait() != 0:
                     ok = False
                     self.effect_proc = None
-            Eyes().fade(0.05, 0.5, 25)
             self.is_talking = False
             MqttClient().publish(self.brain.topic("said"), text)
             log.info(f"said{' [exc]' if exc else ''}   v={voice.id!r} {text!r}")
+            Eyes().fade(0.05, 0.5, 25)
             log.debug(f"utter END ok={ok}")
             return ok
 
