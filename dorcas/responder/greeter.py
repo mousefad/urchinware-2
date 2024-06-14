@@ -15,7 +15,7 @@ from dorcas.urge import Urge
 from dorcas.urge.act import Act
 
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 class Greeter(Responder):

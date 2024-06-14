@@ -7,11 +7,12 @@ from dorcas.urge import Urge
 from dorcas.urge.act import Act
 
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 class Time(Responder):
     def __init__(self, brain):
+        log.info(f"Responder {self.__class__.__name__}.__init__")
         super().__init__(brain)
 
     def __call__(self, sensation):

@@ -8,7 +8,7 @@ from dorcas.database import *
 from dorcas.worker.mqttclient import MqttClient
 
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 class Mqtt(Sense):

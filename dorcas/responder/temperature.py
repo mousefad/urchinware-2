@@ -5,12 +5,13 @@ import re
 import statistics
 from dorcas.responder import Responder
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 class Temperature(Responder):
     """This responder doesn't create and urges, but updates the brain state with the temperature of each room, and the median temp"""
     def __init__(self, brain):
+        log.info(f"Responder {self.__class__.__name__}.__init__")
         super().__init__(brain)
         self.temperatures = dict()
 

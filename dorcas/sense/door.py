@@ -13,7 +13,7 @@ from dorcas.sense import ThreadedHalterSense
 from dorcas.sense.time import duration_to_str
 from dorcas.worker.mqttclient import MqttClient
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 class Doorception(ThreadedHalterSense):
     def __init__(self, brain):

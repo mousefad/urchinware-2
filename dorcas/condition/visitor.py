@@ -8,7 +8,7 @@ from dorcas.condition.ConditionParser import ConditionParser
 from dorcas.condition.ConditionVisitor import *
 
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 class Visitor(ConditionVisitor):

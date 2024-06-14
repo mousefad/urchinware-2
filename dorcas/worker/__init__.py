@@ -6,7 +6,7 @@ import threading
 from abc import ABC, abstractmethod
 
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 class Worker(ABC):

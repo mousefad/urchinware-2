@@ -34,7 +34,7 @@ from dorcas.worker.thespian import Thespian
 from dorcas.worker.eyes import Eyes
 from dorcas.database import DB
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 @singleton
@@ -42,9 +42,10 @@ class Brain:
 
     # Prevent flooding
     MaxQueuedSensations = 3
+    PoliteTimeout = 60
 
     def __init__(self, config, mute_mqtt):
-        self._state = {"mute_mqtt": mute_mqtt, "arrival": False}
+        self._state = {"mute_mqtt": mute_mqtt, "arrival": False, "yakkers": {}, "instrument_id": "Creepy Urchin"}
         self.config = DB().config(config)
         self.set_silence(self.config.mute_switch)
         log.info(f"using config {config} ==> {self.config}")
@@ -100,7 +101,7 @@ class Brain:
         return old
 
     def experience(self, sensation):
-        # thread safe (I hope!)
+        self.update_polite(sensation.topic)
         if len(self.sensations) < self.MaxQueuedSensations:
             self.sensations.append(sensation)
 
@@ -112,7 +113,7 @@ class Brain:
         start_message = {
             "system_time": str(self.get('boot_time')), 
         }
-        MqttClient().publish("nh/status/res", "Restart")
+        MqttClient().publish("nh/status/res", f"Restart: {self._state.get('instrument_id')}")
         self.handle_sensation(Sensation("nh/urchin/start", json.dumps(start_message)))
         for thing in self.workers + self.senses:
             thing.start()
@@ -129,7 +130,7 @@ class Brain:
         }
         self.handle_sensation(Sensation("nh/urchin/stop", json.dumps(stop_message)))
         time.sleep(1.0)
-        MqttClient().publish("nh/status/res", "Terminated")
+        MqttClient().publish("nh/status/res", f"Terminated: {self._state.get('instrument_id')}")
 
         log.debug("requesing things stop")
         for thing in self.senses + self.workers:
@@ -164,3 +165,39 @@ class Brain:
         self._state["last_utterance"] = None
         self.config.mute_switch = new
         DB().session.commit()
+
+    def update_polite(self, topic):
+        if topic.startswith("nh/urchin/"):
+            return
+        if topic.endswith("/talking"):
+            id = topic[:0-len("/talking")]
+            if not self.is_talking(id):
+                log.debug(f"{id} began yakking")
+                self._state["yakkers"][id] = time.time()
+        elif topic.endswith("/said"):
+            id = topic[:0-len("/said")]
+            if id in self._state["yakkers"]:
+                start = self._state["yakkers"].pop(id)
+                log.debug(f"{id} was yakking for {time.time() - start:.1f} seconds")
+
+    def is_talking(self, id):
+        return id in self._state["yakkers"] and time.time() - self._state["yakkers"][id] < self.PoliteTimeout
+
+    def any_talking(self):
+        return sum([1 for x in self._state["yakkers"].keys() if self.is_talking(x)]) > 0
+
+    def be_polite(self):
+        waited = False
+        while self.any_talking():
+            if not waited:
+                log.debug("Politely waiting for yakkers to stop...")
+            waited = True
+            time.sleep(0.1) # don't spin the CPU at 100%
+        if waited:
+            # if there was anyone talking, add a bit of a pause before talking
+            # and check again in case someone else jumped in during that pause...
+            time.sleep(0.75)
+            self.be_polite()
+        else:
+            log.debug("No yakkers, my turn")
+

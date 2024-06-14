@@ -178,6 +178,8 @@ TODO
 * Have Thespian wait for say() and play() to finish before ending.
   - add wait() function maybe, and have an implicit call to it at the end of each 
     performance?
+* Remove hard-coded "nh/urchin" prefixes on MQTT messages - make configurable for
+  other silly devices to use.
 
 
 

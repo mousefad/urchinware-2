@@ -24,7 +24,8 @@ from dorcas.worker.audio import Audio
 from dorcas.worker.eyes import Eyes
 from dorcas.worker.mqttclient import MqttClient
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+
+log = logging.getLogger(__name__)
 
 
 @singleton
@@ -76,6 +77,7 @@ class Thespian(Worker):
     MaxQueueLength = 3
 
     def __init__(self, brain):
+        log.info(f"Worker {self.__class__.__name__}.__init__")
         super().__init__(brain)
         self.queue = deque()
         self.current = None 
@@ -86,7 +88,7 @@ class Thespian(Worker):
             self.queue.append(act)
 
     def run(self):
-        log.debug("Thespian.run BEGIN")
+        log.info(f"{self.__class__.__name__}.run BEGIN")
         while not self.halt:
             time.sleep(0.25)
             if self.current:
@@ -101,7 +103,7 @@ class Thespian(Worker):
                 self.current = threading.Thread(target=self.perform, args=(act,))
                 self.current.start()
         self.join()
-        log.debug("Thespian.run END")
+        log.info(f"{self.__class__.__name__}.run END")
 
     def perform(self, act):
         try:

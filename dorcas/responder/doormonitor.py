@@ -13,7 +13,7 @@ from dorcas.sense.time import duration_to_str
 from dorcas.sensation import Sensation
 
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 class DoorMonitor(Responder):
@@ -22,6 +22,7 @@ class DoorMonitor(Responder):
     MessageRx = re.compile(r"(OPEN|CLOSED|LOCKED)$")
 
     def __init__(self, brain):
+        log.info(f"Responder {self.__class__.__name__}.__init__")
         super().__init__(brain)
 
     def __call__(self, sensation):

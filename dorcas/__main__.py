@@ -16,7 +16,7 @@ import coloredlogs
 from dorcas.brain import Brain
 from dorcas.database import *
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 @click.command()

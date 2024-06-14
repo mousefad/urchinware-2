@@ -5,7 +5,7 @@ import sys
 import logging
 
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 class GeTem:

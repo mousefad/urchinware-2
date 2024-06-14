@@ -16,7 +16,7 @@ from singleton_decorator import singleton
 from dorcas import database
 from dorcas.worker import Worker
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 @singleton
@@ -24,12 +24,13 @@ class Audio(Worker):
     BackgroundPlayerLimit = 10
 
     def __init__(self, brain, kill_on_halt=True):
+        log.info(f"Worker {self.__class__.__name__}.__init__")
         super().__init__(brain)
         self.kill_on_halt = kill_on_halt
         self.players = list()
 
     def run(self):
-        log.debug("Audio.run BEGIN")
+        log.info(f"{self.__class__.__name__}.run BEGIN")
         while not self.halt:
             time.sleep(0.5)
             self.reap_players()
@@ -37,7 +38,7 @@ class Audio(Worker):
             self.kill_players()
         else:
             self.wait_for_players()
-        log.debug("Audio.run END")
+        log.info(f"{self.__class__.__name__}.run END")
 
     def reap_players(self):
         """reap any completed player processes"""
@@ -99,11 +100,13 @@ class Audio(Worker):
         log.debug(f"play path={path!r}")
         cmd = ["play", "-q", path, "vol", str(volume)]
         if not bg:
+            self.brain.be_polite()
             code = sp.run(cmd).returncode
             return code == 0
         if len(self.players) >= self.BackgroundPlayerLimit:
             return False
         try:
+            self.brain.be_polite()
             self.players.append((path, sp.Popen(cmd)))
         except Exception as e:
             log.debug(f"Audio.play exception={e}")

@@ -20,7 +20,7 @@ from dorcas.worker import Worker
 from dorcas.worker.eyes import Eyes
 from dorcas.worker.mqttclient import MqttClient
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 def make_speech_cmd(text, voice):
@@ -42,7 +42,9 @@ def make_effect_cmd(effect):
 @singleton
 class Gob:
     """The Gob is an interruptable utterer of text in a specified voice."""
-    def __init__(self):
+    def __init__(self, brain):
+        log.info(f"Worker {self.__class__.__name__}.__init__")
+        self.brain = brain
         self.is_talking = False
         self.speech_proc = None
         self.effect_proc = None
@@ -75,7 +77,6 @@ class Gob:
 
     def _utter(self, text, voice):
         """blocking utterances"""
-        log.info(f"say v={voice.id!r} {text!r}")
         if self.is_talking:
             return False
         try:
@@ -83,6 +84,8 @@ class Gob:
             self.last_text = text
             speech_cmd = make_speech_cmd(text, voice)
             effect_cmd = make_effect_cmd(voice.effect)
+            self.brain.be_polite()
+            log.info(f"say v={voice.id!r} {text!r}")
             MqttClient().publish("nh/urchin/talking", "voice start")
             Eyes().on()
             log.debug(f"utter: speech cmd: {speech_cmd}")
@@ -119,11 +122,13 @@ class Voice(Worker):
     to say, and split things into chunks with different characteristics."""
 
     def __init__(self, brain):
+        log.info(f"Worker {self.__class__.__name__}.__init__")
         super().__init__(brain)
+        Gob(brain) 
         self.queue = deque()
 
     def run(self):
-        log.debug("Voice.run START")
+        log.info(f"{self.__class__.__name__}.run BEGIN")
         while not self.halt:
             while len(self.queue) > 0:
                 try:
@@ -136,7 +141,7 @@ class Voice(Worker):
                 except Exception as e:
                     log.exception(f"when trying to speak with voice {voice_id!r}")
             time.sleep(0.25)
-        log.debug("Voice.run END")
+        log.info(f"{self.__class__.__name__}.run END")
 
     def say(self, text, voice=None):
         """queue up something to say.

@@ -16,7 +16,7 @@ from dorcas.sense import ThreadedHalterSense
 from dorcas.database import *
 
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 class Cronoception(ThreadedHalterSense):
     """The Time Sense annouces the passing of time, including details of special days."""
@@ -83,14 +83,6 @@ class Cronoception(ThreadedHalterSense):
             if seconds_since_utterance > self.boredom_settings.min:
                 if random.random() < self.boredom_settings.amt:
                     self.brain.experience(Sensation("nh/urchin/bored", seconds_since_utterance))
-
-    def open_door(self):
-        open_doors = filter(lambda x: x.get("open") and x.get('open_since') and not x.get("notified"), self.brain.doors())
-        log.info(f"un-notified open doors: {open_doors}")
-        for id, deets in open_doors.items():
-            open_dur = (arrow.now() - deets['open_since']).seconds
-            if open_dur > self.door_open_time:
-                self.brain.experience(Sensation("nh/urchin/bored", seconds_since_utterance))
 
     def clock(self, now):
         self.update_date(now.date())

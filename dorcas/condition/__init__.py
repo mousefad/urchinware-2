@@ -13,7 +13,7 @@ from dorcas.condition.ConditionParser import ConditionParser
 from dorcas.condition.visitor import Visitor
 
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 class EListener(ErrorListener):
     def __init__(self, condition_str, condition_id):

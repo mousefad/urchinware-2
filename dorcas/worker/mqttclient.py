@@ -14,13 +14,14 @@ from dorcas.database import *
 from dorcas.worker import Worker
 
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 @singleton
 class MqttClient(Worker):
     """MQTT client configured as per config in database"""
     def __init__(self, brain):
+        log.info(f"Worker {self.__class__.__name__}.__init__")
         self.brain = brain
         self.client = mqtt.Client(
             callback_api_version=mqtt.CallbackAPIVersion(2),
@@ -75,8 +76,10 @@ class MqttClient(Worker):
         pass
 
     def run(self):
+        log.info(f"{self.__class__.__name__}.run BEGIN")
         while not halt:
             time.sleep(1)
+        log.info(f"{self.__class__.__name__}.run END")
 
     def register_receiver(self, fn):
         self.receivers.add(fn)
@@ -90,11 +93,11 @@ class MqttClient(Worker):
             publish.single(topic, message, hostname=self.mqtt_host, port=self.mqtt_port)
 
     def cb_connect(self, *args):
-        log.info(f"MQTT connect success: {args}")
+        log.info(f"MQTT connect success")
 
     def cb_connect_fail(self, *args):
         self.experience(Sensation("nh/urchin/error/mqtt", "connection to MQTT broker failed"))
-        log.error(f"MQTT connect failure: {args}")
+        log.error(f"MQTT connect failure")
 
     def cb_message(self, client, user_data, message, properties=None):
         if len(self.receivers) == 0:

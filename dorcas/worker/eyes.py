@@ -13,7 +13,7 @@ from gpiozero import LED
 # Project modules
 
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 class FakeLED:
@@ -38,6 +38,7 @@ class Eyes:
     GpioPin = 17  # TODO: make this database config driven?
 
     def __init__(self, brain):
+        log.info(f"Worker {self.__class__.__name__}.__init__")
         self.brain = brain
         try:
             self.led = LED(self.GpioPin)
@@ -47,6 +48,7 @@ class Eyes:
         self.thread = None
         self.halt = None
         self.off()
+
 
     def __del__(self):
         # make sure we reap our fader thread if there is one

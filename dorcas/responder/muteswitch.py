@@ -9,7 +9,7 @@ from dorcas.responder import Responder
 from dorcas.sensation import Sensation
 
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 class MuteSwitch(Responder):
@@ -20,6 +20,7 @@ class MuteSwitch(Responder):
     the db.
     """
     def __init__(self, brain):
+        log.info(f"Responder {self.__class__.__name__}.__init__")
         super().__init__(brain)
         self.timer = None
 

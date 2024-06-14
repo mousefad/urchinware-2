@@ -13,7 +13,7 @@ from dorcas.sensation import Sensation
 from dorcas.sense import ThreadedHalterSense
 
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 
 def ip_to_hostname(ip):

@@ -19,7 +19,7 @@ from sqlalchemy import (
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 
-log = logging.getLogger(os.path.basename(sys.argv[0]))
+log = logging.getLogger(__name__)
 
 Base = declarative_base()
 
