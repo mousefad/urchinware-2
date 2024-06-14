@@ -10,6 +10,7 @@ log = logging.getLogger(__name__)
 
 class Responder(ABC):
     """Experiences Sensations, produces Urges."""
+
     def __init__(self, brain):
         self.brain = brain
 
@@ -17,5 +18,3 @@ class Responder(ABC):
     def __call__(self, sensation):
         """Returns a list of Urge objects."""
         pass
-
-

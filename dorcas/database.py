@@ -92,7 +92,7 @@ class Config(Base):
     broker = relationship("Broker")
     voice_id = Column(String, ForeignKey("voices.id"))
     voice = relationship("Voice")
-    mqtt_prefix	= Column(String, nullable=False)
+    mqtt_prefix = Column(String, nullable=False)
     instrument_id = Column(String, nullable=False)
     time_interval = Column(Float, nullable=False)
     journal_interval = Column(Float, nullable=False)
@@ -314,7 +314,9 @@ if __name__ == "__main__":
             tables = known_tables
         coloredlogs.install(level=logging.DEBUG)
         DB(database_path, debug=False)
-        mute_switch_states = {x.id : x.mute_switch for x in DB().session.query(Config).all()}
+        mute_switch_states = {
+            x.id: x.mute_switch for x in DB().session.query(Config).all()
+        }
         for what in tables:
             assert (
                 what in known_tables
@@ -347,6 +349,7 @@ if __name__ == "__main__":
             for n, line in enumerate(prog.splitlines(), start=1):
                 s += f"{n:2d}  {line}\n"
             return s
+
         for entity in (Greeting, Musing):
             for rec in DB().session.query(entity).all():
                 try:
@@ -355,7 +358,6 @@ if __name__ == "__main__":
                     compile(tree, "<string>", "exec")
                 except Exception as e:
                     log.error(f"{desc} bad action:\n{e}\n{listing(rec.action)}")
-
 
     commands = dict(
         [

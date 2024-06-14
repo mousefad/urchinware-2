@@ -20,6 +20,7 @@ log = logging.getLogger(__name__)
 @singleton
 class MqttClient(Worker):
     """MQTT client configured as per config in database"""
+
     def __init__(self, brain):
         log.info(f"Worker {self.__class__.__name__}.__init__")
         self.brain = brain
@@ -57,8 +58,8 @@ class MqttClient(Worker):
         log.debug(f"mqtt.start")
         code = self.client.connect(
             self.mqtt_host,
-            port=self.mqtt_port, 
-            keepalive=self.brain.config.broker.keep_alive
+            port=self.mqtt_port,
+            keepalive=self.brain.config.broker.keep_alive,
         )
         log.debug(f"connect code={code!r}")
         code = self.client.loop_start()
@@ -96,13 +97,21 @@ class MqttClient(Worker):
         log.info(f"MQTT connect success")
 
     def cb_connect_fail(self, *args):
-        self.experience(Sensation(self.brain.topic("error/mqtt"), "connection to MQTT broker failed"))
+        self.experience(
+            Sensation(
+                self.brain.topic("error/mqtt"), "connection to MQTT broker failed"
+            )
+        )
         log.error(f"MQTT connect failure")
 
     def cb_message(self, client, user_data, message, properties=None):
         if len(self.receivers) == 0:
             return
-        str_message = message.payload.decode() if type(message.payload) is bytes else str(message.payload)
+        str_message = (
+            message.payload.decode()
+            if type(message.payload) is bytes
+            else str(message.payload)
+        )
         desc = f"topic={message.topic!r} message={str_message!r}"
         if self.drop(message.topic, str_message):
             log.log(logging.DEBUG - 1, f"MQTT ignore message: {desc}")
@@ -117,4 +126,3 @@ class MqttClient(Worker):
             if trx.match(topic) and mrx.match(message):
                 return True
         return False
-

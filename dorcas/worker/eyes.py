@@ -49,7 +49,6 @@ class Eyes:
         self.halt = None
         self.off()
 
-
     def __del__(self):
         # make sure we reap our fader thread if there is one
         self.cancel_fade()

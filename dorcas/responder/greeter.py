@@ -20,6 +20,7 @@ log = logging.getLogger(__name__)
 
 class Greeter(Responder):
     """Produces one verbal greeting for members entering via the Door."""
+
     TopicFilter = "nh/gk/entry_announce/known"
     CandidateGreeting = namedtuple("CandidateGreeting", ["id", "weight", "action"])
     AgoPeriods = [
@@ -31,7 +32,9 @@ class Greeter(Responder):
 
     def __call__(self, sensation):
         # 1. check we will react to this sensation
-        if sensation.topic != Greeter.TopicFilter or not sensation.message.startswith("Door "):
+        if sensation.topic != Greeter.TopicFilter or not sensation.message.startswith(
+            "Door "
+        ):
             return []
 
         # 2. create augmented state with name of person who has arrived and so on
@@ -41,14 +44,24 @@ class Greeter(Responder):
             state["member_name"] = m.group(1)
             state["absense_message"] = self.get_absense_message(m.group(2))
         else:
-            log.warning("Greeter message regex failed to match for {sensation.message!r}")
+            log.warning(
+                "Greeter message regex failed to match for {sensation.message!r}"
+            )
             return []
 
         self.brain.set("arrival", True)
 
         # 3. filter list of greetings from database by condition
         candidates = list()
-        for id, rec in [(f"Greeting #{x.id}", x) for x in DB().session.query(Greeting).filter(or_(Greeting.member == state["member_name"], Greeting.member == None)).all()]:
+        for id, rec in [
+            (f"Greeting #{x.id}", x)
+            for x in DB()
+            .session.query(Greeting)
+            .filter(
+                or_(Greeting.member == state["member_name"], Greeting.member == None)
+            )
+            .all()
+        ]:
             if self.want(rec.condition, state, id):
                 candidate = self.CandidateGreeting(id, rec.weight, rec.action)
                 log.debug(f"adding candidate {candidate}")
@@ -59,7 +72,12 @@ class Greeter(Responder):
 
         # 4. select one of the filtered conditions using randomness + weights
         choice = random.choices(candidates, [x.weight for x in candidates])[0]
-        urge = Act(choice.action, cause=f"{choice.id} because {sensation}", priority=Urge.High, state=state)
+        urge = Act(
+            choice.action,
+            cause=f"{choice.id} because {sensation}",
+            priority=Urge.High,
+            state=state,
+        )
         log.debug(f"{choice.id} => {urge} in response to {sensation}")
         return [urge]
 

@@ -20,4 +20,8 @@ class Instrumentation(Responder):
             return []
         topic = "nh/status/res"
         message = f"Running: {self.brain.config.instrument_id}"
-        return [Publish(topic=topic, message=message, cause="status request", priority=Urge.High)]
+        return [
+            Publish(
+                topic=topic, message=message, cause="status request", priority=Urge.High
+            )
+        ]

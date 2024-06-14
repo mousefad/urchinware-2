@@ -19,6 +19,7 @@ class MuteSwitch(Responder):
     no way to know on startup what the switch state is, so startup state will be taken from
     the db.
     """
+
     def __init__(self, brain):
         log.info(f"Responder {self.__class__.__name__}.__init__")
         super().__init__(brain)
@@ -27,10 +28,10 @@ class MuteSwitch(Responder):
     def __call__(self, sensation):
         if sensation.topic != "nh/gk/LastManState":
             return []
-    
+
         if sensation.message == "Last Out":
             self.brain.experience(Sensation(self.brain.topic("silence"), "yes"))
-            self.timer = Timer(5, lambda : self.brain.set_silence(True))
+            self.timer = Timer(5, lambda: self.brain.set_silence(True))
             self.timer.start()
         if sensation.message == "First In":
             if self.timer is not None:
@@ -39,4 +40,3 @@ class MuteSwitch(Responder):
             self.brain.experience(Sensation(self.brain.topic("silence"), "no"))
 
         return []
-

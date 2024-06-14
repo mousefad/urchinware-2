@@ -26,14 +26,18 @@ log = logging.getLogger(__name__)
     type=str,
     default=None,
     help="Specify the configuration to use (defined in database/config table). "
-         "If none is specified, the hostname will be used as the config name.",
+    "If none is specified, the hostname will be used as the config name.",
 )
 @click.option("--debug", "-D", count=True, help="Produce more diagnostic output.")
-@click.option("--list-config", "-l", is_flag=True, help="List available configs and exit")
+@click.option(
+    "--list-config", "-l", is_flag=True, help="List available configs and exit"
+)
 @click.option(
     "--log-path", "-L", type=str, help="Log to specified file instead of stderr."
 )
-@click.option("--no-publish", "-p", is_flag=True, help="Do not publish activity on MQTT")
+@click.option(
+    "--no-publish", "-p", is_flag=True, help="Do not publish activity on MQTT"
+)
 @click.option("--quiet", "-q", count=True, help="Produce less diagnostic output.")
 @click.option("--verbose", "-v", is_flag=True, help="Be more verbose.")
 def main(config, debug, list_config, log_path, no_publish, quiet, verbose):
@@ -65,7 +69,9 @@ def main(config, debug, list_config, log_path, no_publish, quiet, verbose):
     [signal(x, sig_halt) for x in [SIGTERM, SIGHUP, SIGINT]]
     if config is None:
         config = socket.gethostname()
-        log.info(f"config selected from hostname: {config} ; use --config option to over-ride.")
+        log.info(
+            f"config selected from hostname: {config} ; use --config option to over-ride."
+        )
     Brain(config, mute_mqtt=no_publish).run()
     log.info("END")
 

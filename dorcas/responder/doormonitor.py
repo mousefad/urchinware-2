@@ -18,6 +18,7 @@ log = logging.getLogger(__name__)
 
 class DoorMonitor(Responder):
     """This responder records when the front door has been open and closed, and sets brain state"""
+
     TopicRx = re.compile(r"nh/gk/(\d+)/DoorState$")
     MessageRx = re.compile(r"(OPEN|CLOSED|LOCKED)$")
 
@@ -45,8 +46,25 @@ class DoorMonitor(Responder):
         # update the state based on the event details
         now = arrow.now()
         if state == "OPEN":
-            self.brain.set(state_id, {"name": door_name, "open": True, "open_since": now, "last_notified": now, "notifications_left": 2})
+            self.brain.set(
+                state_id,
+                {
+                    "name": door_name,
+                    "open": True,
+                    "open_since": now,
+                    "last_notified": now,
+                    "notifications_left": 2,
+                },
+            )
         elif state in ("CLOSED", "LOCKED"):
-            self.brain.set(state_id, {"name": door_name, "open": False, "open_since": None, "last_notified": None, "notifications_left": 0})
+            self.brain.set(
+                state_id,
+                {
+                    "name": door_name,
+                    "open": False,
+                    "open_since": None,
+                    "last_notified": None,
+                    "notifications_left": 0,
+                },
+            )
         return []
-

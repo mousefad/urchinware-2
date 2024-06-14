@@ -26,11 +26,11 @@ log = logging.getLogger(__name__)
 def make_speech_cmd(text, voice):
     """Get speech engine command"""
     cmd = [voice.engine]
-    cmd.extend(['-v', voice.voice])
-    cmd.extend(['-s', str(voice.speed)])
-    cmd.extend(['-p', str(voice.pitch)])
-    cmd.extend(['-a', str(voice.amplitude)])
-    cmd.extend(['-w', '/dev/stdout'])
+    cmd.extend(["-v", voice.voice])
+    cmd.extend(["-s", str(voice.speed)])
+    cmd.extend(["-p", str(voice.pitch)])
+    cmd.extend(["-a", str(voice.amplitude)])
+    cmd.extend(["-w", "/dev/stdout"])
     cmd.append(text)
     return cmd
 
@@ -42,6 +42,7 @@ def make_effect_cmd(effect):
 @singleton
 class Gob:
     """The Gob is an interruptable utterer of text in a specified voice."""
+
     def __init__(self, brain):
         log.info(f"Worker {self.__class__.__name__}.__init__")
         self.brain = brain
@@ -64,7 +65,9 @@ class Gob:
         if self.is_talking:
             [x.kill() for x in (self.speech_proc, self.effect_proc) if x is not None]
             [x.wait() for x in (self.speech_proc, self.effect_proc) if x is not None]
-            self.brain.experience(Sensation(self.brain.topic("interrupted"), self.last_text))
+            self.brain.experience(
+                Sensation(self.brain.topic("interrupted"), self.last_text)
+            )
             log.info("utterance interrupted")
         self.wait()
 
@@ -127,7 +130,7 @@ class Voice(Worker):
     def __init__(self, brain):
         log.info(f"Worker {self.__class__.__name__}.__init__")
         super().__init__(brain)
-        Gob(brain) 
+        Gob(brain)
         self.queue = deque()
 
     def run(self):
@@ -159,5 +162,3 @@ class Voice(Worker):
         if voice is None or DB().session.get(VoiceTable, voice) is None:
             voice = self.brain.config.voice_id
         self.queue.append((text, voice))
-
-    

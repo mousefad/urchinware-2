@@ -19,7 +19,11 @@ log = logging.getLogger(__name__)
 def ip_to_hostname(ip):
     try:
         p = sp.run(["dig", "-x", str(ip)], capture_output=True)
-        hostname = [x for x in p.stdout.decode().splitlines() if re.match(r"[0-9]", x)][0].split()[-1].rstrip(".")
+        hostname = (
+            [x for x in p.stdout.decode().splitlines() if re.match(r"[0-9]", x)][0]
+            .split()[-1]
+            .rstrip(".")
+        )
         assert len(hostname) > 0
         return hostname
     except:
@@ -28,16 +32,30 @@ def ip_to_hostname(ip):
 
 class Journal(ThreadedHalterSense):
     """The Journal Sense monitors the system journal (log), creating events when it sees certain log messages"""
+
     Matchers = [
         (
-            re.compile(r"Accepted (\S+) for (\S+) from (\S+) "), 
-            "os/login", 
-            lambda m: json.dumps({"method": m.group(1), "user": m.group(2), "from": m.group(3), "from_hostname": ip_to_hostname(m.group(3))})
+            re.compile(r"Accepted (\S+) for (\S+) from (\S+) "),
+            "os/login",
+            lambda m: json.dumps(
+                {
+                    "method": m.group(1),
+                    "user": m.group(2),
+                    "from": m.group(3),
+                    "from_hostname": ip_to_hostname(m.group(3)),
+                }
+            ),
         ),
-        (   
+        (
             re.compile(r"scanlogd\[\d+\]: (\S+) to (\S+) "),
             "os/portscan",
-            lambda m: json.dumps({"to": m.group(2), "from": m.group(1), "from_hostname": ip_to_hostname(m.group(1))})
+            lambda m: json.dumps(
+                {
+                    "to": m.group(2),
+                    "from": m.group(1),
+                    "from_hostname": ip_to_hostname(m.group(1)),
+                }
+            ),
         ),
     ]
 
@@ -52,11 +70,7 @@ class Journal(ThreadedHalterSense):
         if self.p:
             log.warning("Journal.start_subprocess: already present")
             return False
-        self.p = sp.Popen(
-                self.cmd, 
-                stdout=sp.PIPE, 
-                stderr=sp.PIPE, 
-                bufsize=0)
+        self.p = sp.Popen(self.cmd, stdout=sp.PIPE, stderr=sp.PIPE, bufsize=0)
         self.poll = select.poll()
         self.poll.register(self.p.stdout)
         return True
@@ -78,7 +92,7 @@ class Journal(ThreadedHalterSense):
                 line = self.p.stdout.readline()
                 if len(line) > 0:
                     self.process_log_entry(line.decode())
-            time.sleep(self.interval) 
+            time.sleep(self.interval)
         log.debug("Journal.main loop ended")
         self.stop_subprocess()
         log.debug("Journal.run END")
@@ -90,5 +104,3 @@ class Journal(ThreadedHalterSense):
                 log.debug(f"got a match sub_topic={sub_topic} {line!r}")
                 self.experience(Sensation(self.brain.topic(sub_topic), fn(m)))
                 return
-    
-

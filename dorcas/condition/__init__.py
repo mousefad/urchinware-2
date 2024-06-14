@@ -15,13 +15,17 @@ from dorcas.condition.visitor import Visitor
 
 log = logging.getLogger(__name__)
 
+
 class EListener(ErrorListener):
     def __init__(self, condition_str, condition_id):
         self.condition_str = condition_str
         self.condition_id = condition_id
 
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-        raise SyntaxError(f"ERROR {msg} at line {line} col {column} in {self.condition_str!r} (from {self.condition_str!r})")
+        raise SyntaxError(
+            f"ERROR {msg} at line {line} col {column} in {self.condition_str!r} (from {self.condition_str!r})"
+        )
+
 
 def evaluate_condition(condition_str, state, condition_id):
     try:
@@ -39,10 +43,12 @@ def evaluate_condition(condition_str, state, condition_id):
         log.error(str(e))
         return False
     except KeyError as e:
-        log.error(f"ERROR state var {e} not found in condition {condition_str!r} (from {condition_id})")
+        log.error(
+            f"ERROR state var {e} not found in condition {condition_str!r} (from {condition_id})"
+        )
         return False
     except Exception as e:
-        log.error(f"ERROR: {e} processing condition {condition_str!r} (from {condition_id})")
+        log.error(
+            f"ERROR: {e} processing condition {condition_str!r} (from {condition_id})"
+        )
         return False
-
-

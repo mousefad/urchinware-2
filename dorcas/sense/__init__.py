@@ -15,6 +15,7 @@ class Sense(ABC):
 
     When a sensation is created (e.g. an incoming event in MQTT), call self.brain.experience(sensation)
     """
+
     def __init__(self, brain):
         self.brain = brain
 
@@ -68,4 +69,3 @@ class ThreadedHalterSense(Sense):
             self.thread = None
             log.info(f"{self.__class__.__name__} END")
             return True
-

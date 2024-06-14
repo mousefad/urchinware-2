@@ -163,7 +163,7 @@ class Audio(Worker):
         ids = set()
         for d in self.subdirs():
             for id in self.find(subdir=d):
-                ids.add(os.path.join(d,id))
+                ids.add(os.path.join(d, id))
         return sorted(list(ids))
 
     def subdirs(self, searchstr=""):
@@ -209,6 +209,7 @@ class Audio(Worker):
 if __name__ == "__main__":
     import coloredlogs
     import random
+
     coloredlogs.install(level=logging.INFO)
     log.info("start test")
     dummy_brain = {}

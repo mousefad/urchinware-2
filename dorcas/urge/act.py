@@ -1,6 +1,7 @@
 from dorcas.urge import Urge
 from dorcas.worker.thespian import Thespian
 
+
 class Act(Urge):
     def __init__(self, program, cause, priority=Urge.Normal, state=dict()):
         super().__init__(cause, priority, state)
@@ -11,4 +12,3 @@ class Act(Urge):
 
     def perform(self):
         Thespian().add(self)
-

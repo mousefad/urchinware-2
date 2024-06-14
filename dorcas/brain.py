@@ -47,9 +47,9 @@ class Brain:
     def __init__(self, config, mute_mqtt):
         self.config = DB().config(config)
         self._state = {
-            "mute_mqtt": mute_mqtt, 
-            "arrival": False, 
-            "yakkers": {}, 
+            "mute_mqtt": mute_mqtt,
+            "arrival": False,
+            "yakkers": {},
         }
         self.set_silence(self.config.mute_switch)
         log.info(f"using config {config} ==> {self.config}")
@@ -77,22 +77,22 @@ class Brain:
         ]
 
         self.senses = [
-            Mqtt(self),             # primary sense of the world is via MQTT
-            Journal(self),          # watch system logs for interesting activity
-            Cronoception(self),     # notice the passage of time
-            Doorception(self),      # notice open doors
+            Mqtt(self),  # primary sense of the world is via MQTT
+            Journal(self),  # watch system logs for interesting activity
+            Cronoception(self),  # notice the passage of time
+            Doorception(self),  # notice open doors
         ]
 
-        self.set('boot_time', arrow.now())
+        self.set("boot_time", arrow.now())
 
     @property
     def state(self):
-        self._state['uptime'] = (arrow.now() - self._state['boot_time']).seconds
-        self._state['random'] = random.random()
+        self._state["uptime"] = (arrow.now() - self._state["boot_time"]).seconds
+        self._state["random"] = random.random()
         return self._state
 
     def uptime(self):
-        return duration_to_str(arrow.now() - self.get('boot_time'))
+        return duration_to_str(arrow.now() - self.get("boot_time"))
 
     def get(self, var, default=None):
         value = self.state.get(var)
@@ -115,7 +115,7 @@ class Brain:
     def run(self):
         """A blocking function that runs the show"""
         start_message = {
-            "system_time": str(self.get('boot_time')), 
+            "system_time": str(self.get("boot_time")),
         }
         MqttClient().publish("nh/status/res", f"Restart: {self.config.instrument_id}")
         self.handle_sensation(Sensation(self.topic("start"), json.dumps(start_message)))
@@ -128,13 +128,15 @@ class Brain:
                 self.handle_sensation(self.sensations.popleft())
             time.sleep(self.get("tick_time", 0.5))
         stop_message = {
-            "system_time": str(self.get('boot_time')), 
+            "system_time": str(self.get("boot_time")),
             "uptime_text": self.uptime(),
             "uptime": self.get("uptime"),
         }
         self.handle_sensation(Sensation(self.topic("stop"), json.dumps(stop_message)))
         time.sleep(1.0)
-        MqttClient().publish("nh/status/res", f"Terminated: {self.config.instrument_id}")
+        MqttClient().publish(
+            "nh/status/res", f"Terminated: {self.config.instrument_id}"
+        )
 
         log.debug("requesing things stop")
         for thing in self.senses + self.workers:
@@ -174,18 +176,21 @@ class Brain:
         if topic.startswith(self.config.mqtt_prefix + "/"):
             return
         if topic.endswith("/talking"):
-            id = topic[:0-len("/talking")]
+            id = topic[: 0 - len("/talking")]
             if not self.is_talking(id):
                 log.debug(f"{id} began yakking")
                 self._state["yakkers"][id] = time.time()
         elif topic.endswith("/said"):
-            id = topic[:0-len("/said")]
+            id = topic[: 0 - len("/said")]
             if id in self._state["yakkers"]:
                 start = self._state["yakkers"].pop(id)
                 log.debug(f"{id} was yakking for {time.time() - start:.1f} seconds")
 
     def is_talking(self, id):
-        return id in self._state["yakkers"] and time.time() - self._state["yakkers"][id] < self.PoliteTimeout
+        return (
+            id in self._state["yakkers"]
+            and time.time() - self._state["yakkers"][id] < self.PoliteTimeout
+        )
 
     def any_talking(self):
         return sum([1 for x in self._state["yakkers"].keys() if self.is_talking(x)]) > 0
@@ -196,7 +201,7 @@ class Brain:
             if not waited:
                 log.debug("Politely waiting for yakkers to stop...")
             waited = True
-            time.sleep(0.1) # don't spin the CPU at 100%
+            time.sleep(0.1)  # don't spin the CPU at 100%
         if waited:
             # if there was anyone talking, add a bit of a pause before talking
             # and check again in case someone else jumped in during that pause...
@@ -207,6 +212,7 @@ class Brain:
 
     def topic(self, sub_topic):
         """Make a topic with the correct prefix based on the config"""
-        assert type(sub_topic) is str and len(sub_topic) > 0, f"bad subtopic: {sub_topic}"
+        assert (
+            type(sub_topic) is str and len(sub_topic) > 0
+        ), f"bad subtopic: {sub_topic}"
         return self.config.mqtt_prefix + "/" + sub_topic.lstrip("/")
-

@@ -31,14 +31,19 @@ log = logging.getLogger(__name__)
 @singleton
 class ActionRunner:
     """A class for compiling and executing action programs in a (hopefully) safe way."""
+
     def say(*args, **kwargs):
         return Voice().say(*args, **kwargs)
+
     def eyes(final, duration=0.5):
         return Eyes().fade(final, duration, 21.0 / duration)
+
     def play(*args, **kwargs):
         return Audio().play(*args, **kwargs)
+
     def audio_find(*args, **kwargs):
         return Audio().find(*args, **kwargs)
+
     def publish(*args, **kwargs):
         return MqttClient().publish(*args, **kwargs)
 
@@ -54,6 +59,7 @@ class ActionRunner:
         "random_choice": random.choice,
         "log": log.info,
     }
+
     def run(self, act):
         try:
             context = copy.deepcopy({} if act.state is None else act.state)
@@ -68,7 +74,6 @@ class ActionRunner:
         return compile(tree, "<string>", "exec")
 
 
-
 @singleton
 class Thespian(Worker):
     """Urchin's inner Thespian - for performing Act urges."""
@@ -80,7 +85,7 @@ class Thespian(Worker):
         log.info(f"Worker {self.__class__.__name__}.__init__")
         super().__init__(brain)
         self.queue = deque()
-        self.current = None 
+        self.current = None
 
     def add(self, act):
         # TODO: if current, and higher priority, interrupt
@@ -97,7 +102,7 @@ class Thespian(Worker):
                     log.debug("Thespian.run joined a completed Act")
                     self.current = None
             if not self.current and len(self.queue) > 0:
-                self.join() # wait for any existing act to finish
+                self.join()  # wait for any existing act to finish
                 act = self.queue.popleft()
                 log.debug(f"Thespian.run starting {act!r}")
                 self.current = threading.Thread(target=self.perform, args=(act,))
@@ -117,4 +122,3 @@ class Thespian(Worker):
         if self.current:
             self.current.join()
             self.current = None
-

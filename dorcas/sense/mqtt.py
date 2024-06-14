@@ -13,6 +13,7 @@ log = logging.getLogger(__name__)
 
 class Mqtt(Sense):
     """The Mqtt Sense creates a sensation for every MQTT message that it observes"""
+
     def __init__(self, brain):
         super().__init__(brain)
 
@@ -26,5 +27,3 @@ class Mqtt(Sense):
 
     def wait(self):
         pass
-
-

@@ -18,32 +18,35 @@ from dorcas.database import *
 
 log = logging.getLogger(__name__)
 
+
 class Cronoception(ThreadedHalterSense):
     """The Time Sense annouces the passing of time, including details of special days."""
+
     WeekdayNames = {
-            0: "Monday",
-            1: "Tuesday",
-            2: "Wednesday",
-            3: "Thursday",
-            4: "Friday",
-            5: "Saturday",
-            6: "Sunday",
+        0: "Monday",
+        1: "Tuesday",
+        2: "Wednesday",
+        3: "Thursday",
+        4: "Friday",
+        5: "Saturday",
+        6: "Sunday",
     }
     MonthNames = {
-            1: "January",
-            2: "February",
-            3: "March",
-            4: "April",
-            5: "May",
-            6: "June",
-            7: "July",
-            8: "August",
-            9: "September",
-            10: "October",
-            11: "November",
-            12: "December",
+        1: "January",
+        2: "February",
+        3: "March",
+        4: "April",
+        5: "May",
+        6: "June",
+        7: "July",
+        8: "August",
+        9: "September",
+        10: "October",
+        11: "November",
+        12: "December",
     }
     BoredomSettings = namedtuple("BoredomSettings", ["min", "amt"])
+
     def __init__(self, brain):
         super().__init__(brain)
         self.interval = self.brain.config.time_interval
@@ -54,7 +57,9 @@ class Cronoception(ThreadedHalterSense):
     @property
     @cachetools.func.ttl_cache(ttl=23)
     def boredom_settings(self):
-        return Cronoception.BoredomSettings(self.brain.config.boredom_minimum, self.brain.config.boredom_amount)
+        return Cronoception.BoredomSettings(
+            self.brain.config.boredom_minimum, self.brain.config.boredom_amount
+        )
 
     @property
     @cachetools.func.ttl_cache(ttl=23)
@@ -77,25 +82,27 @@ class Cronoception(ThreadedHalterSense):
 
     def boredom(self, now):
         # Boredom
-        last_utterance = self.brain.get('last_utterance')
+        last_utterance = self.brain.get("last_utterance")
         if last_utterance is not None:
-            seconds_since_utterance = (arrow.now() - last_utterance).seconds 
+            seconds_since_utterance = (arrow.now() - last_utterance).seconds
             if seconds_since_utterance > self.boredom_settings.min:
                 if random.random() < self.boredom_settings.amt:
-                    self.brain.experience(Sensation(self.brain.topic("bored"), seconds_since_utterance))
+                    self.brain.experience(
+                        Sensation(self.brain.topic("bored"), seconds_since_utterance)
+                    )
 
     def clock(self, now):
         self.update_date(now.date())
         data = {
-                "year": now.year,
-                "month": now.month,
-                "dom": now.day,
-                "hour": now.hour,
-                "minute": now.minute,
-                "second": now.second,
-                "day_name": Cronoception.WeekdayNames[now.weekday()],
-                "month_name": Cronoception.MonthNames[now.month],
-                "special_day": self.special_day,
+            "year": now.year,
+            "month": now.month,
+            "dom": now.day,
+            "hour": now.hour,
+            "minute": now.minute,
+            "second": now.second,
+            "day_name": Cronoception.WeekdayNames[now.weekday()],
+            "month_name": Cronoception.MonthNames[now.month],
+            "special_day": self.special_day,
         }
         self.brain.experience(Sensation(self.brain.topic("time/now"), json.dumps(data)))
         self.brain.set("special_day", self.special_day)
@@ -115,13 +122,24 @@ class Cronoception(ThreadedHalterSense):
         if date == self.last_date:
             return
         self.last_date = date
-        sd = DB().session.query(SpecialDay).filter(and_(SpecialDay.month==date.month, SpecialDay.day==date.day, or_(SpecialDay.year==None, SpecialDay.year==date.year))).first()
+        sd = (
+            DB()
+            .session.query(SpecialDay)
+            .filter(
+                and_(
+                    SpecialDay.month == date.month,
+                    SpecialDay.day == date.day,
+                    or_(SpecialDay.year == None, SpecialDay.year == date.year),
+                )
+            )
+            .first()
+        )
         self.special_day = sd.name if sd else None
 
 
 def duration_to_str(dur):
     hours = dur.seconds // 3600
-    minutes = (dur.seconds-(hours*3600)) // 60
+    minutes = (dur.seconds - (hours * 3600)) // 60
     seconds = dur.seconds % 60
     a = list()
     if dur.days > 0:
@@ -132,5 +150,4 @@ def duration_to_str(dur):
         a.append(f"{minutes} minute{'s' if minutes > 1 else ''}")
     if seconds > 0:
         a.append(f"{seconds} second{'s' if seconds > 1 else ''}")
-    return ', '.join(a)
-    
+    return ", ".join(a)

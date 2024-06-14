@@ -22,8 +22,8 @@ class Time(Responder):
 
         try:
             data = sensation.json
-            if data['minute'] == 0:
-                urges.extend(self.on_the_hour(data['hour']))
+            if data["minute"] == 0:
+                urges.extend(self.on_the_hour(data["hour"]))
         except Exception as e:
             log.exception(f"while responding to the time: {sensation}")
         return urges
@@ -40,10 +40,8 @@ class Time(Responder):
             text = f"It's 6 o clock, what's for tea?"
         else:
             text = f"It's {bongs} o clock."
-        program =  f"for _ in range({bongs}):\n"
+        program = f"for _ in range({bongs}):\n"
         program += f"    play('cuckoo_chime.wav', bg=True)\n"
         program += f"    pause({random.randrange(700, 800) / 1000.0})\n"
         program += f"say({text!r})\n"
         return [Act(program, cause=f"Time is {hour:02d}:00", priority=Urge.Normal)]
-
-

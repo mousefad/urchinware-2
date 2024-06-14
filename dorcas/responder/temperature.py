@@ -10,6 +10,7 @@ log = logging.getLogger(__name__)
 
 class Temperature(Responder):
     """This responder doesn't create and urges, but updates the brain state with the temperature of each room, and the median temp"""
+
     def __init__(self, brain):
         log.info(f"Responder {self.__class__.__name__}.__init__")
         super().__init__(brain)
@@ -25,8 +26,12 @@ class Temperature(Responder):
             description = self.temperature_description(median)
             self.brain.set("temperature_median", median)
             self.brain.set("temperature_description", description)
-            self.brain.set("temperature_coldest", "%s at %s Celcius" % self.coldest_room())
-            self.brain.set("temperature_hottest", "%s at %s Celcius" % self.hottest_room())
+            self.brain.set(
+                "temperature_coldest", "%s at %s Celcius" % self.coldest_room()
+            )
+            self.brain.set(
+                "temperature_hottest", "%s at %s Celcius" % self.hottest_room()
+            )
         except Exception as e:
             log.exception(f"Temp: while handling temperature {sensation}")
         return []
@@ -43,7 +48,7 @@ class Temperature(Responder):
         if s != "3 D Printing":
             s = "The " + s
         return s
-        
+
     def median_temperature(self):
         return round(statistics.median(self.temperatures.values()), 1)
 
@@ -74,4 +79,3 @@ class Temperature(Responder):
             if hottest[1] is None or hottest[1] < temp:
                 hottest = (room, temp)
         return hottest
-

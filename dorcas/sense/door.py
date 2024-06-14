@@ -15,6 +15,7 @@ from dorcas.worker.mqttclient import MqttClient
 
 log = logging.getLogger(__name__)
 
+
 class Doorception(ThreadedHalterSense):
     def __init__(self, brain):
         super().__init__(brain)
@@ -37,11 +38,17 @@ class Doorception(ThreadedHalterSense):
             if door["notifications_left"] <= 0:
                 return
             now = arrow.now()
-            if (now - door["last_notified"]).seconds >= self.brain.config.door_open_seconds:
+            if (
+                now - door["last_notified"]
+            ).seconds >= self.brain.config.door_open_seconds:
                 time_open = duration_to_str(now - door["open_since"])
-                self.brain.experience(Sensation(self.brain.topic("door-left-open"), f"{door['name']} has been open for {time_open}"))
+                self.brain.experience(
+                    Sensation(
+                        self.brain.topic("door-left-open"),
+                        f"{door['name']} has been open for {time_open}",
+                    )
+                )
                 door["last_notified"] = now
                 door["notifications_left"] -= 1
         except:
             log.error(f"Doorception problem", exc_info=True)
-
