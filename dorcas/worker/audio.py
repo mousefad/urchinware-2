@@ -15,6 +15,7 @@ from singleton_decorator import singleton
 # Project modules
 from dorcas import database
 from dorcas.worker import Worker
+from dorcas.worker.mqttclient import MqttClient
 
 log = logging.getLogger(__name__)
 
@@ -46,6 +47,7 @@ class Audio(Worker):
         for path, p in self.players:
             if p and p.poll() is not None:
                 log.debug(f"Audio.reap_players reaped path={path} status={p.wait()}")
+                MqttClient().publish("nh/urchin/audio/end", path)
             else:
                 keep.append((path, p))
         self.players = keep
@@ -101,13 +103,16 @@ class Audio(Worker):
         cmd = ["play", "-q", path, "vol", str(volume)]
         if not bg:
             self.brain.be_polite()
+            MqttClient().publish("nh/urchin/audio/begin", id)
             code = sp.run(cmd).returncode
+            MqttClient().publish("nh/urchin/audio/end", id)
             return code == 0
         if len(self.players) >= self.BackgroundPlayerLimit:
             return False
         try:
             self.brain.be_polite()
-            self.players.append((path, sp.Popen(cmd)))
+            MqttClient().publish("nh/urchin/audio/begin", id)
+            self.players.append((id, sp.Popen(cmd)))
         except Exception as e:
             log.debug(f"Audio.play exception={e}")
             return False
