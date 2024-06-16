@@ -352,12 +352,17 @@ if __name__ == "__main__":
 
         for entity in (Greeting, Musing):
             for rec in DB().session.query(entity).all():
+                desc = f"{entity.__name__} id={rec.id}"
                 try:
-                    desc = f"{entity.__name__} id={rec.id}"
                     tree = ast.parse(rec.action)
                     compile(tree, "<string>", "exec")
                 except Exception as e:
                     log.error(f"{desc} bad action:\n{e}\n{listing(rec.action)}")
+                try:
+                    if rec.condition:
+                        compile(rec.condition, "<string>", "eval")
+                except Exception as e:
+                    log.error(f"{desc} bad condition:\n{e}\n{listing(rec.condition)}")
 
     commands = dict(
         [
