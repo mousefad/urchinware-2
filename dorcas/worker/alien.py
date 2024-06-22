@@ -8,7 +8,6 @@ from math import exp
 
 # PIP-installed modules
 from singleton_decorator import singleton
-from gpiozero import LED
 
 # Project modules
 from dorcas.worker import ServoFader

@@ -14,8 +14,6 @@ dependencies = [
     "cachetools",
     "click",
     "coloredlogs",
-    "gpiozero",
-    "lgpio",
     "paho-mqtt",
     "pigpio",
     "singleton_decorator",
