@@ -45,7 +45,7 @@ class Greeter(Responder):
             state["absense_message"] = self.get_absense_message(m.group(2))
         else:
             log.warning(
-                "Greeter message regex failed to match for {sensation.message!r}"
+                f"Greeter message regex failed to match for {sensation.message!r}"
             )
             return []
 
