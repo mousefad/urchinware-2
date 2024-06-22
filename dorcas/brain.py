@@ -32,6 +32,7 @@ from dorcas.worker.voice import Voice
 from dorcas.worker.audio import Audio
 from dorcas.worker.thespian import Thespian
 from dorcas.worker.eyes import Eyes
+from dorcas.worker.alien import Alien
 from dorcas.database import DB
 
 log = logging.getLogger(__name__)
@@ -63,6 +64,7 @@ class Brain:
             Audio(self),
             Thespian(self),
             Eyes(self),
+            Alien(self),
         ]
 
         self.responders = [

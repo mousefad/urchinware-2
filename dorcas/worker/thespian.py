@@ -22,6 +22,7 @@ from dorcas.worker import Worker
 from dorcas.worker.voice import Voice
 from dorcas.worker.audio import Audio
 from dorcas.worker.eyes import Eyes
+from dorcas.worker.alien import Alien
 from dorcas.worker.mqttclient import MqttClient
 
 
@@ -31,33 +32,40 @@ log = logging.getLogger(__name__)
 @singleton
 class ActionRunner:
     """A class for compiling and executing action programs in a (hopefully) safe way."""
+    def alien_show(*args, **kwargs):
+        return Alien().show(*args, **kwargs)
 
-    def say(*args, **kwargs):
-        return Voice().say(*args, **kwargs)
-
-    def eyes(final, duration=0.5):
-        return Eyes().fade(final, duration, 21.0 / duration)
-
-    def play(*args, **kwargs):
-        return Audio().play(*args, **kwargs)
+    def alien_hide(*args, **kwargs):
+        return Alien().hide(*args, **kwargs)
 
     def audio_find(*args, **kwargs):
         return Audio().find(*args, **kwargs)
 
+    def eyes(final, duration=0.5):
+        return Eyes().fade_to(final, duration)
+
+    def play(*args, **kwargs):
+        return Audio().play(*args, **kwargs)
+
     def publish(*args, **kwargs):
         return MqttClient().publish(*args, **kwargs)
 
+    def say(*args, **kwargs):
+        return Voice().say(*args, **kwargs)
+
     FunctionMap = {
-        "say": say,
+        "alien_show": alien_show,
+        "alien_hide": alien_hide,
+        "audio_find": audio_find,
         "eyes": eyes,
+        "log": log.info,
         "pause": time.sleep,
         "play": play,
-        "audio_find": audio_find,
         "publish": publish,
-        "random": random.random,
-        "random_int": random.randint,
         "random_choice": random.choice,
-        "log": log.info,
+        "random_int": random.randint,
+        "random": random.random,
+        "say": say,
     }
 
     def run(self, act):

@@ -17,6 +17,7 @@ dependencies = [
     "gpiozero",
     "lgpio",
     "paho-mqtt",
+    "pigpio",
     "singleton_decorator",
     "sqlalchemy",
 ]

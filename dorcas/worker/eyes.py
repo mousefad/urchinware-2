@@ -11,47 +11,22 @@ from singleton_decorator import singleton
 from gpiozero import LED
 
 # Project modules
+from dorcas.worker import LedFader
 
 
 log = logging.getLogger(__name__)
 
 
-class FakeLED:
-    def __init__(self, *args):
-        pass
-
-    def off(self):
-        pass
-
-    def on(self):
-        pass
-
-    def blink(self, *args):
-        pass
-
-
 @singleton
-class Eyes:
+class Eyes(LedFader):
     """For making the eyes glow"""
-
-    LinearScaleFactor = 4
-    GpioPin = 17  # TODO: make this database config driven?
+    Pin = 17 
 
     def __init__(self, brain):
         log.info(f"Worker {self.__class__.__name__}.__init__")
-        self.brain = brain
-        try:
-            self.led = LED(self.GpioPin)
-        except:
-            log.warning("failed to use GPIO pin for LED, eyes will be disabled.")
-            self.led = FakeLED()
-        self.thread = None
-        self.halt = None
-        self.off()
-
-    def __del__(self):
-        # make sure we reap our fader thread if there is one
-        self.cancel_fade()
+        super().__init__(self.Pin)
+        self.brain = brain 
+        self.set(0)
 
     def start(self):
         pass
@@ -61,67 +36,3 @@ class Eyes:
 
     def wait(self):
         pass
-
-    def cancel_fade(self):
-        if self.thread:
-            self.halt = True
-            self.thread.join()
-
-    def on(self):
-        self.cancel_fade()
-        self._on()
-
-    def _on(self):
-        self.led.on()
-        self.intensity = 1.0
-
-    def off(self):
-        self.cancel_fade()
-        self._off()
-
-    def _off(self):
-        self.led.off()
-        self.intensity = 0.0
-
-    def fade_on(self, duration=0.5, steps=25):
-        self.fade(1.0, duration, steps)
-
-    def fade_off(self, duration=0.5, steps=25):
-        self.fade(0.0, duration, steps)
-
-    def fade(self, final, duration, steps, initial=None):
-        if initial is None:
-            initial = self.intensity
-        self.cancel_fade()
-        self.thread = threading.Thread(
-            target=self._fade, args=(final, duration, steps, initial)
-        )
-        self.thread.start()
-
-    def _fade(self, final, duration, steps, initial):
-        step_size = (final - initial) / steps
-        step_duration = duration / steps
-        self.halt = False
-        for i in range(steps):
-            if self.halt:
-                return
-            self.set_intensity(initial + (i * step_size))
-            time.sleep(step_duration)
-        self.set_intensity(final)
-
-    def set_intensity(self, intensity):
-        assert type(intensity) is float
-        assert intensity >= -0.001 and intensity <= 1.001
-        if intensity < 0.001:
-            self._off()
-            return
-        elif intensity > 0.999:
-            self._on()
-            return
-        on_time = self.intensity_to_pwm(intensity) / 200.0
-        off_time = self.intensity_to_pwm(1.0 - intensity) / 200.0
-        self.led.blink(on_time, off_time, None)
-        self.intensity = intensity
-
-    def intensity_to_pwm(self, lin_value):
-        return exp(lin_value * self.LinearScaleFactor) / exp(self.LinearScaleFactor)

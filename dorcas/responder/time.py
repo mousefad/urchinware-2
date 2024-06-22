@@ -42,6 +42,9 @@ class Time(Responder):
             text = f"It's {bongs} o clock."
         program = f"for _ in range({bongs}):\n"
         program += f"    play('cuckoo_chime.wav', bg=True)\n"
-        program += f"    pause({random.randrange(700, 800) / 1000.0})\n"
+        program += f"    alien_show(0.25)\n"
+        program += f"    pause({0.25})\n"
+        program += f"    alien_hide(0.25)\n"
+        program += f"    pause({0.25})\n"
         program += f"say({text!r})\n"
         return [Act(program, cause=f"Time is {hour:02d}:00", priority=Urge.Normal)]

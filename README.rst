@@ -40,11 +40,15 @@ Building & Running
    -  ``espeak``
    -  ``espeak-ng``
    -  ``bind9-dnsutils``
+   -  ``sqlite3``
+   -  ``pigpiod``
    -  ``scanlogd`` (optional - if you want to be informed of portscans)
    -  ``gnumeric`` (optional - if you want to edit the database via the
       spreadsheet)
    -  ``mosquitto`` (optional - if you want to run a local MQTT server
       for testing)
+
+   Run: `sudo systemctl enable pigpiod ; sudo systemctl start pigpiod`
 
 2. Clone project; create a virtual env and install Python dependencies:
 
