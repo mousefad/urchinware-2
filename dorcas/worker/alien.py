@@ -46,12 +46,18 @@ class Alien(ServoFader):
         pass
 
     def show(self, duration=None, bg=True):
+        if self.brain.get("silence"):
+            log.debug("SILENCED")
+            return
         self.fade_to(self.ShowPos, duration)
         if not bg:
             self.thread.join()
             self.thread = None
 
     def hide(self, duration=None, bg=False):
+        if self.brain.get("silence"):
+            log.debug("SILENCED")
+            return
         self.fade_to(self.HidePos, duration)
         if not bg:
             self.thread.join()
