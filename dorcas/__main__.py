@@ -42,7 +42,7 @@ log = logging.getLogger(__name__)
 @click.option("--verbose", "-v", is_flag=True, help="Be more verbose.")
 def main(config, debug, list_config, log_path, no_publish, quiet, verbose):
     # simpler, more compact logging
-    fmt = "%(asctime)s %(message)s"
+    fmt = "%(message)s"
     if log_path is not None:
         log_path = open(log_path, "a", encoding="utf8", errors="replace")
     coloredlogs.install(level=get_debug_level(debug, quiet), stream=log_path, fmt=fmt)
