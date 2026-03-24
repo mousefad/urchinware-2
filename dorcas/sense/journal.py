@@ -20,7 +20,7 @@ def ip_to_hostname(ip):
     try:
         p = sp.run(["dig", "-x", str(ip)], capture_output=True)
         hostname = (
-            [x for x in p.stdout.decode().splitlines() if re.match(r"[0-9]", x)][0]
+            [x for x in p.stdout.decode(errors="ignore").splitlines() if re.match(r"[0-9]", x)][0]
             .split()[-1]
             .rstrip(".")
         )
@@ -91,7 +91,7 @@ class Journal(ThreadedHalterSense):
             while self.poll.poll(1) and not self.halt:
                 line = self.p.stdout.readline()
                 if len(line) > 0:
-                    self.process_log_entry(line.decode())
+                    self.process_log_entry(line.decode(errors="ignore"))
             time.sleep(self.interval)
         log.debug("Journal.main loop ended")
         self.stop_subprocess()

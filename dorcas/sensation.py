@@ -13,7 +13,7 @@ class Sensation:
     def __init__(self, topic, message):
         self.received = arrow.now()
         self.topic = topic
-        self.message = message.decode() if type(message) is bytes else str(message)
+        self.message = message.decode(errors="ignore") if type(message) is bytes else str(message)
 
     @property
     def json(self):
