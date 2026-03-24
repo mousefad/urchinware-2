@@ -92,6 +92,9 @@ class Audio(Worker):
         bg - if True, audio player is spawned and put in background, else play() will block
         volume - between 0.0 and 1.0
         """
+        if self.brain.get("silence"):
+            log.debug(f"play id={id!r} bg={bg} volume={volume!r} SILENCED")
+            return
         log.info(f"play id={id!r} bg={bg} volume={volume!r}")
         if self.halt:
             log.debug(
