@@ -108,7 +108,7 @@ class MqttClient(Worker):
         if len(self.receivers) == 0:
             return
         str_message = (
-            message.payload.decode()
+            message.payload.decode(errors="ignore")
             if type(message.payload) is bytes
             else str(message.payload)
         )
