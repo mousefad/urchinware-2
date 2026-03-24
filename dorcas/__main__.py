@@ -6,7 +6,7 @@ import sys
 import logging
 import time
 import socket
-from signal import signal, SIGTERM, SIGINT, SIGHUP
+from signal import signal, SIGTERM, SIGINT, SIGHUP, SIGUSR1, SIGUSR2
 
 # pip-installed modules
 import click
@@ -67,6 +67,8 @@ def main(config, debug, list_config, log_path, no_publish, quiet, verbose):
         sys.exit(0)
 
     [signal(x, sig_halt) for x in [SIGTERM, SIGHUP, SIGINT]]
+    signal(SIGUSR1, sig_set_debug)
+    signal(SIGUSR2, sig_clear_debug)
     if config is None:
         config = socket.gethostname()
         log.info(
@@ -92,6 +94,16 @@ def sig_halt(sig, frame):
         sys.exit(1)
     log.info(f"received signal {sig!r}; requesting halt")
     Brain().stop()
+
+
+def sig_set_debug(sig, frame):
+    log.info(f"received signal {sig!r}; setting debug")
+    coloredlogs.set_level(logging.DEBUG)
+
+
+def sig_clear_debug(sig, frame):
+    log.info(f"received signal {sig!r}; clearing debug")
+    coloredlogs.set_level(logging.INFO)
 
 
 if __name__ == "__main__":
