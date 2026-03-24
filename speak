@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 prog=${0##*/}
 database_path="${DORCAS_DATABASE?ERROR - DORCAS_DATABASE not defined}"
 print_cmd=n
 voice_id=default
 
-usage () {
+usage() {
     cat <<-EOD
 	Usage:
 	
@@ -23,7 +23,7 @@ usage () {
     exit 0
 }
 
-main () {
+main() {
     goo="$(getopt d:hlpv: "$@")"
     if [ $? -ne 0 ]; then
         usage 2
@@ -31,12 +31,30 @@ main () {
     set -- $goo
     while [ $# -gt 0 ]; do
         case $1 in
-        -d) database_path="$2" ; shift 2 ;;
-        -h) usage ; shift ;;
-        -l) list_voices ; shift ;;
-        -v) voice_id="$2" ; shift 2 ;;
-        -p) print_cmd=y ; shift ;;
-        --) shift ; break ;;
+        -d)
+            database_path="$2"
+            shift 2
+            ;;
+        -h)
+            usage
+            shift
+            ;;
+        -l)
+            list_voices
+            shift
+            ;;
+        -v)
+            voice_id="$2"
+            shift 2
+            ;;
+        -p)
+            print_cmd=y
+            shift
+            ;;
+        --)
+            shift
+            break
+            ;;
         esac
     done
 
@@ -45,11 +63,11 @@ main () {
         echo "ERROR: could not find voice '$voice_id'" 1>&2
         exit 1
     fi
-    read sox_args         < <(query_effect | sqlite3 "$database_path")
+    read sox_args < <(query_effect | sqlite3 "$database_path")
     quoted_text="'$(echo "$@" | sed "s/'/'\\\\''/g")'"
     tmp="$(mktemp)" || exit 1
     trap "rm -f $tmp" EXIT
-    echo "$espeak $quoted_text | play $sox_args" > "$tmp"
+    echo "$espeak $quoted_text | play $sox_args" >"$tmp"
     if [ "$print_cmd" = y ]; then
         cat "$tmp"
     else
@@ -57,11 +75,11 @@ main () {
     fi
 }
 
-list_voices () {
+list_voices() {
     query_list_voices | sqlite3 "$database_path"
 }
 
-query_list_voices () {
+query_list_voices() {
     cat <<-EOD
 	.mode table
     select id
@@ -69,7 +87,7 @@ query_list_voices () {
 	EOD
 }
 
-query_commands () {
+query_commands() {
     cat <<-EOD
 	.mode list
 	select effect_id 
@@ -90,7 +108,7 @@ query_commands () {
 	EOD
 }
 
-query_effect () {
+query_effect() {
     cat <<-EOD
 	.mode list
 	select args 
@@ -100,4 +118,3 @@ query_effect () {
 }
 
 main "$@"
-
