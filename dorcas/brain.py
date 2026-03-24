@@ -42,7 +42,7 @@ log = logging.getLogger(__name__)
 class Brain:
 
     # Prevent flooding
-    MaxQueuedSensations = 3
+    MaxQueuedSensations = 30
     PoliteTimeout = 60
 
     def __init__(self, config, mute_mqtt):
@@ -110,6 +110,8 @@ class Brain:
         self.update_polite(sensation.topic)
         if len(self.sensations) < self.MaxQueuedSensations:
             self.sensations.append(sensation)
+        else:
+            log.warning(f"overstimulated! (drop: {sensation!r})")
 
     def stop(self):
         self.halt = True
