@@ -23,7 +23,7 @@ Full re-write - the old code was horrible (Jeeer!):
 -  Putting data in Sqlite3 rather than hard-coding everything (wowsers!)
 -  Splitting modules into separate files (zammo!)
 -  Stripping out the display parts since there is no display (hurrah!)
--  Simpler dependencies (not more Qt or need for a display server -
+-  Simpler dependencies (no more Qt or need for a display server -
    huzzah!)
 -  New features! (zaaaaap!)
 
@@ -32,9 +32,9 @@ Building & Running
 ==================
 
 1. Install your OS on the device where you want to run this project. The
-   Nottinghack Urchin runs on a RPi 3 running Raspbian GNU/Linux 12
-   (bookworm) [lite/minimal image]. Some packages over the base install
-   should be installed:
+   Nottinghack Urchin runs on a RPi 3. At various times the base OS has
+   been Raspbian (lite image) and OpenEuler. Some extra packages must be
+   added over a base install (Raspbian package names here):
 
    -  ``sox``
    -  ``espeak``
@@ -43,8 +43,6 @@ Building & Running
    -  ``sqlite3``
    -  ``pigpiod``
    -  ``scanlogd`` (optional - if you want to be informed of portscans)
-   -  ``gnumeric`` (optional - if you want to edit the database via the
-      spreadsheet)
    -  ``mosquitto`` (optional - if you want to run a local MQTT server
       for testing)
 
@@ -54,20 +52,21 @@ Building & Running
 
 ::
 
-       $ git clone https://github.com/mousefad/urchinware-2.git ~/dorcas
-       $ cd ~/dorcas
-       $ python -m venv .
-       $ . bin/activate
-       $ pip install --upgrade pip
-       $ pip install .
+       # mkdir /opt
+       # git clone https://github.com/mousefad/urchinware-2.git /opt/urchin
+       # cd /opt/urchin
+       # python -m venv .venv
+       # . .venv/bin/activate
+       # pip install --upgrade pip
+       # pip install .
 
 3. Set a couple of environment variables so the program can find
    relevant files:
 
 ::
 
-       $ export DORCAS_DATABASE=~/dorcas/db.sqlite3
-       $ export DORCAS_AUDIO_DIRS=~/dorcas/audio
+       $ export DORCAS_DATABASE=/opt/urchin/db.sqlite3
+       $ export DORCAS_AUDIO_DIRS=/opt/urchin/audio
 
 4. Generate a config database from the sample, ``dorcas/sample/db.xml``
    (this file is a *GNUmeric* spreadsheet for easy viewing/editing).
@@ -76,7 +75,7 @@ Building & Running
 
 ::
 
-       $ python dorcas/database.py load dorcas/sample/db.xml 
+       # python dorcas/database.py load dorcas/sample/db.xml 
 
 5. Run with ``python -m dorcas --config default``
 
@@ -117,7 +116,7 @@ withthe following command (from the repo root directory):
 
 ::
 
-   $ python dorcas/database.py load path/to/spreadsheet.xml
+   # python dorcas/database.py load path/to/spreadsheet.xml
 
 The spreadsheet will be converted into an SQLite database which will be
 saved to the path defined by the ``DORCAS_DATABASE`` environment
@@ -239,12 +238,7 @@ License: Attribution 3.0
 TODO
 ====
 
--  Systemd .service unit file.
--  React to how busy the space is based on stuff like number of people
-   in and out.
+-  MQTT re-connection
+-  Studio ceiling vibration sensor rules
 -  Greetings for people with bookings on tools, e.g. “your booking on
    the starts in 25 minutes.”
--  Have Thespian wait for say() and play() to finish before ending.
-
-   -  add wait() function maybe, and have an implicit call to it at the
-      end of each performance?

@@ -1,0 +1,14 @@
+[Unit]
+Description=Dorcas Creepy Urchin Soul
+After=network.target
+
+[Service]
+ExecStart=/opt/urchin/run
+WorkingDirectory=/opt/urchin
+Restart=always
+KillSignal=SIGINT
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target
+

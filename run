@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#
+# Run the creepy urchin software. This file must be in the dir at the base of the
+# urchin software, such that "dorcas" is a sub-directory.  In this directory also
+# should be placed the audio sub-directory and the config database file.
+
+shopt -s execfail
+
+# Determine the root of all the urchin files based on the location of this file.
+DORCAS_HOME="$(realpath "$0")"
+DORCAS_HOME="${DORCAS_HOME%/*}"
+export DORCAS_HOME
+cd "$DORCAS_HOME"
+
+export DORCAS_AUDIO_DIRS="$DORCAS_HOME/audio"
+export DORCAS_DATABASE="$DORCAS_HOME/db.sqlite3"
+
+# Initialize the virtual environment if it is not already active
+if [ "$VIRTUAL_ENV" != "$DORCAS_HOME/.venv" ]; then
+    source "$DORCAS_HOME/.venv/bin/activate"
+fi
+
+python3 -m dorcas "$@"
