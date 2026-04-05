@@ -25,7 +25,7 @@
   </gnm:Attributes>
   <office:document-meta xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:ooo="http://openoffice.org/2004/office" office:version="1.2">
     <office:meta>
-      <dc:date>2026-04-05T15:05:40Z</dc:date>
+      <dc:date>2026-04-05T15:50:17Z</dc:date>
       <meta:creation-date>2024-05-23T20:48:08Z</meta:creation-date>
     </office:meta>
   </office:document-meta>
@@ -227,7 +227,7 @@
     <gnm:Sheet DisplayFormulas="0" HideZero="0" HideGrid="0" HideColHeader="0" HideRowHeader="0" DisplayOutlines="1" OutlineSymbolsBelow="1" OutlineSymbolsRight="1" Visibility="GNM_SHEET_VISIBILITY_VISIBLE" GridColor="0:0:0">
       <gnm:Name>voices</gnm:Name>
       <gnm:MaxCol>7</gnm:MaxCol>
-      <gnm:MaxRow>15</gnm:MaxRow>
+      <gnm:MaxRow>16</gnm:MaxRow>
       <gnm:Zoom>1</gnm:Zoom>
       <gnm:Names>
         <gnm:Name>
@@ -289,8 +289,8 @@
         <gnm:ColInfo No="7" Unit="69.49" HardSize="1"/>
       </gnm:Cols>
       <gnm:Rows DefaultSizePts="12.75"/>
-      <gnm:Selections CursorCol="0" CursorRow="3">
-        <gnm:Selection startCol="0" startRow="3" endCol="0" endRow="3"/>
+      <gnm:Selections CursorCol="0" CursorRow="14">
+        <gnm:Selection startCol="0" startRow="14" endCol="0" endRow="14"/>
       </gnm:Selections>
       <gnm:Cells>
         <gnm:Cell Row="0" Col="0" ValueType="60">id</gnm:Cell>
@@ -307,7 +307,7 @@
         <gnm:Cell Row="1" Col="3" ValueType="40">99</gnm:Cell>
         <gnm:Cell Row="1" Col="4" ValueType="40">150</gnm:Cell>
         <gnm:Cell Row="1" Col="5" ValueType="40">140</gnm:Cell>
-        <gnm:Cell Row="1" Col="6" ValueType="40">1</gnm:Cell>
+        <gnm:Cell Row="1" Col="6" ValueType="40">2</gnm:Cell>
         <gnm:Cell Row="1" Col="7" ValueType="60">reverb</gnm:Cell>
         <gnm:Cell Row="2" Col="0" ValueType="60">creepy</gnm:Cell>
         <gnm:Cell Row="2" Col="1" ValueType="60">espeak-ng</gnm:Cell>
@@ -315,7 +315,7 @@
         <gnm:Cell Row="2" Col="3" ValueType="40">30</gnm:Cell>
         <gnm:Cell Row="2" Col="4" ValueType="40">150</gnm:Cell>
         <gnm:Cell Row="2" Col="5" ValueType="40">100</gnm:Cell>
-        <gnm:Cell Row="2" Col="6" ValueType="40">1</gnm:Cell>
+        <gnm:Cell Row="2" Col="6" ValueType="40">3</gnm:Cell>
         <gnm:Cell Row="2" Col="7" ValueType="60">reverse_reverb</gnm:Cell>
         <gnm:Cell Row="3" Col="0" ValueType="60">clear</gnm:Cell>
         <gnm:Cell Row="3" Col="1" ValueType="60">espeak-ng</gnm:Cell>
@@ -323,7 +323,7 @@
         <gnm:Cell Row="3" Col="3" ValueType="40">99</gnm:Cell>
         <gnm:Cell Row="3" Col="4" ValueType="40">150</gnm:Cell>
         <gnm:Cell Row="3" Col="5" ValueType="40">140</gnm:Cell>
-        <gnm:Cell Row="3" Col="6" ValueType="40">1</gnm:Cell>
+        <gnm:Cell Row="3" Col="6" ValueType="40">2</gnm:Cell>
         <gnm:Cell Row="3" Col="7" ValueType="60">clear</gnm:Cell>
         <gnm:Cell Row="4" Col="0" ValueType="60">quiet</gnm:Cell>
         <gnm:Cell Row="4" Col="1" ValueType="60">espeak-ng</gnm:Cell>
@@ -414,12 +414,12 @@
         <gnm:Cell Row="14" Col="6" ValueType="40">3</gnm:Cell>
         <gnm:Cell Row="14" Col="7" ValueType="60">reverb</gnm:Cell>
         <gnm:Cell Row="15" Col="0" ValueType="60">donation_bot</gnm:Cell>
-        <gnm:Cell Row="15" Col="1" ValueType="60">espeak</gnm:Cell>
-        <gnm:Cell Row="15" Col="2" ValueType="60">default</gnm:Cell>
-        <gnm:Cell Row="15" Col="3" ValueType="40">20</gnm:Cell>
+        <gnm:Cell Row="15" Col="1" ValueType="60">espeak-ng</gnm:Cell>
+        <gnm:Cell Row="15" Col="2" ValueType="60">en</gnm:Cell>
+        <gnm:Cell Row="15" Col="3" ValueType="40">40</gnm:Cell>
         <gnm:Cell Row="15" Col="4" ValueType="40">150</gnm:Cell>
-        <gnm:Cell Row="15" Col="5" ValueType="40">60</gnm:Cell>
-        <gnm:Cell Row="15" Col="6" ValueType="40">5</gnm:Cell>
+        <gnm:Cell Row="15" Col="5" ValueType="40">130</gnm:Cell>
+        <gnm:Cell Row="15" Col="6" ValueType="40">2</gnm:Cell>
         <gnm:Cell Row="15" Col="7" ValueType="60">clear</gnm:Cell>
       </gnm:Cells>
       <gnm:SheetLayout TopLeft="A2">
@@ -485,23 +485,23 @@
       </gnm:Styles>
       <gnm:Cols DefaultSizePts="57.38">
         <gnm:ColInfo No="0" Unit="72.04" HardSize="1"/>
-        <gnm:ColInfo No="1" Unit="261.8" HardSize="1"/>
+        <gnm:ColInfo No="1" Unit="251.2" HardSize="1"/>
       </gnm:Cols>
       <gnm:Rows DefaultSizePts="12.75"/>
-      <gnm:Selections CursorCol="0" CursorRow="1">
-        <gnm:Selection startCol="0" startRow="1" endCol="1" endRow="4"/>
+      <gnm:Selections CursorCol="1" CursorRow="1">
+        <gnm:Selection startCol="1" startRow="1" endCol="1" endRow="4"/>
       </gnm:Selections>
       <gnm:Cells>
         <gnm:Cell Row="0" Col="0" ValueType="60">id</gnm:Cell>
         <gnm:Cell Row="0" Col="1" ValueType="60">args</gnm:Cell>
         <gnm:Cell Row="1" Col="0" ValueType="60">reverb</gnm:Cell>
-        <gnm:Cell Row="1" Col="1" ValueType="60">-v 0.6 - -q pitch 600 reverb gain 0.5</gnm:Cell>
+        <gnm:Cell Row="1" Col="1" ValueType="60">-t wav -v 0.6 - -q pitch 600 reverb gain 0.5</gnm:Cell>
         <gnm:Cell Row="2" Col="0" ValueType="60">clear</gnm:Cell>
-        <gnm:Cell Row="2" Col="1" ValueType="60">-v 0.6 - -q pitch 600</gnm:Cell>
+        <gnm:Cell Row="2" Col="1" ValueType="60">-t wav -v 0.6 - -q pitch 600</gnm:Cell>
         <gnm:Cell Row="3" Col="0" ValueType="60">reverb_deep</gnm:Cell>
-        <gnm:Cell Row="3" Col="1" ValueType="60">-v 0.6 - -q pitch 100 reverb gain 0.5</gnm:Cell>
+        <gnm:Cell Row="3" Col="1" ValueType="60">-t wav -v 0.6 - -q pitch 100 reverb gain 0.5</gnm:Cell>
         <gnm:Cell Row="4" Col="0" ValueType="60">reverse_reverb</gnm:Cell>
-        <gnm:Cell Row="4" Col="1" ValueType="60">-v 0.6 - -q pitch 600 reverse reverb gain 0.5 reverse </gnm:Cell>
+        <gnm:Cell Row="4" Col="1" ValueType="60">-t wav -v 0.6 - -q pitch 600 reverse reverb gain 0.5 reverse </gnm:Cell>
       </gnm:Cells>
       <gnm:SheetLayout TopLeft="A2">
         <gnm:FreezePanes FrozenTopLeft="A1" UnfrozenTopLeft="A2"/>
@@ -889,8 +889,8 @@
         <gnm:RowInfo No="95" Unit="24.86"/>
         <gnm:RowInfo No="99" Unit="13.39"/>
       </gnm:Rows>
-      <gnm:Selections CursorCol="1" CursorRow="2">
-        <gnm:Selection startCol="1" startRow="2" endCol="1" endRow="2"/>
+      <gnm:Selections CursorCol="2" CursorRow="26">
+        <gnm:Selection startCol="2" startRow="26" endCol="2" endRow="26"/>
       </gnm:Selections>
       <gnm:Cells>
         <gnm:Cell Row="0" Col="0" ValueType="60">action</gnm:Cell>
@@ -903,55 +903,55 @@
         <gnm:Cell Row="1" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="2" Col="0" ValueType="60">say(&quot;Good mornin&quot;)</gnm:Cell>
         <gnm:Cell Row="2" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="2" Col="2" ValueType="60">day_period='morning'</gnm:Cell>
+        <gnm:Cell Row="2" Col="2" ValueType="60">day_period=='morning'</gnm:Cell>
         <gnm:Cell Row="2" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="3" Col="0" ValueType="60">say(&quot;Good afternoon&quot;)</gnm:Cell>
         <gnm:Cell Row="3" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="3" Col="2" ValueType="60">day_period='afternoon'</gnm:Cell>
+        <gnm:Cell Row="3" Col="2" ValueType="60">day_period=='afternoon'</gnm:Cell>
         <gnm:Cell Row="3" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="4" Col="0" ValueType="60">say(&quot;Good evening&quot;)</gnm:Cell>
         <gnm:Cell Row="4" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="4" Col="2" ValueType="60">day_period='evening'</gnm:Cell>
+        <gnm:Cell Row="4" Col="2" ValueType="60">day_period=='evening'</gnm:Cell>
         <gnm:Cell Row="4" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="5" Col="0" ValueType="60">say(&quot;Good evening&quot;)</gnm:Cell>
         <gnm:Cell Row="5" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="5" Col="2" ValueType="60">day_period='night'</gnm:Cell>
+        <gnm:Cell Row="5" Col="2" ValueType="60">day_period=='night'</gnm:Cell>
         <gnm:Cell Row="5" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="6" Col="0" ValueType="60">say(&quot;Bonjour&quot;, voice=&quot;french&quot;)</gnm:Cell>
         <gnm:Cell Row="6" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="6" Col="2" ValueType="60">day_period='morning'</gnm:Cell>
+        <gnm:Cell Row="6" Col="2" ValueType="60">day_period=='morning'</gnm:Cell>
         <gnm:Cell Row="6" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="7" Col="0" ValueType="60">say(&quot;Bon après-midi&quot;, voice=&quot;french&quot;)</gnm:Cell>
         <gnm:Cell Row="7" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="7" Col="2" ValueType="60">day_period='afternoon'</gnm:Cell>
+        <gnm:Cell Row="7" Col="2" ValueType="60">day_period=='afternoon'</gnm:Cell>
         <gnm:Cell Row="7" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="8" Col="0" ValueType="60">say(&quot;Bon soir&quot;, voice=&quot;french&quot;)</gnm:Cell>
         <gnm:Cell Row="8" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="8" Col="2" ValueType="60">day_period='evening'</gnm:Cell>
+        <gnm:Cell Row="8" Col="2" ValueType="60">day_period=='evening'</gnm:Cell>
         <gnm:Cell Row="8" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="9" Col="0" ValueType="60">say(&quot;Guten Morgen&quot;, voice=&quot;german&quot;)</gnm:Cell>
         <gnm:Cell Row="9" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="9" Col="2" ValueType="60">day_period='morning'</gnm:Cell>
+        <gnm:Cell Row="9" Col="2" ValueType="60">day_period=='morning'</gnm:Cell>
         <gnm:Cell Row="9" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="10" Col="0" ValueType="60">say(&quot;Guten Tag&quot;, voice=&quot;german&quot;)</gnm:Cell>
         <gnm:Cell Row="10" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="10" Col="2" ValueType="60">day_period='afternoon'</gnm:Cell>
+        <gnm:Cell Row="10" Col="2" ValueType="60">day_period=='afternoon'</gnm:Cell>
         <gnm:Cell Row="10" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="11" Col="0" ValueType="60">say(&quot;Guten Arbend&quot;, voice=&quot;german&quot;)</gnm:Cell>
         <gnm:Cell Row="11" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="11" Col="2" ValueType="60">day_period='evening'</gnm:Cell>
+        <gnm:Cell Row="11" Col="2" ValueType="60">day_period=='evening'</gnm:Cell>
         <gnm:Cell Row="11" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="12" Col="0" ValueType="60">say(&quot;शुभ प्रभात&quot;, voice=&quot;hindi&quot;)</gnm:Cell>
         <gnm:Cell Row="12" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="12" Col="2" ValueType="60">day_period='morning'</gnm:Cell>
+        <gnm:Cell Row="12" Col="2" ValueType="60">day_period=='morning'</gnm:Cell>
         <gnm:Cell Row="12" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="13" Col="0" ValueType="60">say(&quot;शुभ दोपहर&quot;, voice=&quot;hindi&quot;)</gnm:Cell>
         <gnm:Cell Row="13" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="13" Col="2" ValueType="60">day_period='afternoon'</gnm:Cell>
+        <gnm:Cell Row="13" Col="2" ValueType="60">day_period=='afternoon'</gnm:Cell>
         <gnm:Cell Row="13" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="14" Col="0" ValueType="60">say(&quot;शुभ संध्या&quot;, voice=&quot;hindi&quot;)</gnm:Cell>
         <gnm:Cell Row="14" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="14" Col="2" ValueType="60">day_period='evening'</gnm:Cell>
+        <gnm:Cell Row="14" Col="2" ValueType="60">day_period=='evening'</gnm:Cell>
         <gnm:Cell Row="14" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="15" Col="0" ValueType="60">say(&quot;nuqneH&quot;, voice=&quot;klingon&quot;)</gnm:Cell>
         <gnm:Cell Row="15" Col="1" ValueType="60">NULL</gnm:Cell>
@@ -959,59 +959,59 @@
         <gnm:Cell Row="15" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="16" Col="0" ValueType="60">say(&quot;ਸ਼ੁਭ ਸਵੇਰ&quot;, voice=&quot;punjabi&quot;)</gnm:Cell>
         <gnm:Cell Row="16" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="16" Col="2" ValueType="60">day_period='morning'</gnm:Cell>
+        <gnm:Cell Row="16" Col="2" ValueType="60">day_period=='morning'</gnm:Cell>
         <gnm:Cell Row="16" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="17" Col="0" ValueType="60">say(&quot;ਸਤ ਸ੍ਰੀ ਅਕਾਲ&quot;, voice=&quot;punjabi&quot;)</gnm:Cell>
         <gnm:Cell Row="17" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="17" Col="2" ValueType="60">day_period='afternoon'</gnm:Cell>
+        <gnm:Cell Row="17" Col="2" ValueType="60">day_period=='afternoon'</gnm:Cell>
         <gnm:Cell Row="17" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="18" Col="0" ValueType="60">say(&quot;ਸ਼ੁਭ ਰਾਤ&quot;, voice=&quot;punjabi&quot;)</gnm:Cell>
         <gnm:Cell Row="18" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="18" Col="2" ValueType="60">day_period='evening' or day_period='night'</gnm:Cell>
+        <gnm:Cell Row="18" Col="2" ValueType="60">day_period in ['evening', 'night']</gnm:Cell>
         <gnm:Cell Row="18" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="19" Col="0" ValueType="60">say(&quot;Buenos días&quot;, voice=&quot;spanish&quot;)</gnm:Cell>
         <gnm:Cell Row="19" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="19" Col="2" ValueType="60">day_period='morning'</gnm:Cell>
+        <gnm:Cell Row="19" Col="2" ValueType="60">day_period=='morning'</gnm:Cell>
         <gnm:Cell Row="19" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="20" Col="0" ValueType="60">say(&quot;Buenas tardes&quot;, voice=&quot;spanish&quot;)</gnm:Cell>
         <gnm:Cell Row="20" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="20" Col="2" ValueType="60">day_period='afternoon'</gnm:Cell>
+        <gnm:Cell Row="20" Col="2" ValueType="60">day_period=='afternoon'</gnm:Cell>
         <gnm:Cell Row="20" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="21" Col="0" ValueType="60">say(&quot;Buenas noches&quot;, voice=&quot;spanish&quot;)</gnm:Cell>
         <gnm:Cell Row="21" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="21" Col="2" ValueType="60">day_period='evening' or day_period='night'</gnm:Cell>
+        <gnm:Cell Row="21" Col="2" ValueType="60">day_period in ['evening', 'night']</gnm:Cell>
         <gnm:Cell Row="21" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="22" Col="0" ValueType="60">say(&quot;صبح بخیر&quot;, voice=&quot;urdu&quot;)</gnm:Cell>
         <gnm:Cell Row="22" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="22" Col="2" ValueType="60">day_period='morning'</gnm:Cell>
+        <gnm:Cell Row="22" Col="2" ValueType="60">day_period=='morning'</gnm:Cell>
         <gnm:Cell Row="22" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="23" Col="0" ValueType="60">say(&quot;دوپہر بخیر&quot;, voice=&quot;urdu&quot;)</gnm:Cell>
         <gnm:Cell Row="23" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="23" Col="2" ValueType="60">day_period='afternoon'</gnm:Cell>
+        <gnm:Cell Row="23" Col="2" ValueType="60">day_period=='afternoon'</gnm:Cell>
         <gnm:Cell Row="23" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="24" Col="0" ValueType="60">say(&quot;شام بخیر&quot;, voice=&quot;urdu&quot;)</gnm:Cell>
         <gnm:Cell Row="24" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="24" Col="2" ValueType="60">day_period='evening' or day_period='night'</gnm:Cell>
+        <gnm:Cell Row="24" Col="2" ValueType="60">day_period in ['evening', 'night']</gnm:Cell>
         <gnm:Cell Row="24" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="25" Col="0" ValueType="60">say(&quot;bore da&quot;, voice=&quot;welsh&quot;)</gnm:Cell>
         <gnm:Cell Row="25" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="25" Col="2" ValueType="60">day_period='morning'</gnm:Cell>
+        <gnm:Cell Row="25" Col="2" ValueType="60">day_period=='morning'</gnm:Cell>
         <gnm:Cell Row="25" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="26" Col="0" ValueType="60">say(&quot;prynhawn Da&quot;, voice=&quot;welsh&quot;)</gnm:Cell>
         <gnm:Cell Row="26" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="26" Col="2" ValueType="60">day_period='afternoon'</gnm:Cell>
+        <gnm:Cell Row="26" Col="2" ValueType="60">day_period=='afternoon'</gnm:Cell>
         <gnm:Cell Row="26" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="27" Col="0" ValueType="60">say(&quot;noswaith dda&quot;, voice=&quot;welsh&quot;)</gnm:Cell>
         <gnm:Cell Row="27" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="27" Col="2" ValueType="60">day_period='evening' or day_period='night'</gnm:Cell>
+        <gnm:Cell Row="27" Col="2" ValueType="60">day_period in ['evening', 'night']</gnm:Cell>
         <gnm:Cell Row="27" Col="3">=int(countif(B$1:B$65536,&quot;NULL&quot;)/countif(B$1:B$65536,indirect(address(row(),2))))</gnm:Cell>
         <gnm:Cell Row="28" Col="0" ValueType="60">say(&quot;Trick or treat?&quot;, voice=&quot;creepy&quot;)</gnm:Cell>
         <gnm:Cell Row="28" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="28" Col="2" ValueType="60">special_day='All Hallows Eve'</gnm:Cell>
+        <gnm:Cell Row="28" Col="2" ValueType="60">special_day=='All Hallows Eve'</gnm:Cell>
         <gnm:Cell Row="28" Col="3" ValueType="40">3</gnm:Cell>
         <gnm:Cell Row="29" Col="0" ValueType="60">say(&quot;Happy &lt;v:special_day&gt;&quot;)</gnm:Cell>
         <gnm:Cell Row="29" Col="1" ValueType="60">NULL</gnm:Cell>
-        <gnm:Cell Row="29" Col="2" ValueType="60">special_day != null</gnm:Cell>
+        <gnm:Cell Row="29" Col="2" ValueType="60">special_day is not None</gnm:Cell>
         <gnm:Cell Row="29" Col="3" ValueType="40">3</gnm:Cell>
         <gnm:Cell Row="30" Col="0" ValueType="60">say(&quot;There's a moose loose aboot this hoose!&quot;)</gnm:Cell>
         <gnm:Cell Row="30" Col="1" ValueType="60">mousefad</gnm:Cell>
@@ -1154,8 +1154,8 @@
         <gnm:RowInfo No="20" Unit="36.97"/>
         <gnm:RowInfo No="22" Unit="24.86" Count="2"/>
       </gnm:Rows>
-      <gnm:Selections CursorCol="0" CursorRow="0">
-        <gnm:Selection startCol="0" startRow="0" endCol="0" endRow="0"/>
+      <gnm:Selections CursorCol="0" CursorRow="21">
+        <gnm:Selection startCol="0" startRow="21" endCol="0" endRow="21"/>
       </gnm:Selections>
       <gnm:Cells>
         <gnm:Cell Row="0" Col="0" ValueType="60">action</gnm:Cell>
@@ -1166,32 +1166,32 @@
 say(&quot;Saying this in the original voice.&quot;, voice=&quot;default&quot;)
 say(&quot;And this is the creepy voice&quot;, voice=&quot;creepy&quot;)</gnm:Cell>
         <gnm:Cell Row="1" Col="1" ValueType="60">nh/urchin/test</gnm:Cell>
-        <gnm:Cell Row="1" Col="2" ValueType="60">message='voices'</gnm:Cell>
+        <gnm:Cell Row="1" Col="2" ValueType="60">message=='voices'</gnm:Cell>
         <gnm:Cell Row="1" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="2" Col="0" ValueType="60">play(&quot;cuckoo_chime.mp3&quot;)</gnm:Cell>
         <gnm:Cell Row="2" Col="1" ValueType="60">nh/urchin/test</gnm:Cell>
-        <gnm:Cell Row="2" Col="2" ValueType="60">message='cuckoo'</gnm:Cell>
+        <gnm:Cell Row="2" Col="2" ValueType="60">message=='cuckoo'</gnm:Cell>
         <gnm:Cell Row="2" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="3" Col="0" ValueType="60">play(&quot;announcement_chimes.mp3&quot;)
 pause(1.75)
 say(&quot;Public service announcement: water is wet&quot;)</gnm:Cell>
         <gnm:Cell Row="3" Col="1" ValueType="60">nh/urchin/test</gnm:Cell>
-        <gnm:Cell Row="3" Col="2" ValueType="60">message='announcement'</gnm:Cell>
+        <gnm:Cell Row="3" Col="2" ValueType="60">message=='announcement'</gnm:Cell>
         <gnm:Cell Row="3" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="4" Col="0" ValueType="60">for _ in range(5):
     play(&quot;announcement_chimes.wav&quot;)
     pause(1)</gnm:Cell>
         <gnm:Cell Row="4" Col="1" ValueType="60">nh/urchin/test</gnm:Cell>
-        <gnm:Cell Row="4" Col="2" ValueType="60">message='loop'</gnm:Cell>
+        <gnm:Cell Row="4" Col="2" ValueType="60">message=='loop'</gnm:Cell>
         <gnm:Cell Row="4" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="5" Col="0" ValueType="60">for f in audio_files():
     play(f, bg=False)</gnm:Cell>
         <gnm:Cell Row="5" Col="1" ValueType="60">nh/urchin/test</gnm:Cell>
-        <gnm:Cell Row="5" Col="2" ValueType="60">message='play all'</gnm:Cell>
+        <gnm:Cell Row="5" Col="2" ValueType="60">message=='play all'</gnm:Cell>
         <gnm:Cell Row="5" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="6" Col="0" ValueType="60">play(random_choice(audio_find(subdir=&quot;creepy&quot;)))</gnm:Cell>
         <gnm:Cell Row="6" Col="1" ValueType="60">nh/urchin/test</gnm:Cell>
-        <gnm:Cell Row="6" Col="2" ValueType="60">message='random creepy noise'</gnm:Cell>
+        <gnm:Cell Row="6" Col="2" ValueType="60">message=='random creepy noise'</gnm:Cell>
         <gnm:Cell Row="6" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="7" Col="0" ValueType="60">say(&quot;I have awakened&quot;)</gnm:Cell>
         <gnm:Cell Row="7" Col="1" ValueType="60">nh/urchin/start</gnm:Cell>
@@ -1203,19 +1203,19 @@ say(&quot;Public service announcement: water is wet&quot;)</gnm:Cell>
         <gnm:Cell Row="8" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="9" Col="0" ValueType="60">say(&quot;Don't slam the door!&quot;)</gnm:Cell>
         <gnm:Cell Row="9" Col="1" ValueType="60">nh/gk/entry_announce/unknown</gnm:Cell>
-        <gnm:Cell Row="9" Col="2" ValueType="60">message like 'Door %'</gnm:Cell>
+        <gnm:Cell Row="9" Col="2" ValueType="60">message.startswith('Door ')</gnm:Cell>
         <gnm:Cell Row="9" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="10" Col="0" ValueType="60">say(&quot;G'night&quot;)</gnm:Cell>
         <gnm:Cell Row="10" Col="1" ValueType="60">nh/gk/entry_announce/unknown</gnm:Cell>
-        <gnm:Cell Row="10" Col="2" ValueType="60">message like 'Door %' and (day_period='evening' or day_period='night')</gnm:Cell>
+        <gnm:Cell Row="10" Col="2" ValueType="60">message.startswith('Door ') and day_period in ['evening', 'night']</gnm:Cell>
         <gnm:Cell Row="10" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="11" Col="0" ValueType="60">say(&quot;When people leave, I get sad.&quot;)</gnm:Cell>
         <gnm:Cell Row="11" Col="1" ValueType="60">nh/gk/1/DoorState</gnm:Cell>
-        <gnm:Cell Row="11" Col="2" ValueType="60">uptime &gt; 5 and message like 'LOCKED%' and arrival = false</gnm:Cell>
+        <gnm:Cell Row="11" Col="2" ValueType="60">uptime &gt; 5 and message.startswith('LOCKED') and arrival is False</gnm:Cell>
         <gnm:Cell Row="11" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="12" Col="0" ValueType="60">say(&quot;Come back soon?&quot;)</gnm:Cell>
         <gnm:Cell Row="12" Col="1" ValueType="60">nh/gk/1/DoorState</gnm:Cell>
-        <gnm:Cell Row="12" Col="2" ValueType="60">uptime &gt; 5 and message like 'LOCKED%' and arrival = false</gnm:Cell>
+        <gnm:Cell Row="12" Col="2" ValueType="60">uptime &gt; 5 and message.startswith('LOCKED') and arrival is False</gnm:Cell>
         <gnm:Cell Row="12" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="13" Col="0" ValueType="60">say(&quot;There's some body at the door&quot;)</gnm:Cell>
         <gnm:Cell Row="13" Col="1" ValueType="60">nh/gk/bell/ComfyArea</gnm:Cell>
@@ -1223,19 +1223,19 @@ say(&quot;Public service announcement: water is wet&quot;)</gnm:Cell>
         <gnm:Cell Row="13" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="14" Col="0" ValueType="60">say(&quot;I'll be quiet&quot;)</gnm:Cell>
         <gnm:Cell Row="14" Col="1" ValueType="60">nh/urchin/silence</gnm:Cell>
-        <gnm:Cell Row="14" Col="2" ValueType="60">message = 'yes'</gnm:Cell>
+        <gnm:Cell Row="14" Col="2" ValueType="60">message == 'yes'</gnm:Cell>
         <gnm:Cell Row="14" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="15" Col="0" ValueType="60">say(&quot;I'm back&quot;)</gnm:Cell>
         <gnm:Cell Row="15" Col="1" ValueType="60">nh/urchin/silence</gnm:Cell>
-        <gnm:Cell Row="15" Col="2" ValueType="60">message = 'no'</gnm:Cell>
+        <gnm:Cell Row="15" Col="2" ValueType="60">message == 'no'</gnm:Cell>
         <gnm:Cell Row="15" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="16" Col="0" ValueType="60">say(&quot;Heads&quot;)</gnm:Cell>
         <gnm:Cell Row="16" Col="1" ValueType="60">nh/donationbot/said</gnm:Cell>
-        <gnm:Cell Row="16" Col="2" ValueType="60">message = 'Heads or tails?' and random &lt; 0.75</gnm:Cell>
+        <gnm:Cell Row="16" Col="2" ValueType="60">message == 'Heads or tails?' and random &lt; 0.75</gnm:Cell>
         <gnm:Cell Row="16" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="17" Col="0" ValueType="60">say(&quot;Tails&quot;)</gnm:Cell>
         <gnm:Cell Row="17" Col="1" ValueType="60">nh/donationbot/said</gnm:Cell>
-        <gnm:Cell Row="17" Col="2" ValueType="60">message = 'Heads or tails?' and random &lt; 0.75</gnm:Cell>
+        <gnm:Cell Row="17" Col="2" ValueType="60">message == 'Heads or tails?' and random &lt; 0.75</gnm:Cell>
         <gnm:Cell Row="17" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="18" Col="0" ValueType="60">say(&quot;I'm bored.&quot;)</gnm:Cell>
         <gnm:Cell Row="18" Col="1" ValueType="60">nh/urchin/bored</gnm:Cell>
@@ -1246,7 +1246,7 @@ say(&quot;Public service announcement: water is wet&quot;)</gnm:Cell>
         <gnm:Cell Row="19" Col="2" ValueType="60">NULL</gnm:Cell>
         <gnm:Cell Row="19" Col="3" ValueType="40">1</gnm:Cell>
         <gnm:Cell Row="20" Col="0" ValueType="60">say(&quot;I think I'll tape a nap.&quot;)
-pause 5
+pause(5)
 play(&quot;snoring.mp3&quot;, bg=False)</gnm:Cell>
         <gnm:Cell Row="20" Col="1" ValueType="60">nh/urchin/bored</gnm:Cell>
         <gnm:Cell Row="20" Col="2" ValueType="60">NULL</gnm:Cell>
@@ -1270,5 +1270,5 @@ play(&quot;snoring.mp3&quot;, bg=False)</gnm:Cell>
       <gnm:Solver ModelType="0" ProblemType="0" MaxTime="60" MaxIter="1000" NonNeg="1" Discr="0" AutoScale="0" ProgramR="0" SensitivityR="0"/>
     </gnm:Sheet>
   </gnm:Sheets>
-  <gnm:UIData SelectedTab="7"/>
+  <gnm:UIData SelectedTab="2"/>
 </gnm:Workbook>
