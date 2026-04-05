@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gnm:Workbook xmlns:gnm="http://www.gnumeric.org/v10.dtd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gnumeric.org/v9.xsd">
-  <gnm:Version Epoch="1" Major="12" Minor="56" Full="1.12.56"/>
+  <gnm:Version Epoch="1" Major="12" Minor="60" Full="1.12.60"/>
   <gnm:Attributes>
     <gnm:Attribute>
       <gnm:name>WorkbookView::show_horizontal_scrollbar</gnm:name>
@@ -25,26 +25,26 @@
   </gnm:Attributes>
   <office:document-meta xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:ooo="http://openoffice.org/2004/office" office:version="1.2">
     <office:meta>
-      <dc:date>2024-06-09T14:32:25Z</dc:date>
+      <dc:date>2026-04-05T15:05:40Z</dc:date>
       <meta:creation-date>2024-05-23T20:48:08Z</meta:creation-date>
     </office:meta>
   </office:document-meta>
   <gnm:Calculation ManualRecalc="0" EnableIteration="1" MaxIterations="100" IterationTolerance="0.001" FloatRadix="2" FloatDigits="53"/>
   <gnm:SheetNameIndex>
     <gnm:SheetName gnm:Cols="256" gnm:Rows="65536">configs</gnm:SheetName>
+    <gnm:SheetName gnm:Cols="256" gnm:Rows="65536">brokers</gnm:SheetName>
     <gnm:SheetName gnm:Cols="256" gnm:Rows="65536">voices</gnm:SheetName>
     <gnm:SheetName gnm:Cols="256" gnm:Rows="65536">effects</gnm:SheetName>
-    <gnm:SheetName gnm:Cols="256" gnm:Rows="65536">brokers</gnm:SheetName>
     <gnm:SheetName gnm:Cols="256" gnm:Rows="65536">ignores</gnm:SheetName>
     <gnm:SheetName gnm:Cols="256" gnm:Rows="65536">special_days</gnm:SheetName>
     <gnm:SheetName gnm:Cols="256" gnm:Rows="65536">greetings</gnm:SheetName>
     <gnm:SheetName gnm:Cols="256" gnm:Rows="65536">musings</gnm:SheetName>
   </gnm:SheetNameIndex>
-  <gnm:Geometry Width="1680" Height="911"/>
+  <gnm:Geometry Width="1920" Height="787"/>
   <gnm:Sheets>
     <gnm:Sheet DisplayFormulas="0" HideZero="0" HideGrid="0" HideColHeader="0" HideRowHeader="0" DisplayOutlines="1" OutlineSymbolsBelow="1" OutlineSymbolsRight="1" Visibility="GNM_SHEET_VISIBILITY_VISIBLE" GridColor="0:0:0">
       <gnm:Name>configs</gnm:Name>
-      <gnm:MaxCol>9</gnm:MaxCol>
+      <gnm:MaxCol>11</gnm:MaxCol>
       <gnm:MaxRow>1</gnm:MaxRow>
       <gnm:Zoom>1</gnm:Zoom>
       <gnm:Names>
@@ -98,39 +98,126 @@
           </gnm:Style>
         </gnm:StyleRegion>
       </gnm:Styles>
-      <gnm:Cols DefaultSizePts="67.5">
-        <gnm:ColInfo No="3" Unit="87" HardSize="1"/>
-        <gnm:ColInfo No="4" Unit="87.75" HardSize="1"/>
-        <gnm:ColInfo No="5" Unit="73.5"/>
-        <gnm:ColInfo No="6" Unit="100.5"/>
-        <gnm:ColInfo No="7" Unit="84.75"/>
-        <gnm:ColInfo No="8" Unit="99"/>
+      <gnm:Cols DefaultSizePts="57.38">
+        <gnm:ColInfo No="4" Unit="80.33" HardSize="1"/>
+        <gnm:ColInfo No="5" Unit="73.95" HardSize="1"/>
+        <gnm:ColInfo No="6" Unit="74.59" HardSize="1"/>
+        <gnm:ColInfo No="7" Unit="62.48"/>
+        <gnm:ColInfo No="8" Unit="85.42"/>
+        <gnm:ColInfo No="9" Unit="72.04"/>
+        <gnm:ColInfo No="10" Unit="84.15"/>
       </gnm:Cols>
-      <gnm:Rows DefaultSizePts="15"/>
-      <gnm:Selections CursorCol="9" CursorRow="0">
-        <gnm:Selection startCol="9" startRow="0" endCol="9" endRow="0"/>
+      <gnm:Rows DefaultSizePts="12.75"/>
+      <gnm:Selections CursorCol="11" CursorRow="1">
+        <gnm:Selection startCol="11" startRow="1" endCol="11" endRow="1"/>
       </gnm:Selections>
       <gnm:Cells>
         <gnm:Cell Row="0" Col="0" ValueType="60">id</gnm:Cell>
         <gnm:Cell Row="0" Col="1" ValueType="60">broker_id</gnm:Cell>
         <gnm:Cell Row="0" Col="2" ValueType="60">voice_id</gnm:Cell>
-        <gnm:Cell Row="0" Col="3" ValueType="60">time_interval</gnm:Cell>
-        <gnm:Cell Row="0" Col="4" ValueType="60">journal_interval</gnm:Cell>
-        <gnm:Cell Row="0" Col="5" ValueType="60">voice_interval</gnm:Cell>
-        <gnm:Cell Row="0" Col="6" ValueType="60">boredom_minimum</gnm:Cell>
-        <gnm:Cell Row="0" Col="7" ValueType="60">boredom_amount</gnm:Cell>
-        <gnm:Cell Row="0" Col="8" ValueType="60">door_open_seconds</gnm:Cell>
-        <gnm:Cell Row="0" Col="9" ValueType="60">mute_switch</gnm:Cell>
+        <gnm:Cell Row="0" Col="3" ValueType="60">mqtt_prefix</gnm:Cell>
+        <gnm:Cell Row="0" Col="4" ValueType="60">instrument_id</gnm:Cell>
+        <gnm:Cell Row="0" Col="5" ValueType="60">time_interval</gnm:Cell>
+        <gnm:Cell Row="0" Col="6" ValueType="60">journal_interval</gnm:Cell>
+        <gnm:Cell Row="0" Col="7" ValueType="60">voice_interval</gnm:Cell>
+        <gnm:Cell Row="0" Col="8" ValueType="60">boredom_minimum</gnm:Cell>
+        <gnm:Cell Row="0" Col="9" ValueType="60">boredom_amount</gnm:Cell>
+        <gnm:Cell Row="0" Col="10" ValueType="60">door_open_seconds</gnm:Cell>
+        <gnm:Cell Row="0" Col="11" ValueType="60">mute_switch</gnm:Cell>
         <gnm:Cell Row="1" Col="0" ValueType="60">default</gnm:Cell>
         <gnm:Cell Row="1" Col="1" ValueType="60">local</gnm:Cell>
         <gnm:Cell Row="1" Col="2" ValueType="60">default</gnm:Cell>
-        <gnm:Cell Row="1" Col="3" ValueType="40">1</gnm:Cell>
-        <gnm:Cell Row="1" Col="4" ValueType="40">1</gnm:Cell>
+        <gnm:Cell Row="1" Col="3" ValueType="60">nh/urchin</gnm:Cell>
+        <gnm:Cell Row="1" Col="4" ValueType="60">Creepy Urchin</gnm:Cell>
         <gnm:Cell Row="1" Col="5" ValueType="40">1</gnm:Cell>
-        <gnm:Cell Row="1" Col="6" ValueType="40">600</gnm:Cell>
-        <gnm:Cell Row="1" Col="7" ValueType="40">0.001</gnm:Cell>
-        <gnm:Cell Row="1" Col="8" ValueType="40">120</gnm:Cell>
-        <gnm:Cell Row="1" Col="9" ValueType="20">FALSE</gnm:Cell>
+        <gnm:Cell Row="1" Col="6" ValueType="40">1</gnm:Cell>
+        <gnm:Cell Row="1" Col="7" ValueType="40">1</gnm:Cell>
+        <gnm:Cell Row="1" Col="8" ValueType="40">600</gnm:Cell>
+        <gnm:Cell Row="1" Col="9" ValueType="40">0.001</gnm:Cell>
+        <gnm:Cell Row="1" Col="10" ValueType="40">120</gnm:Cell>
+        <gnm:Cell Row="1" Col="11" ValueType="20">FALSE</gnm:Cell>
+      </gnm:Cells>
+      <gnm:SheetLayout TopLeft="A2">
+        <gnm:FreezePanes FrozenTopLeft="A1" UnfrozenTopLeft="A2"/>
+      </gnm:SheetLayout>
+      <gnm:Solver ModelType="0" ProblemType="0" MaxTime="60" MaxIter="1000" NonNeg="1" Discr="0" AutoScale="0" ProgramR="0" SensitivityR="0"/>
+    </gnm:Sheet>
+    <gnm:Sheet DisplayFormulas="0" HideZero="0" HideGrid="0" HideColHeader="0" HideRowHeader="0" DisplayOutlines="1" OutlineSymbolsBelow="1" OutlineSymbolsRight="1" Visibility="GNM_SHEET_VISIBILITY_VISIBLE" GridColor="0:0:0">
+      <gnm:Name>brokers</gnm:Name>
+      <gnm:MaxCol>5</gnm:MaxCol>
+      <gnm:MaxRow>1</gnm:MaxRow>
+      <gnm:Zoom>1</gnm:Zoom>
+      <gnm:Names>
+        <gnm:Name>
+          <gnm:name>Print_Area</gnm:name>
+          <gnm:value>#REF!</gnm:value>
+          <gnm:position>A1</gnm:position>
+        </gnm:Name>
+        <gnm:Name>
+          <gnm:name>Sheet_Title</gnm:name>
+          <gnm:value>&quot;brokers&quot;</gnm:value>
+          <gnm:position>A1</gnm:position>
+        </gnm:Name>
+      </gnm:Names>
+      <gnm:PrintInformation>
+        <gnm:Margins>
+          <gnm:top Points="120" PrefUnit="mm"/>
+          <gnm:bottom Points="120" PrefUnit="mm"/>
+          <gnm:left Points="72" PrefUnit="mm"/>
+          <gnm:right Points="72" PrefUnit="mm"/>
+          <gnm:header Points="72" PrefUnit="mm"/>
+          <gnm:footer Points="72" PrefUnit="mm"/>
+        </gnm:Margins>
+        <gnm:Scale type="percentage" percentage="100"/>
+        <gnm:vcenter value="0"/>
+        <gnm:hcenter value="0"/>
+        <gnm:grid value="0"/>
+        <gnm:even_if_only_styles value="0"/>
+        <gnm:monochrome value="0"/>
+        <gnm:draft value="0"/>
+        <gnm:titles value="0"/>
+        <gnm:do_not_print value="0"/>
+        <gnm:print_range value="GNM_PRINT_ACTIVE_SHEET"/>
+        <gnm:order>d_then_r</gnm:order>
+        <gnm:orientation>portrait</gnm:orientation>
+        <gnm:Header Left="" Middle="&amp;[TAB]" Right=""/>
+        <gnm:Footer Left="" Middle="Page &amp;[PAGE]" Right=""/>
+        <gnm:paper>iso_a4</gnm:paper>
+        <gnm:comments placement="GNM_PRINT_COMMENTS_IN_PLACE"/>
+        <gnm:errors PrintErrorsAs="GNM_PRINT_ERRORS_AS_DISPLAYED"/>
+      </gnm:PrintInformation>
+      <gnm:Styles>
+        <gnm:StyleRegion startCol="0" startRow="0" endCol="255" endRow="0">
+          <gnm:Style HAlign="GNM_HALIGN_GENERAL" VAlign="GNM_VALIGN_BOTTOM" WrapText="0" ShrinkToFit="0" Rotation="0" Shade="0" Indent="0" Locked="1" Hidden="0" Fore="0:0:0" Back="FFFF:FFFF:FFFF" PatternColor="0:0:0" Format="General">
+            <gnm:Font Unit="10" Bold="1" Italic="0" Underline="0" StrikeThrough="0" Script="0">Sans</gnm:Font>
+          </gnm:Style>
+        </gnm:StyleRegion>
+        <gnm:StyleRegion startCol="0" startRow="1" endCol="255" endRow="65535">
+          <gnm:Style HAlign="GNM_HALIGN_GENERAL" VAlign="GNM_VALIGN_BOTTOM" WrapText="0" ShrinkToFit="0" Rotation="0" Shade="0" Indent="0" Locked="1" Hidden="0" Fore="0:0:0" Back="FFFF:FFFF:FFFF" PatternColor="0:0:0" Format="General">
+            <gnm:Font Unit="10" Bold="0" Italic="0" Underline="0" StrikeThrough="0" Script="0">Sans</gnm:Font>
+          </gnm:Style>
+        </gnm:StyleRegion>
+      </gnm:Styles>
+      <gnm:Cols DefaultSizePts="57.38">
+        <gnm:ColInfo No="5" Unit="66.94" HardSize="1"/>
+      </gnm:Cols>
+      <gnm:Rows DefaultSizePts="12.75"/>
+      <gnm:Selections CursorCol="5" CursorRow="2">
+        <gnm:Selection startCol="0" startRow="2" endCol="5" endRow="2"/>
+      </gnm:Selections>
+      <gnm:Cells>
+        <gnm:Cell Row="0" Col="0" ValueType="60">id</gnm:Cell>
+        <gnm:Cell Row="0" Col="1" ValueType="60">host</gnm:Cell>
+        <gnm:Cell Row="0" Col="2" ValueType="60">port</gnm:Cell>
+        <gnm:Cell Row="0" Col="3" ValueType="60">keep_alive</gnm:Cell>
+        <gnm:Cell Row="0" Col="4" ValueType="60">clean</gnm:Cell>
+        <gnm:Cell Row="0" Col="5" ValueType="60">client_id</gnm:Cell>
+        <gnm:Cell Row="1" Col="0" ValueType="60">local</gnm:Cell>
+        <gnm:Cell Row="1" Col="1" ValueType="60">localhost</gnm:Cell>
+        <gnm:Cell Row="1" Col="2" ValueType="40">1883</gnm:Cell>
+        <gnm:Cell Row="1" Col="3" ValueType="40">60</gnm:Cell>
+        <gnm:Cell Row="1" Col="4" ValueType="20">TRUE</gnm:Cell>
+        <gnm:Cell Row="1" Col="5" ValueType="60">Dorcas-Sample</gnm:Cell>
       </gnm:Cells>
       <gnm:SheetLayout TopLeft="A2">
         <gnm:FreezePanes FrozenTopLeft="A1" UnfrozenTopLeft="A2"/>
@@ -193,15 +280,15 @@
           </gnm:Style>
         </gnm:StyleRegion>
       </gnm:Styles>
-      <gnm:Cols DefaultSizePts="67.5">
-        <gnm:ColInfo No="2" Unit="72"/>
-        <gnm:ColInfo No="3" Unit="29.25"/>
-        <gnm:ColInfo No="4" Unit="54.75"/>
-        <gnm:ColInfo No="5" Unit="33"/>
-        <gnm:ColInfo No="6" Unit="21.75"/>
-        <gnm:ColInfo No="7" Unit="81.75" HardSize="1"/>
+      <gnm:Cols DefaultSizePts="57.38">
+        <gnm:ColInfo No="2" Unit="61.2"/>
+        <gnm:ColInfo No="3" Unit="24.86"/>
+        <gnm:ColInfo No="4" Unit="46.54"/>
+        <gnm:ColInfo No="5" Unit="28.05"/>
+        <gnm:ColInfo No="6" Unit="18.49"/>
+        <gnm:ColInfo No="7" Unit="69.49" HardSize="1"/>
       </gnm:Cols>
-      <gnm:Rows DefaultSizePts="15"/>
+      <gnm:Rows DefaultSizePts="12.75"/>
       <gnm:Selections CursorCol="0" CursorRow="3">
         <gnm:Selection startCol="0" startRow="3" endCol="0" endRow="3"/>
       </gnm:Selections>
@@ -396,11 +483,11 @@
           </gnm:Style>
         </gnm:StyleRegion>
       </gnm:Styles>
-      <gnm:Cols DefaultSizePts="67.5">
-        <gnm:ColInfo No="0" Unit="84.75" HardSize="1"/>
+      <gnm:Cols DefaultSizePts="57.38">
+        <gnm:ColInfo No="0" Unit="72.04" HardSize="1"/>
         <gnm:ColInfo No="1" Unit="261.8" HardSize="1"/>
       </gnm:Cols>
-      <gnm:Rows DefaultSizePts="15"/>
+      <gnm:Rows DefaultSizePts="12.75"/>
       <gnm:Selections CursorCol="0" CursorRow="1">
         <gnm:Selection startCol="0" startRow="1" endCol="1" endRow="4"/>
       </gnm:Selections>
@@ -415,88 +502,6 @@
         <gnm:Cell Row="3" Col="1" ValueType="60">-v 0.6 - -q pitch 100 reverb gain 0.5</gnm:Cell>
         <gnm:Cell Row="4" Col="0" ValueType="60">reverse_reverb</gnm:Cell>
         <gnm:Cell Row="4" Col="1" ValueType="60">-v 0.6 - -q pitch 600 reverse reverb gain 0.5 reverse </gnm:Cell>
-      </gnm:Cells>
-      <gnm:SheetLayout TopLeft="A2">
-        <gnm:FreezePanes FrozenTopLeft="A1" UnfrozenTopLeft="A2"/>
-      </gnm:SheetLayout>
-      <gnm:Solver ModelType="0" ProblemType="0" MaxTime="60" MaxIter="1000" NonNeg="1" Discr="0" AutoScale="0" ProgramR="0" SensitivityR="0"/>
-    </gnm:Sheet>
-    <gnm:Sheet DisplayFormulas="0" HideZero="0" HideGrid="0" HideColHeader="0" HideRowHeader="0" DisplayOutlines="1" OutlineSymbolsBelow="1" OutlineSymbolsRight="1" Visibility="GNM_SHEET_VISIBILITY_VISIBLE" GridColor="0:0:0">
-      <gnm:Name>brokers</gnm:Name>
-      <gnm:MaxCol>5</gnm:MaxCol>
-      <gnm:MaxRow>1</gnm:MaxRow>
-      <gnm:Zoom>1</gnm:Zoom>
-      <gnm:Names>
-        <gnm:Name>
-          <gnm:name>Print_Area</gnm:name>
-          <gnm:value>#REF!</gnm:value>
-          <gnm:position>A1</gnm:position>
-        </gnm:Name>
-        <gnm:Name>
-          <gnm:name>Sheet_Title</gnm:name>
-          <gnm:value>&quot;brokers&quot;</gnm:value>
-          <gnm:position>A1</gnm:position>
-        </gnm:Name>
-      </gnm:Names>
-      <gnm:PrintInformation>
-        <gnm:Margins>
-          <gnm:top Points="120" PrefUnit="mm"/>
-          <gnm:bottom Points="120" PrefUnit="mm"/>
-          <gnm:left Points="72" PrefUnit="mm"/>
-          <gnm:right Points="72" PrefUnit="mm"/>
-          <gnm:header Points="72" PrefUnit="mm"/>
-          <gnm:footer Points="72" PrefUnit="mm"/>
-        </gnm:Margins>
-        <gnm:Scale type="percentage" percentage="100"/>
-        <gnm:vcenter value="0"/>
-        <gnm:hcenter value="0"/>
-        <gnm:grid value="0"/>
-        <gnm:even_if_only_styles value="0"/>
-        <gnm:monochrome value="0"/>
-        <gnm:draft value="0"/>
-        <gnm:titles value="0"/>
-        <gnm:do_not_print value="0"/>
-        <gnm:print_range value="GNM_PRINT_ACTIVE_SHEET"/>
-        <gnm:order>d_then_r</gnm:order>
-        <gnm:orientation>portrait</gnm:orientation>
-        <gnm:Header Left="" Middle="&amp;[TAB]" Right=""/>
-        <gnm:Footer Left="" Middle="Page &amp;[PAGE]" Right=""/>
-        <gnm:paper>iso_a4</gnm:paper>
-        <gnm:comments placement="GNM_PRINT_COMMENTS_IN_PLACE"/>
-        <gnm:errors PrintErrorsAs="GNM_PRINT_ERRORS_AS_DISPLAYED"/>
-      </gnm:PrintInformation>
-      <gnm:Styles>
-        <gnm:StyleRegion startCol="0" startRow="0" endCol="255" endRow="0">
-          <gnm:Style HAlign="GNM_HALIGN_GENERAL" VAlign="GNM_VALIGN_BOTTOM" WrapText="0" ShrinkToFit="0" Rotation="0" Shade="0" Indent="0" Locked="1" Hidden="0" Fore="0:0:0" Back="FFFF:FFFF:FFFF" PatternColor="0:0:0" Format="General">
-            <gnm:Font Unit="10" Bold="1" Italic="0" Underline="0" StrikeThrough="0" Script="0">Sans</gnm:Font>
-          </gnm:Style>
-        </gnm:StyleRegion>
-        <gnm:StyleRegion startCol="0" startRow="1" endCol="255" endRow="65535">
-          <gnm:Style HAlign="GNM_HALIGN_GENERAL" VAlign="GNM_VALIGN_BOTTOM" WrapText="0" ShrinkToFit="0" Rotation="0" Shade="0" Indent="0" Locked="1" Hidden="0" Fore="0:0:0" Back="FFFF:FFFF:FFFF" PatternColor="0:0:0" Format="General">
-            <gnm:Font Unit="10" Bold="0" Italic="0" Underline="0" StrikeThrough="0" Script="0">Sans</gnm:Font>
-          </gnm:Style>
-        </gnm:StyleRegion>
-      </gnm:Styles>
-      <gnm:Cols DefaultSizePts="67.5">
-        <gnm:ColInfo No="5" Unit="78.75" HardSize="1"/>
-      </gnm:Cols>
-      <gnm:Rows DefaultSizePts="15"/>
-      <gnm:Selections CursorCol="5" CursorRow="2">
-        <gnm:Selection startCol="0" startRow="2" endCol="5" endRow="2"/>
-      </gnm:Selections>
-      <gnm:Cells>
-        <gnm:Cell Row="0" Col="0" ValueType="60">id</gnm:Cell>
-        <gnm:Cell Row="0" Col="1" ValueType="60">host</gnm:Cell>
-        <gnm:Cell Row="0" Col="2" ValueType="60">port</gnm:Cell>
-        <gnm:Cell Row="0" Col="3" ValueType="60">keep_alive</gnm:Cell>
-        <gnm:Cell Row="0" Col="4" ValueType="60">clean</gnm:Cell>
-        <gnm:Cell Row="0" Col="5" ValueType="60">client_id</gnm:Cell>
-        <gnm:Cell Row="1" Col="0" ValueType="60">local</gnm:Cell>
-        <gnm:Cell Row="1" Col="1" ValueType="60">localhost</gnm:Cell>
-        <gnm:Cell Row="1" Col="2" ValueType="40">1883</gnm:Cell>
-        <gnm:Cell Row="1" Col="3" ValueType="40">60</gnm:Cell>
-        <gnm:Cell Row="1" Col="4" ValueType="20">TRUE</gnm:Cell>
-        <gnm:Cell Row="1" Col="5" ValueType="60">Dorcas-Sample</gnm:Cell>
       </gnm:Cells>
       <gnm:SheetLayout TopLeft="A2">
         <gnm:FreezePanes FrozenTopLeft="A1" UnfrozenTopLeft="A2"/>
@@ -564,11 +569,11 @@
           </gnm:Style>
         </gnm:StyleRegion>
       </gnm:Styles>
-      <gnm:Cols DefaultSizePts="67.5">
-        <gnm:ColInfo No="0" Unit="132" HardSize="1"/>
-        <gnm:ColInfo No="1" Unit="105" HardSize="1"/>
+      <gnm:Cols DefaultSizePts="57.38">
+        <gnm:ColInfo No="0" Unit="112.2" HardSize="1"/>
+        <gnm:ColInfo No="1" Unit="89.25" HardSize="1"/>
       </gnm:Cols>
-      <gnm:Rows DefaultSizePts="15"/>
+      <gnm:Rows DefaultSizePts="12.75"/>
       <gnm:Selections CursorCol="0" CursorRow="1">
         <gnm:Selection startCol="0" startRow="1" endCol="0" endRow="1"/>
       </gnm:Selections>
@@ -685,17 +690,17 @@
           </gnm:Style>
         </gnm:StyleRegion>
       </gnm:Styles>
-      <gnm:Cols DefaultSizePts="67.5">
-        <gnm:ColInfo No="0" Unit="40.5" HardSize="1"/>
-        <gnm:ColInfo No="1" Unit="47.25" HardSize="1" Count="2"/>
-        <gnm:ColInfo No="3" Unit="151.5" HardSize="1"/>
+      <gnm:Cols DefaultSizePts="57.38">
+        <gnm:ColInfo No="0" Unit="34.42" HardSize="1"/>
+        <gnm:ColInfo No="1" Unit="40.16" HardSize="1" Count="2"/>
+        <gnm:ColInfo No="3" Unit="128.8" HardSize="1"/>
         <gnm:ColInfo No="4" Unit="369" HardSize="1"/>
       </gnm:Cols>
-      <gnm:Rows DefaultSizePts="15">
+      <gnm:Rows DefaultSizePts="12.75">
         <gnm:RowInfo No="1" Unit="143.2"/>
         <gnm:RowInfo No="2" Unit="57.75" Count="2"/>
-        <gnm:RowInfo No="7" Unit="29.25"/>
-        <gnm:RowInfo No="8" Unit="43.5"/>
+        <gnm:RowInfo No="7" Unit="24.86"/>
+        <gnm:RowInfo No="8" Unit="36.97"/>
       </gnm:Rows>
       <gnm:Selections CursorCol="1" CursorRow="7">
         <gnm:Selection startCol="1" startRow="7" endCol="1" endRow="7"/>
@@ -868,21 +873,21 @@
           </gnm:Style>
         </gnm:StyleRegion>
       </gnm:Styles>
-      <gnm:Cols DefaultSizePts="67.5">
+      <gnm:Cols DefaultSizePts="57.38">
         <gnm:ColInfo No="0" Unit="350.2" HardSize="1"/>
-        <gnm:ColInfo No="1" Unit="145.5" HardSize="1"/>
+        <gnm:ColInfo No="1" Unit="123.7" HardSize="1"/>
         <gnm:ColInfo No="2" Unit="259.5" HardSize="1"/>
-        <gnm:ColInfo No="3" Unit="60" HardSize="1"/>
+        <gnm:ColInfo No="3" Unit="51" HardSize="1"/>
         <gnm:ColInfo No="4" Unit="378.8" HardSize="1"/>
         <gnm:ColInfo No="5" Unit="308.2" HardSize="1"/>
       </gnm:Cols>
-      <gnm:Rows DefaultSizePts="15">
-        <gnm:RowInfo No="12" Unit="16.5" Count="3"/>
-        <gnm:RowInfo No="16" Unit="16.5" Count="6"/>
-        <gnm:RowInfo No="22" Unit="22.5" Count="3"/>
-        <gnm:RowInfo No="25" Unit="16.5" Count="2"/>
-        <gnm:RowInfo No="95" Unit="29.25"/>
-        <gnm:RowInfo No="99" Unit="15.75"/>
+      <gnm:Rows DefaultSizePts="12.75">
+        <gnm:RowInfo No="12" Unit="14.03" Count="3"/>
+        <gnm:RowInfo No="16" Unit="14.03" Count="6"/>
+        <gnm:RowInfo No="22" Unit="19.12" Count="3"/>
+        <gnm:RowInfo No="25" Unit="14.03" Count="2"/>
+        <gnm:RowInfo No="95" Unit="24.86"/>
+        <gnm:RowInfo No="99" Unit="13.39"/>
       </gnm:Rows>
       <gnm:Selections CursorCol="1" CursorRow="2">
         <gnm:Selection startCol="1" startRow="2" endCol="1" endRow="2"/>
@@ -1021,7 +1026,7 @@
     <gnm:Sheet DisplayFormulas="0" HideZero="0" HideGrid="0" HideColHeader="0" HideRowHeader="0" DisplayOutlines="1" OutlineSymbolsBelow="1" OutlineSymbolsRight="1" Visibility="GNM_SHEET_VISIBILITY_VISIBLE" GridColor="0:0:0">
       <gnm:Name>musings</gnm:Name>
       <gnm:MaxCol>4</gnm:MaxCol>
-      <gnm:MaxRow>24</gnm:MaxRow>
+      <gnm:MaxRow>23</gnm:MaxRow>
       <gnm:Zoom>1</gnm:Zoom>
       <gnm:Names>
         <gnm:Name>
@@ -1083,12 +1088,7 @@
             <gnm:Font Unit="10" Bold="0" Italic="0" Underline="0" StrikeThrough="0" Script="0">Sans</gnm:Font>
           </gnm:Style>
         </gnm:StyleRegion>
-        <gnm:StyleRegion startCol="0" startRow="65392" endCol="255" endRow="65534">
-          <gnm:Style HAlign="GNM_HALIGN_GENERAL" VAlign="GNM_VALIGN_BOTTOM" WrapText="0" ShrinkToFit="0" Rotation="0" Shade="0" Indent="0" Locked="1" Hidden="0" Fore="0:0:0" Back="FFFF:FFFF:FFFF" PatternColor="0:0:0" Format="General">
-            <gnm:Font Unit="10" Bold="0" Italic="0" Underline="0" StrikeThrough="0" Script="0">Sans</gnm:Font>
-          </gnm:Style>
-        </gnm:StyleRegion>
-        <gnm:StyleRegion startCol="0" startRow="65535" endCol="255" endRow="65535">
+        <gnm:StyleRegion startCol="0" startRow="65392" endCol="255" endRow="65535">
           <gnm:Style HAlign="GNM_HALIGN_GENERAL" VAlign="GNM_VALIGN_BOTTOM" WrapText="0" ShrinkToFit="0" Rotation="0" Shade="0" Indent="0" Locked="1" Hidden="0" Fore="0:0:0" Back="FFFF:FFFF:FFFF" PatternColor="0:0:0" Format="General">
             <gnm:Font Unit="10" Bold="0" Italic="0" Underline="0" StrikeThrough="0" Script="0">Sans</gnm:Font>
           </gnm:Style>
@@ -1139,23 +1139,23 @@
           </gnm:Style>
         </gnm:StyleRegion>
       </gnm:Styles>
-      <gnm:Cols DefaultSizePts="67.5">
+      <gnm:Cols DefaultSizePts="57.38">
         <gnm:ColInfo No="0" Unit="405" HardSize="1"/>
-        <gnm:ColInfo No="1" Unit="124.5" HardSize="1"/>
+        <gnm:ColInfo No="1" Unit="105.8" HardSize="1"/>
         <gnm:ColInfo No="2" Unit="275.2" HardSize="1"/>
-        <gnm:ColInfo No="3" Unit="42.75" HardSize="1"/>
+        <gnm:ColInfo No="3" Unit="36.34" HardSize="1"/>
         <gnm:ColInfo No="4" Unit="378.8" HardSize="1"/>
       </gnm:Cols>
-      <gnm:Rows DefaultSizePts="15">
-        <gnm:RowInfo No="1" Unit="43.5"/>
-        <gnm:RowInfo No="3" Unit="43.5" Count="2"/>
-        <gnm:RowInfo No="5" Unit="29.25"/>
-        <gnm:RowInfo No="9" Unit="29.25" Count="2"/>
-        <gnm:RowInfo No="20" Unit="43.5"/>
-        <gnm:RowInfo No="22" Unit="29.25" Count="2"/>
+      <gnm:Rows DefaultSizePts="12.75">
+        <gnm:RowInfo No="1" Unit="36.97"/>
+        <gnm:RowInfo No="3" Unit="36.97" Count="2"/>
+        <gnm:RowInfo No="5" Unit="24.86"/>
+        <gnm:RowInfo No="9" Unit="24.86" Count="2"/>
+        <gnm:RowInfo No="20" Unit="36.97"/>
+        <gnm:RowInfo No="22" Unit="24.86" Count="2"/>
       </gnm:Rows>
-      <gnm:Selections CursorCol="0" CursorRow="16">
-        <gnm:Selection startCol="0" startRow="16" endCol="0" endRow="16"/>
+      <gnm:Selections CursorCol="0" CursorRow="0">
+        <gnm:Selection startCol="0" startRow="0" endCol="0" endRow="0"/>
       </gnm:Selections>
       <gnm:Cells>
         <gnm:Cell Row="0" Col="0" ValueType="60">action</gnm:Cell>
