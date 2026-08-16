@@ -239,6 +239,8 @@ TODO
 ====
 
 -  MQTT re-connection
--  Studio ceiling vibration sensor rules
 -  Greetings for people with bookings on tools, e.g. “your booking on
    the starts in 25 minutes.”
+- sunrise & sunset events
+- night musics
+  
