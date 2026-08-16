@@ -21,8 +21,8 @@ class Alien(ServoFader):
     """For making the alien chest burser servo activate"""
 
     Pin = 27
-    ShowPos = 1000
-    HidePos = 1500
+    ShowPos = 900
+    HidePos = 1400
 
     def __init__(self, brain):
         log.info(f"Worker {self.__class__.__name__}.__init__")
