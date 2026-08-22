@@ -17,7 +17,7 @@ sed -i '/mmcblk0p2/s/noauto,ro/rw,noatime,nodiscard,active_logs=2,alloc_mode=reu
 sed -i '/community$/s/^#//' /etc/apk/repositories
 sed -i '/^AuthorizedKeysFile/cAuthorizedKeysFile /etc/ssh/authorized_keys.d/%u .ssh/authorized_keys' /etc/ssh/sshd_config
 apk update
-apk add tmux bash python3 py3-pip avahi avahi-tools mosquitto mosquitto-clients sox espeak-ng sqlite git rsync vim
+apk add tmux bash python3 py3-pip avahi avahi-tools mosquitto mosquitto-clients sox espeak-ng sqlite git rsync vim alsa-utils
 rc-update add avahi-daemon default
 sed -i '/root/s|/bin/sh|/bin/bash|' /etc/passwd
 cat >/etc/profile.d/urchin.sh <<EOD
