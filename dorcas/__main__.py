@@ -82,8 +82,13 @@ def setup_logging(debug, quiet, syslog):
 
 def get_log_handler(syslog):
     handler = SysLogHandler("/dev/log") if syslog else logging.StreamHandler()
-    formatter = logging.Formatter(f"{get_log_program()}[{os.getpid()}]: %(message)s")
-    handler.setFormatter(formatter)
+    if syslog:
+        handler = SysLogHandler("/dev/log")
+        fmt = f"{get_log_program()}[{os.getpid()}]: %(message)s"
+    else:
+        handler = logging.StreamHandler()
+        fmt = f"%(asctime)s {get_log_program()}[{os.getpid()}]: %(message)s"
+    handler.setFormatter(logging.Formatter(fmt))
     return handler
 
 
