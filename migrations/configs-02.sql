@@ -1,1 +1,3 @@
-alter table configs add column journald_logging boolean not null default true;
+ALTER TABLE configs ADD COLUMN journald_logging BOOLEAN NOT NULL DEFAULT TRUE;
+
+UPDATE configs SET journald_logging = 0 WHERE id = 'irchin';
