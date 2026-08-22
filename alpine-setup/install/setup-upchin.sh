@@ -47,6 +47,22 @@ Happy hacking,
 -Mouse
 
 EOD
+
+rm -f /etc/mosquitto/*
+cat >/etc/mosquitto/mosquitto.conf <<EOD
+# Setup for test mode mosquitto server
+pid_file /var/run/mosquitto/mosquitto.pid
+persistence false
+log_dest file /var/log/mosquitto/mosquitto.log
+allow_anonymous true
+listener 2883
+EOD
+cat >/etc/conf.d/mosquitto <<EOD
+start_pre() {
+    checkpath -d -m 775 -o mosquitto:mosquitto /var/run/mosquitto
+    checkpath -d -m 775 -o mosquitto:mosquitto /var/log/mosquitto
+}
+EOD
 lbu commit
 
 mkdir -p /media/mmcblk0p2/urchin
