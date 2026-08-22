@@ -4,6 +4,7 @@
 import os
 import sys
 import logging
+from logging.handlers import SysLogHandler
 import time
 import socket
 from signal import signal, SIGTERM, SIGINT, SIGHUP, SIGUSR1, SIGUSR2

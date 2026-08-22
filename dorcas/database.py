@@ -100,6 +100,7 @@ class Config(Base):
     boredom_amount = Column(Float, nullable=False)
     door_open_seconds = Column(Integer, nullable=False)
     mute_switch = Column(Boolean, nullable=False)
+    journald_logging = Column(Boolean, nullable=False)
 
     def __repr__(self):
         return f"Config(id={self.id!r}, broker_id={self.broker_id!r}, voice_id={self.voice_id!r}, ...)"
