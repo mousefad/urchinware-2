@@ -36,6 +36,9 @@ Step 2: Configure & Install Alpine / Urchinware-2
 Urchinware will be put in `/opt/urchin`. To activate the venv and setup env vars for 
 Urchin software, use `source /opt/urchin/bin/activate`.
 
+Anything in the `root` directory here will be copied into `install/root.tar` and put in the
+`/root/` directory during installation.
+
 Copy `db.sqlite3` and `audio` dir to `/opt/urchin/`.
 
 

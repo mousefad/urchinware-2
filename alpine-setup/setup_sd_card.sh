@@ -275,6 +275,7 @@ copy_base_system() {
     SRC_DIR="$(realpath .)" || exit 1
     MOUNT_PATH="$(realpath "$SRC_DIR/mount")"
 
+    # prepare install/root.tar
     if [ ! -e "$MOUNT_PATH" ]; then
         echo -n "creating mount dir $MOUNT_PATH... "
         mkdir "$MOUNT_PATH" || exit 1
@@ -298,11 +299,16 @@ copy_base_system() {
     cd "$MOUNT_PATH" || exit 1
     echo ok
 
-    echo -n "extracting base system tarball... "
+    echo "extracting base system tarball..."
     tar zxf "$SRC_DIR/alpine.tar.gz" || exit 1
-    echo -e -n "ok\ncopying files from $SRC_DIR/install... "
+
+    echo "copying files from $SRC_DIR/install..."
     cp "$SRC_DIR/install/"* ./
-    echo ok
+    if [ -e "$SRC_DIR/root" ]; then
+        echo "creating root.tar..."
+        tar -c -f ./root.tar -C "$SRC_DIR" --owner root --group root root
+    fi
+
     cd "$SRC_DIR"
 }
 

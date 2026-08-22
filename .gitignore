@@ -19,4 +19,5 @@ Makefile.apikeys
 .project.env
 audio/
 alpine-setup/alpine*.tar.gz
-alpine-setup/install/root.pub
+alpine-setup/install/root.tar
+alpine-setup/root
