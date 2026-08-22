@@ -1,0 +1,30 @@
+#!/bin/sh
+
+pattern="python3.*dorcas"
+
+case "$1" in
+	start)
+		. /opt/urchin/bin/activate
+		dorcas --syslog &
+		;;
+	stop)
+		echo "Stopping Creepy Urchin..."
+		pkill -f "$pattern"
+		;;
+	restart)
+		echo "Restarting Creepy Urchin..."
+		"$0" stop
+		sleep 10 
+		"$0" start
+		;;
+	status)
+		pgrep -fl "$pattern"
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+		;;
+esac
+exit 0
+		
+
