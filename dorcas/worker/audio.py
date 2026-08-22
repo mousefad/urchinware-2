@@ -210,10 +210,9 @@ class Audio(Worker):
 
 
 if __name__ == "__main__":
-    import coloredlogs
     import random
 
-    coloredlogs.install(level=logging.INFO)
+    log.setLevel(logging.INFO)
     log.info("start test")
     dummy_brain = {}
     Audio(dummy_brain, kill_on_halt=False)

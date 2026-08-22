@@ -13,7 +13,6 @@ dependencies = [
     "arrow",
     "cachetools",
     "click",
-    "coloredlogs",
     "paho-mqtt",
     "pigpio",
     "singleton_decorator",

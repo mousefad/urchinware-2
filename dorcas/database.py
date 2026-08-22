@@ -285,7 +285,6 @@ if __name__ == "__main__":
             DB().session.rollback()
 
     def do_load():
-        import coloredlogs
         import xml.etree.ElementTree as ET
 
         def usage(status):
@@ -312,7 +311,7 @@ if __name__ == "__main__":
         )
         if len(tables) == 0:
             tables = known_tables
-        coloredlogs.install(level=logging.DEBUG)
+        log.setLevel(logging.DEBUG)
         DB(database_path, debug=False)
         mute_switch_states = {
             x.id: x.mute_switch for x in DB().session.query(Config).all()

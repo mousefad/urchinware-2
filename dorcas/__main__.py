@@ -10,13 +10,13 @@ from signal import signal, SIGTERM, SIGINT, SIGHUP, SIGUSR1, SIGUSR2
 
 # pip-installed modules
 import click
-import coloredlogs
 
 # project modules
 from dorcas.brain import Brain
 from dorcas.database import *
 
-log = logging.getLogger(__name__)
+# no argument since this is the root logger
+log = logging.getLogger()
 
 
 @click.command()
@@ -40,15 +40,11 @@ log = logging.getLogger(__name__)
 )
 @click.option("--quiet", "-q", count=True, help="Produce less diagnostic output.")
 @click.option("--verbose", "-v", is_flag=True, help="Be more verbose.")
-def main(config, debug, list_config, log_path, no_publish, quiet, verbose):
-    # simpler, more compact logging
-    fmt = "%(message)s"
-    if log_path is not None:
-        log_path = open(log_path, "a", encoding="utf8", errors="replace")
-    coloredlogs.install(level=get_debug_level(debug, quiet), stream=log_path, fmt=fmt)
-    log.info(f"START")
+@click.option("--syslog", "-s", is_flag=True, help="Log to syslog instead of stderr.")
+def main(config, debug, list_config, log_path, no_publish, quiet, verbose, syslog):
+    setup_logging(debug, quiet, syslog)
+    log.info("START")
     DB(path=os.environ["DORCAS_DATABASE"], debug=debug > 1)
-
     if list_config:
         for n, rec in enumerate(DB().session.query(Config).all()):
             if verbose:
@@ -78,7 +74,26 @@ def main(config, debug, list_config, log_path, no_publish, quiet, verbose):
     log.info("END")
 
 
-def get_debug_level(debug, quiet):
+def setup_logging(debug, quiet, syslog):
+    log.addHandler(get_log_handler(syslog))
+    log.setLevel(get_log_level(debug, quiet))
+
+
+def get_log_handler(syslog):
+    handler = SysLogHandler("/dev/log") if syslog else logging.StreamHandler()
+    formatter = logging.Formatter(f"{get_log_program()}[{os.getpid()}]: %(message)s")
+    handler.setFormatter(formatter)
+    return handler
+
+
+def get_log_program():
+    if len(sys.argv) > 0:
+        return os.path.basename(sys.argv[0])
+    else:
+        return "[no-argv]"
+
+
+def get_log_level(debug, quiet):
     balance = debug - quiet
     if balance == 0:
         return logging.INFO
@@ -98,12 +113,12 @@ def sig_halt(sig, frame):
 
 def sig_set_debug(sig, frame):
     log.info(f"received signal {sig!r}; setting debug")
-    coloredlogs.set_level(logging.DEBUG)
+    log.setLevel(logging.DEBUG)
 
 
 def sig_clear_debug(sig, frame):
     log.info(f"received signal {sig!r}; clearing debug")
-    coloredlogs.set_level(logging.INFO)
+    log.setLevel(logging.INFO)
 
 
 if __name__ == "__main__":
