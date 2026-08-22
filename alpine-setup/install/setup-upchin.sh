@@ -27,6 +27,26 @@ alias l='ls -l'
 alias ll='l -A'
 alias vi='vim -o'
 EOD
+cat >/etc/motd <<EOD
+
+  ____                             _   _          _     _
+ / ___|_ __ ___  ___ _ __  _   _  | | | |_ __ ___| |__ (_)_ __
+| |   | '__/ _ \/ _ \ '_ \| | | | | | | | '__/ __| '_ \| | '_ \
+| |___| | |  __/  __/ |_) | |_| | | |_| | | | (__| | | | | | | |
+ \____|_|  \___|\___| .__/ \__, |  \___/|_|  \___|_| |_|_|_| |_|
+                    |_|    |___/
+
+If you guessed the password or otherwise obtained access without
+getting permission, well done!  :D
+
+Feel free to have a look around, but please don't break things or 
+change settings in a way that is intended to upset people. Cheek 
+is encouraged, being a dick is not.
+
+Happy hacking,
+-Mouse
+
+EOD
 lbu commit
 
 mkdir -p /media/mmcblk0p2/urchin
