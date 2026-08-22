@@ -7,6 +7,7 @@ import time
 import json
 import select
 import subprocess as sp
+import shutil
 
 # Project modules
 from dorcas.sensation import Sensation
@@ -29,6 +30,9 @@ def ip_to_hostname(ip):
     except:
         return "unknown"
 
+
+def system_uses_journalctl():
+    return shutil.which("journalctl") is not None
 
 class Journal(ThreadedHalterSense):
     """The Journal Sense monitors the system journal (log), creating events when it sees certain log messages"""
@@ -61,7 +65,10 @@ class Journal(ThreadedHalterSense):
 
     def __init__(self, brain):
         super().__init__(brain)
-        self.cmd = ["journalctl", "-f", "--since", "now"]
+        if system_uses_journalctl():
+            self.cmd = ["journalctl", "-f", "--since", "now"]
+        else:
+            self.cmd = ["tail", "-n", "0", "-f", "/var/log/messages"]
         self.p = None
         self.poll = None
         self.interval = self.brain.config.journal_interval
