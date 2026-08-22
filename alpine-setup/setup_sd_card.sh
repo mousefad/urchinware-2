@@ -28,15 +28,12 @@ main() {
 
     wipe_old_partitions
     sync
-    sleep 5
 
     make_partitions
     sync
-    sleep 5
 
     format_partitions
     sync
-    sleep 5
 
     copy_base_system
     sync

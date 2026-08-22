@@ -6,8 +6,10 @@ mkdir /media/mmcblk0p2
 mount /dev/mmcblk0p2 /media/mmcblk0p2
 mkdir -p /etc/ssh/authorized_keys.d
 chmod 700 /etc/ssh/authorized_keys.d
-cp /media/mmcblk0p1/root.pub /etc/ssh/authorized_keys.d/root
-chmod 600 /etc/ssh/authorized_keys.d/root
+if [ -r /media/mmcblk0p1/root.pub ]; then
+    cp /media/mmcblk0p1/root.pub /etc/ssh/authorized_keys.d/root
+    chmod 600 /etc/ssh/authorized_keys.d/root
+fi
 
 setup-alpine
 
@@ -27,7 +29,7 @@ alias l='ls -l'
 alias ll='l -A'
 alias vi='vim -o'
 EOD
-cat >/etc/motd <<EOD
+cat >/etc/motd <<"EOD"
 
   ____                             _   _          _     _
  / ___|_ __ ___  ___ _ __  _   _  | | | |_ __ ___| |__ (_)_ __
@@ -85,5 +87,3 @@ pip install --upgrade pip
 git clone https://github.com/mousefad/urchinware-2 urchinware-2
 cd urchinware-2
 pip install .
-
-echo "might want to reboot now"
