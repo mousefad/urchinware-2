@@ -238,9 +238,11 @@ License: Attribution 3.0
 TODO
 ====
 
--  MQTT re-connection
--  Greetings for people with bookings on tools, e.g. “your booking on
-   the starts in 25 minutes.”
+- MQTT re-connection
+- Greetings for people with bookings on tools, e.g. “your booking on
+  the starts in 25 minutes.”
 - sunrise & sunset events
 - night musics
   
+
+
