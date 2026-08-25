@@ -42,7 +42,7 @@ class ActionRunner:
         return Audio().find(*args, **kwargs)
 
     def eyes(final, duration=0.5):
-        return Eyes().fade_to(final, duration)
+        return Eyes().fade_to_percent(final, duration)
 
     def play(*args, **kwargs):
         return Audio().play(*args, **kwargs)

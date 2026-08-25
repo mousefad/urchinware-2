@@ -91,7 +91,7 @@ class Gob:
             self.brain.be_polite()
             log.info(f"saying v={voice.id!r} {text!r}")
             MqttClient().publish(self.brain.topic("talking"), "voice start")
-            Eyes().fade_to(255, 0.1)
+            Eyes().fade_to_percent(100., 0.1)
             log.debug(f"utter: speech cmd: {speech_cmd}")
             log.debug(f"utter: effect cmd: {effect_cmd}")
             log.debug(f"UTTER[voice={voice.id}]: {text}")
@@ -115,7 +115,7 @@ class Gob:
             self.is_talking = False
             MqttClient().publish(self.brain.topic("said"), text)
             log.info(f"said{' [exc]' if exc else ''}   v={voice.id!r} {text!r}")
-            Eyes().fade_to(0.05, 0.75)
+            Eyes().fade_to_percent(1., 0.75)
             log.debug(f"utter END ok={ok}")
             return ok
 
