@@ -1,8 +1,8 @@
 # Build-in modules
+from datetime import datetime
 import logging
 import sys
 import os
-import arrow
 import json
 
 
@@ -11,7 +11,7 @@ log = logging.getLogger(__name__)
 
 class Sensation:
     def __init__(self, topic, message):
-        self.received = arrow.now()
+        self.received = datetime.now().astimezone()
         self.topic = topic
         self.message = message.decode(errors="ignore") if type(message) is bytes else str(message)
 

@@ -1,11 +1,9 @@
 # Base modules
+from datetime import datetime
 import os
 import sys
 import logging
 import re
-
-# PIP-installed modules
-import arrow
 
 # Project modules
 from dorcas.responder import Responder
@@ -44,7 +42,7 @@ class DoorMonitor(Responder):
             door_name = state_id.replace("_", " number ")
 
         # update the state based on the event details
-        now = arrow.now()
+        now = datetime.now().astimezone()
         if state == "OPEN":
             self.brain.set(
                 state_id,

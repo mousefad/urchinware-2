@@ -1,10 +1,10 @@
 # Build-in modules
 from collections import deque
+from datetime import datetime
 import logging
 import sys
 import os
 import time
-import arrow
 import json
 import random
 
@@ -83,16 +83,16 @@ class Brain:
             Doorception(self),  # notice open doors
         ]
 
-        self.set("boot_time", arrow.now())
+        self.set("boot_time", datetime.now().astimezone())
 
     @property
     def state(self):
-        self._state["uptime"] = (arrow.now() - self._state["boot_time"]).seconds
+        self._state["uptime"] = (datetime.now().astimezone() - self._state["boot_time"]).seconds
         self._state["random"] = random.random()
         return self._state
 
     def uptime(self):
-        return duration_to_str(arrow.now() - self.get("boot_time"))
+        return duration_to_str(datetime.now().astimezone() - self.get("boot_time"))
 
     def get(self, var, default=None):
         value = self.state.get(var)

@@ -1,11 +1,9 @@
 # Built-in python modules
+from datetime import datetime
 import os
 import sys
 import logging
 import time
-
-# PIP-installed modules
-import arrow
 
 # Project modules
 from dorcas.sensation import Sensation
@@ -37,7 +35,7 @@ class Doorception(ThreadedHalterSense):
                 return
             if door["notifications_left"] <= 0:
                 return
-            now = arrow.now()
+            now = datetime.now().astimezone()
             if (
                 now - door["last_notified"]
             ).seconds >= self.brain.config.door_open_seconds:

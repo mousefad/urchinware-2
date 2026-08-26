@@ -1,4 +1,5 @@
 # Python built-in modules
+from datetime import datetime
 import os
 import sys
 import threading
@@ -8,9 +9,6 @@ import re
 import json
 import time
 from collections import deque
-
-# PIP-installed modules
-import arrow
 
 # Project modules
 from dorcas import singleton
@@ -142,7 +140,7 @@ class Voice(Worker):
                     voice = DB().session.get(VoiceTable, voice_id)
                     Gob().wait()
                     Gob().utter(text, voice)
-                    self.brain.set("last_utterance", arrow.now())
+                    self.brain.set("last_utterance", datetime.now().astimezone())
                     time.sleep(0.25)
                 except Exception as e:
                     log.exception(f"when trying to speak with voice {voice_id!r}")

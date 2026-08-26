@@ -6,7 +6,6 @@ import random
 from collections import namedtuple
 
 # PIP-installed modules
-import arrow
 import cachetools.func
 from sqlalchemy import or_, and_
 
@@ -69,7 +68,7 @@ class Cronoception(ThreadedHalterSense):
     def run(self):
         log.debug("Cronoception.run")
         while not self.halt:
-            self.tick(arrow.now().datetime)
+            self.tick(datetime.datetime.now().astimezone())
             time.sleep(self.interval)
         log.debug("Cronoception.run END")
 
@@ -84,7 +83,7 @@ class Cronoception(ThreadedHalterSense):
         # Boredom
         last_utterance = self.brain.get("last_utterance")
         if last_utterance is not None:
-            seconds_since_utterance = (arrow.now() - last_utterance).seconds
+            seconds_since_utterance = (datetime.datetime.now().astimezone() - last_utterance).seconds
             if seconds_since_utterance > self.boredom_settings.min:
                 if random.random() < self.boredom_settings.amt:
                     self.brain.experience(
