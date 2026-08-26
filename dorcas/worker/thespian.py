@@ -13,10 +13,10 @@ import random
 from collections import deque
 
 # PIP-installed modules
-from singleton_decorator import singleton
 import cachetools.func
 
 # Project modules
+from dorcas import singleton
 from dorcas import database
 from dorcas.worker import Worker
 from dorcas.worker.voice import Voice

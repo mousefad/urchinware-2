@@ -10,10 +10,10 @@ import time
 from collections import deque
 
 # PIP-installed modules
-from singleton_decorator import singleton
 import arrow
 
 # Project modules
+from dorcas import singleton
 from dorcas.database import DB, Voice as VoiceTable
 from dorcas import database
 from dorcas.worker import Worker

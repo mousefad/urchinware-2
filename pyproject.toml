@@ -14,8 +14,6 @@ dependencies = [
     "cachetools",
     "click",
     "paho-mqtt",
-    "pigpio",
-    "singleton_decorator",
     "sqlalchemy",
     "visidata",
 ]

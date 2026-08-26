@@ -6,10 +6,9 @@ import time
 import threading
 from math import exp
 
-# PIP-installed modules
-from singleton_decorator import singleton
 
 # Project modules
+from dorcas import singleton
 from dorcas.worker import PwmFader
 
 

@@ -7,7 +7,7 @@ import threading
 from math import exp
 
 # PIP-installed modules
-from singleton_decorator import singleton
+from dorcas import singleton
 
 # Project modules
 from dorcas.worker import PwmFader

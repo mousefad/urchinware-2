@@ -6,9 +6,9 @@ import time
 import paho.mqtt.client as mqtt
 import paho.mqtt.publish as publish
 import cachetools.func
-from singleton_decorator import singleton
 
 # Project modules
+from dorcas import singleton
 from dorcas.sensation import Sensation
 from dorcas.database import *
 from dorcas.worker import Worker

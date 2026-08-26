@@ -8,10 +8,8 @@ import arrow
 import json
 import random
 
-# PIP-installed modues
-from singleton_decorator import singleton
-
 # Project modules
+from dorcas import singleton
 from dorcas.sensation import Sensation
 from dorcas.sense.mqtt import Mqtt
 from dorcas.sense.journal import Journal

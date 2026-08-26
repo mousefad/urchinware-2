@@ -5,7 +5,7 @@ import os
 import ast
 
 # PIP-installed modues
-from singleton_decorator import singleton
+from dorcas import singleton
 from sqlalchemy import (
     create_engine,
     delete,

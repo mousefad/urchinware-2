@@ -9,10 +9,9 @@ import glob
 import cachetools.func
 import pathlib
 
-# PIP-installed modules
-from singleton_decorator import singleton
 
 # Project modules
+from dorcas import singleton
 from dorcas import database
 from dorcas.worker import Worker
 from dorcas.worker.mqttclient import MqttClient
