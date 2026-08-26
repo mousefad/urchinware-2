@@ -7,10 +7,8 @@ import logging
 from logging.handlers import SysLogHandler
 import time
 import socket
+import argparse
 from signal import signal, SIGTERM, SIGINT, SIGHUP, SIGUSR1, SIGUSR2
-
-# pip-installed modules
-import click
 
 # project modules
 from dorcas.brain import Brain
@@ -20,35 +18,15 @@ from dorcas.database import *
 log = logging.getLogger()
 
 
-@click.command()
-@click.option(
-    "--config",
-    "-c",
-    type=str,
-    default=None,
-    help="Specify the configuration to use (defined in database/config table). "
-    "If none is specified, the hostname will be used as the config name.",
-)
-@click.option("--debug", "-D", count=True, help="Produce more diagnostic output.")
-@click.option(
-    "--list-config", "-l", is_flag=True, help="List available configs and exit"
-)
-@click.option(
-    "--log-path", "-L", type=str, help="Log to specified file instead of stderr."
-)
-@click.option(
-    "--no-publish", "-p", is_flag=True, help="Do not publish activity on MQTT"
-)
-@click.option("--quiet", "-q", count=True, help="Produce less diagnostic output.")
-@click.option("--verbose", "-v", is_flag=True, help="Be more verbose.")
-@click.option("--syslog", "-s", is_flag=True, help="Log to syslog instead of stderr.")
-def main(config, debug, list_config, log_path, no_publish, quiet, verbose, syslog):
-    setup_logging(debug, quiet, syslog)
+def main():
+    args = parse_args()
+    setup_logging(args.debug, args.quiet, args.syslog)
+    log.debug(f"{args}")
     log.info("START")
-    DB(path=os.environ["DORCAS_DATABASE"], debug=debug > 1)
-    if list_config:
+    DB(path=os.environ["DORCAS_DATABASE"], debug=args.debug > 1)
+    if args.list_config:
         for n, rec in enumerate(DB().session.query(Config).all()):
-            if verbose:
+            if args.verbose:
                 if n > 0:
                     print("")
                 print(f"Config ID             : {rec.id}")
@@ -59,6 +37,7 @@ def main(config, debug, list_config, log_path, no_publish, quiet, verbose, syslo
                 print(f"  time_interval       : {rec.time_interval}")
                 print(f"  broker_id           : {rec.broker_id}")
                 print(f"  voice_id            : {rec.voice.id}")
+                print(f"  journald_logging    : {rec.journald_logging}")
             else:
                 print(rec.id)
         sys.exit(0)
@@ -66,13 +45,60 @@ def main(config, debug, list_config, log_path, no_publish, quiet, verbose, syslo
     [signal(x, sig_halt) for x in [SIGTERM, SIGHUP, SIGINT]]
     signal(SIGUSR1, sig_set_debug)
     signal(SIGUSR2, sig_clear_debug)
-    if config is None:
-        config = socket.gethostname()
+    if args.config is None:
+        args.config = socket.gethostname()
         log.info(
-            f"config selected from hostname: {config} ; use --config option to over-ride."
+            f"config selected from hostname: {args.config} ; use --config option to over-ride."
         )
-    Brain(config, mute_mqtt=no_publish).run()
+    Brain(args.config, mute_mqtt=args.no_publish).run()
     log.info("END")
+
+
+def parse_args():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(
+        description="This is 'dorcas' - the soul of the Creepy Urchin."
+    )
+    parser.add_argument(
+        "--config", "-c",
+        default=None,
+        help=("specify the configuration to use (defined in database/config table). "
+              "If none is specified, the hostname will be used as the config name")
+    )
+    parser.add_argument(
+        "--debug", "-D",
+        action='count', 
+        default=0,
+        help="produce more diagnostic output"
+    )
+    parser.add_argument(
+        "--list-config", "-l",
+        action="store_true",
+        help="list available configs and exit"
+    )
+    parser.add_argument(
+        "--no-publish", "-n",
+        action="store_true",
+        help="do not publish messages to MQTT"
+    )
+    parser.add_argument(
+        "--quiet", "-q",
+        action='count', 
+        default=0,
+        help="produce less diagnostic output"
+    )
+    parser.add_argument(
+        "--syslog", "-s",
+        action="store_true",
+        help="log to syslog instead of stderr"
+    )
+    parser.add_argument(
+        "--verbose", "-v",
+        action="store_true",
+        help="be more verbose"
+    )
+
+    return parser.parse_args()
 
 
 def setup_logging(debug, quiet, syslog):
