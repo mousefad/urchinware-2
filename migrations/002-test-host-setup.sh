@@ -30,7 +30,7 @@ else
 	    0.0005, 
 	    15, 
 	    0
-	);"
+	);
 	EOD
     do_or_do_not sqlite3 "$DORCAS_DATABASE" "$TMP_SQL"
 fi
