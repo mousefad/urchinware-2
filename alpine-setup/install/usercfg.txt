@@ -1,0 +1,1 @@
+dtoverlay=pwm-2chan

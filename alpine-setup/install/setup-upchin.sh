@@ -13,23 +13,27 @@ fi
 lbu add /root
 lbu exclude /root/.cache
 lbu exclude /root/.local
-
 sed -i '/mmcblk0p2/s/noauto,ro/rw,noatime,nodiscard,active_logs=2,alloc_mode=reuse,compress_algorithm=zstd,compress_chksum/' /etc/fstab
 sed -i '/community$/s/^#//' /etc/apk/repositories
+sed -i '$ { p; s|^|@testing | ; s|/alpine/.*|/alpine/edge/testing| }' /etc/apk/repositories
 apk update
 apk add tmux bash python3 py3-pip avahi avahi-tools mosquitto mosquitto-clients sox espeak-ng sqlite git rsync vim alsa-utils
 rc-update add avahi-daemon default
 sed -i '/root/s|/bin/sh|/bin/bash|' /etc/passwd
 cat >/etc/profile.d/urchin.sh <<"EOD"
-if [ "$TERM" = "xterm-kitty" ]; then
-    export TERM="xterm-256color"
+if [ -t 1 ]; then
+    [ "$TERM" = "xterm-kitty" ] && export TERM="xterm-256color"
+    export DORCAS_HOME=/opt/urchin
+    export DORCAS_DATABASE="$DORCAS_HOME/db.sqlite3"
+    export DORCAS_AUDIO_DIRS="$DORCAS_HOME/audio"
+    export EDITOR=vim
+    [ -r "$DORCAS_HOME/venv/bin/activate" ] && source "$DORCAS_HOME/venv/bin/activate"
+    alias ls='ls -F --color=auto'
+    alias l='ls -l'
+    alias ll='l -A'
+    alias vi='$EDITOR -o'
+    alias g=git
 fi
-alias ls='ls -F --color=auto'
-alias l='ls -l'
-alias ll='l -A'
-alias vi='vim -o'
-alias g=git
-alias cdu='[ -z "$DORCAS_DATABASE" ] && source /opt/urchin/bin/activate ; cd /opt/urchin'
 EOD
 cat >/etc/motd <<"EOD"
 
@@ -85,10 +89,9 @@ source "$DORCAS_HOME/venv/bin/activate"
 EOD
 source bin/activate
 pip install --upgrade pip
-git clone https://github.com/mousefad/urchinware-2 urchinware-2
+git clone https://github.com/mousefad/urchinware-2.git urchinware-2
 cd urchinware-2
-git fetch --all
-git checkout alpine-dev
-git remove remove origin
-git remote add origin git@github.com:mousefad/urchinware-2.git
+git checkout -b alpine-dev origin/alpine-dev
+# For this to be helpful will need your github keys in the ~/.ssh dir
+git remote set-url origin git@github.com:mousefad/urchinware-2.git
 pip install .
