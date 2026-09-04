@@ -71,6 +71,8 @@ start_pre() {
     checkpath -d -m 775 -o mosquitto:mosquitto /var/log/mosquitto
 }
 EOD
+
+rc-update add mosquitto default
 lbu commit
 
 ln -s /media/mmcblk0p2/app /opt/urchin
