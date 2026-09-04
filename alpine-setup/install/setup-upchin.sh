@@ -73,8 +73,7 @@ start_pre() {
 EOD
 lbu commit
 
-mkdir -p /media/mmcblk0p2/urchin
-ln -s /media/mmcblk0p2/urchin /opt/urchin
+ln -s /media/mmcblk0p2/app /opt/urchin
 lbu add /opt/urchin
 lbu commit
 cd /opt/urchin

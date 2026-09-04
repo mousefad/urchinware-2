@@ -19,5 +19,7 @@ Makefile.apikeys
 .project.env
 audio/
 alpine-setup/alpine*.tar.gz
+alpine-setup/app/db.sqlite3
+alpine-setup/app/audio
 alpine-setup/install/root.tar
 alpine-setup/root

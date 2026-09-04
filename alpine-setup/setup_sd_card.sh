@@ -248,14 +248,26 @@ format_partitions() {
     mkfs.f2fs -l "$P2LABEL" "${partitions[1]}"
 }
 
-copy_base_system() {
-    # Get the first partition (not base blockdev)
-    local partition="$(lsblk "$DEV" --pairs --output NAME,TYPE | awk -F '"' '/TYPE="part"/ { print $2 ; exit; }')"
+# Specify which partition number you are interested as integer first argument
+# Will determine the full device name for that partition number, taking into
+# account the device type, e.g.
+#   partition_number_device 1 -> /dev/sdb1
+#   partition_number_device 2 -> /dev/mmcblk0p2
+partition_number_device() {
+    local -i pn="$1"
+    [ "$pn" = 0 ] && erex "device number must be integer > 0, got '$1'"
+    local partition="$(lsblk "$DEV" --pairs --output NAME,TYPE | grep 'TYPE="part"' | awk -F '"' "{ if (NR==$pn) { print \$2 } }")"
     if [ "${partition#/dev/}" = "$partition" ]; then
         # does not include /dev prefix
         partition="/dev/$partition"
     fi
+    [ -e "$partition" ] || erex "partition_number_device: does not exist: $partition"
+    echo "$partition"
+    return 0
+}
 
+copy_base_system() {
+    local partition="$(partition_number_device 1)"
     local kv_pairs="$(lsblk --pairs --output FSTYPE,FSVER,LABEL,PARTTYPE,PTTYPE,PARTFLAGS "$partition")"
     eval "$kv_pairs"
 
@@ -283,7 +295,7 @@ copy_base_system() {
         MOUNT_CREATED=y
     fi
 
-    echo -n "mounting $DEV... "
+    echo -n "mounting $partition... "
     mount "$partition" "$MOUNT_PATH" || exit 1
     MOUNTED=y
     echo ok
@@ -310,6 +322,30 @@ copy_base_system() {
     fi
 
     cd "$SRC_DIR"
+
+    # Copy urchin data files to the second partition
+    echo -n "unmounting installation partition... "
+    umount "$MOUNT_PATH" && MOUNTED=n
+    echo ok
+
+    partition="$(partition_number_device 2)"
+    echo -n "mounting $partition... "
+    mount "$partition" "$MOUNT_PATH" || exit 1
+    MOUNTED=y
+    echo ok
+
+    echo -n "changing into mount dir... "
+    cd "$MOUNT_PATH" || exit 1
+    echo ok
+
+    echo -n "making app dir... "
+    mkdir app || exit 1
+    echo ok
+
+    echo "copying files from $SRC_DIR/app..."
+    cp -rL "$SRC_DIR/app/"* ./app/
+    cd "$SRC_DIR"
+
 }
 
 check_value() {
